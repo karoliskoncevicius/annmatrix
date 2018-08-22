@@ -42,10 +42,12 @@
   annMat
 }
 
+#' @export
 `@<-` <- function (x, ...) {
   UseMethod("@<-", x)
 }
 
+#' @export
 `@<-.default` <- base::`@<-`
 
 #' @rdname getter
