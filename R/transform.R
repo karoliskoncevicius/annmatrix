@@ -21,3 +21,28 @@ t.annMatrix <- function(annMat) {
   annMat
 }
 
+#' Transform annMatrix object to long format
+#'
+#' Turns the matrix and it's column and row meta-data into a long-format data.frame.
+#'
+#' @param annMat annMatrix object
+#' @param ... other parameters passed to data.frame()
+#'
+#' @return data.frame
+#'
+#' @examples
+#'   annMat2Long(annMatExample)
+#'
+#' @author Karolis Koncevicius
+#' @export
+annMat2Long <- function(annMat, ...) {
+  rowAnn <- attr(annMat, "rowAnn")
+  colAnn <- attr(annMat, "colAnn")
+  longdf <- data.frame(as.numeric(annMat),
+                       rowAnn[rep(seq_len(nrow(rowAnn)), nrow(colAnn)), ],
+                       colAnn[rep(seq_len(nrow(colAnn)), each=nrow(rowAnn)), ],
+                       ...
+                       )
+  longdf
+}
+
