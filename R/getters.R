@@ -34,6 +34,11 @@
 }
 
 #' @export
+.DollarNames.annMatrix <- function(annMat, pattern = "") {
+  grep(pattern, names(attr(annMat, "colAnn")), value=TRUE)
+}
+
+#' @export
 `@` <- function (x, ...) {
   UseMethod("@", x)
 }
