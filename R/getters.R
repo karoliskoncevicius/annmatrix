@@ -5,7 +5,7 @@
 #' Returns selected fields from row and column description annotations.
 #' $ is used for selecting column annotations and @ for row annotations.
 #'
-#' @name getter
+#' @rdname getter
 #'
 #' @param annMat annMatrix object.
 #' @param rname name of existing row annotation field
@@ -38,13 +38,14 @@
   grep(pattern, names(attr(annMat, "colAnn")), value=TRUE)
 }
 
+#' @rdname getter
 #' @export
 `@` <- function (x, ...) {
   UseMethod("@", x)
 }
 
 #' @export
-`@.default` <- base::`@`
+`@.default` <- function(object, ...) base::`@`(object)
 
 #' @rdname getter
 #' @export
