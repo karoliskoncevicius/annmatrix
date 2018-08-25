@@ -5,7 +5,7 @@
 #' Modifies the selected fields from row and column description annotations.
 #' $ is used for selecting column annotations and @ for row annotations.
 #'
-#' @name setter
+#' @rdname setter
 #'
 #' @param annMat annMatrix object.
 #' @param rname name of existing row annotation field
@@ -44,13 +44,13 @@
 
 #' @export
 `@<-` <- function (x, ...) {
-  UseMethod("@<-", x)
+  UseMethod("@<-")
 }
 
 #' @export
-`@<-.default` <- base::`@<-`
+`@<-.default` <- function(object, ...) base::`@<-`(object)
 
-#' @rdname getter
+#' @rdname setter
 #' @export
 `@<-.annMatrix` <- function(annMat, rname, value) {
   rname <- deparse(substitute(rname))

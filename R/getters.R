@@ -11,7 +11,7 @@
 #' @param rname name of existing row annotation field
 #' @param cname name of existing column annotation field
 #'
-#' @return One-coliumn data frame with selected annotation.
+#' @return One-column data frame with selected annotation.
 #'
 #' @details when a special symbol "." is used instead of a name - the whole
 #' annotation data.frame is returned
@@ -38,10 +38,9 @@
   grep(pattern, names(attr(annMat, "colAnn")), value=TRUE)
 }
 
-#' @rdname getter
 #' @export
 `@` <- function (x, ...) {
-  UseMethod("@", x)
+  UseMethod("@")
 }
 
 #' @export
