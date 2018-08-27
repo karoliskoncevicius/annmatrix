@@ -3,7 +3,7 @@ Title: Annotated Matrix Class For Matrices With Row And Column Information.
 Version: 0.0.1
 Authors@R: person("Karolis", "Koncevicius", email = "karolis.koncevicius@gmail.com", role = c("aut", "cre"))
 Description: Provides a annotated matrix class useful for keeping additional meta information about row and column entries. The object tracks row and column information by setting dedicated attributes. Matrix methods are overloaded so that they keep track and subset the row and column metadata when possible.
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.4.0)
 License: GPL2
 Encoding: UTF-8
 LazyData: true
