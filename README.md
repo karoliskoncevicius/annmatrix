@@ -73,8 +73,7 @@ columns: 40 group, gender
 
 The attributes can be accessed through `@` (for row metadata) and `$` (for column metadata)
 
-```r
-
+```
 > annMat@chr
   [1] chr2 chr2 chr3 chr2 chr3 chr1 chr2 chr3 chr2 chr3 chr3 chr2 chr3 chr3 chr1
  [16] chr2 chr2 chr1 chr3 chr1 chr3 chr1 chr1 chr3 chr1 chr3 chr3 chr2 chr2 chr3
@@ -90,13 +89,15 @@ The attributes can be accessed through `@` (for row metadata) and `$` (for colum
 [19] case    case    control control control control control control control
 [28] control control control control control control control control control
 [37] control control control control
-
 ```
 
 These are preserved after subsetting:
 
-```
+```r
 amat <- annMat[1:2,1:5]
+```
+
+```
 > amat
      [,1]     [,2]     [,3]     [,4]     [,5]
 [1,]  0.22964 -0.57744  0.71045 -2.58440  0.14422
@@ -123,6 +124,9 @@ As an example - to select all the cases and their values on chromosome 1 we woul
 
 ```r
 casechr1 <- annMat[annMat@chr=="chr1", annMat$group=="case"]
+```
+
+```
 > dim(casechr1)
 [1] 27 20
 > casechr1@chr
@@ -139,6 +143,9 @@ In order to change or add new metadata the functions `$<-` and `@<-` were implem
 
 ```r
 annMat@insideGene <- sample(c(TRUE, FALSE), 100, replace=TRUE)
+```
+
+```
 > annMat@insideGene
   [1] FALSE FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
  [13] FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
@@ -150,7 +157,11 @@ annMat@insideGene <- sample(c(TRUE, FALSE), 100, replace=TRUE)
  [85]  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE
  [97] FALSE  TRUE FALSE  TRUE
 
+```r
 annMat$age <- runif(40, 20, 100)
+```
+
+```
 > annMat$age
  [1] 39.15223 91.67047 31.89165 34.94808 81.90170 56.64862 60.96117 94.93440
  [9] 81.40003 25.23836 31.19239 52.49377 21.39916 69.80351 35.39081 59.85530
@@ -161,8 +172,7 @@ annMat$age <- runif(40, 20, 100)
 
 And in order to access the entire metadata `data.frame` a shortcuts of `$.` and `@.`
 
-```r
-
+```
 > head(annMat@.)
    chr      pos insideGene
 1 chr2 485484.6      FALSE
@@ -180,13 +190,15 @@ And in order to access the entire metadata `data.frame` a shortcuts of `$.` and 
 4  case      M 34.94808
 5  case      F 81.90170
 6  case      F 56.64862
-
 ```
 
 To change the entire row or column metadata `data.frame` we can use:
 
 ```r
 annMat@. <- data.frame(ID=1:100, gene=sample(LETTERS, 100, replace=TRUE))
+```
+
+```
 > head(annMat@.)
   ID gene
 1  1    J
@@ -196,7 +208,11 @@ annMat@. <- data.frame(ID=1:100, gene=sample(LETTERS, 100, replace=TRUE))
 5  5    Z
 6  6    U
 
+```r
 annMat$. <- data.frame(ID=1:40, weight=runif(40, 50, 150))
+```
+
+```
 > head(annMat$.)
   ID    weight
 1  1  53.34811
@@ -205,13 +221,15 @@ annMat$. <- data.frame(ID=1:40, weight=runif(40, 50, 150))
 4  4 130.11996
 5  5  83.06051
 6  6 100.38434
-
 ```
 
 And to delete row or column metadata simply set it to NULL:
 
 ```r
 annMat@ID <- NULL
+```
+
+```
 annMat@ID
 NULL
 ```
