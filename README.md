@@ -45,7 +45,6 @@ rowdata <- data.frame(chr=chromosome, pos=position)
 # annMatrix object
 library(annMatrix)
 annMat <- annMatrix(mat, rowdata, coldata)
-
 ```
 
 When printing it shows 10 rows and columns, the total number of rows and columns
@@ -118,6 +117,17 @@ Except when selecting only single row or column (in order to be consistent with 
 ```
 > annMat[1,1:10]
 [1]  0.22964243 -0.57743591  0.71045094 -2.58439900  0.14421724  0.16017038  1.32646186  0.28064587 -0.52391383 -0.06777517
+```
+
+But just like with *matrix* we can enforce it to preserve all the annotations and class by setting `drop=FALSE`
+
+```
+> annMat[1,1:10, drop=FALSE]
+     [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]      [,8]      [,9]      [,10]
+[1,]  0.334981  1.546200  0.304262 -0.234205 -0.176153 -0.027926  0.148826 -1.245349 -0.399667  0.205725
+
+rows:    1 chr, pos
+columns: 10 group, gender
 ```
 
 As an example - to select all the cases and their values on chromosome 1 we would do:
