@@ -10,17 +10,17 @@ It uses S3 system of R to extend the base *matrix* class in order to provide it 
 annotations that are associated with rows and columns.
 
 The use-case was born out of the need to better organize biomedical microarray and sequencing
-data withing R. But it is readily applicable in other contexts where the data can be assembled
+data within R. But it is readily applicable in other contexts where the data can be assembled
 into a matrix form with rows and columns representing distinct type of information.
 
 ## Usage ##
 
 Technically *annMatrix* object is just a regular *R* matrix with additional attributes "rowAnn" and "colAnn". So
-every operation that works on a *matrix* by design works exactly the same on *annMatrix*. The only addition
+every operation that works on a *matrix* by design works in the same way on *annMatrix*. The only addition
 *annMatrix* provides is attaching row and column metadata that are preserved after sub-setting and some helper
 functions to use and to change this metadata.
 
-Imagine we have a small example of expression data with a 100 genes measured across 40 samples:
+Imagine we have a small example of expression data with 100 genes measured across 40 samples:
 
 ```r
 mat <- matrix(rnorm(100*40), nrow=100, ncol=40)
@@ -112,7 +112,7 @@ columns: 5 group, gender
 [1] case case case case case
 ```
 
-Except when selecting only single row or column (in order to be consistent with *matrix*)
+Except when selecting only a single row or column (in order to be consistent with *matrix*)
 
 ```
 > annMat[1,1:10]
@@ -166,6 +166,7 @@ annMat@insideGene <- sample(c(TRUE, FALSE), 100, replace=TRUE)
  [73]  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE
  [85]  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE
  [97] FALSE  TRUE FALSE  TRUE
+```
 
 ```r
 annMat$age <- runif(40, 20, 100)
@@ -180,7 +181,7 @@ annMat$age <- runif(40, 20, 100)
 [33] 30.07691 38.08329 46.87385 36.55873 60.62178 36.80180 63.71794 92.76238
 ```
 
-And in order to access the entire metadata `data.frame` a shortcuts of `$.` and `@.`
+And in order to access the entire metadata `data.frame` the shortcuts of `$.` and `@.` are provided.
 
 ```
 > head(annMat@.)
@@ -202,7 +203,7 @@ And in order to access the entire metadata `data.frame` a shortcuts of `$.` and 
 6  case      F 56.64862
 ```
 
-To change the entire row or column metadata `data.frame` we can use:
+So to change the entire row or column metadata `data.frame` we can use:
 
 ```r
 annMat@. <- data.frame(ID=1:100, gene=sample(LETTERS, 100, replace=TRUE))
