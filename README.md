@@ -6,19 +6,16 @@ R Annotaded Matrix Object
 
 The *annMatrix* object tries to implement dimension-aware persistent metadata for R matrices.
 
-It uses S3 system of R to extend the base *matrix* class in order to provide it with persistent
-annotations that are associated with rows and columns.
+It uses S3 system of R to extend the base *matrix* class in order to provide it with persistent annotations that are associated with rows and columns.
 
-The use-case was born out of the need to better organize biomedical microarray and sequencing
-data within R. But it is readily applicable in other contexts where the data can be assembled
-into a matrix form with rows and columns representing distinct type of information.
+The use-case was born out of the need to better organize biomedical microarray and sequencing data within R.
+But it is readily applicable in other contexts where the data can be assembled into a matrix form with rows and columns representing distinct type of information.
 
 ## Usage ##
 
-Technically *annMatrix* object is just a regular *R* matrix with additional attributes "rowAnn" and "colAnn". So
-every operation that works on a *matrix* by design works in the same way on *annMatrix*. The only addition
-*annMatrix* provides is attaching row and column metadata that are preserved after sub-setting and some helper
-functions to use and to change this metadata.
+Technically *annMatrix* object is just a regular *R* matrix with additional attributes ".annMatrix.rowAnn" and ".annMatrix.colAnn".
+So every operation that works on a *matrix* by design works in the same way on *annMatrix*.
+The only addition *annMatrix* provides is attaching row and column metadata that are preserved after sub-setting and some helper functions to use and to change this metadata.
 
 Imagine we have a small example of expression data with 100 genes measured across 40 samples:
 
@@ -47,8 +44,7 @@ library(annMatrix)
 annMat <- annMatrix(mat, rowdata, coldata)
 ```
 
-When printing it shows 10 rows and columns, the total number of rows and columns
-and all the metadata available for them:
+When printing it shows 10 rows and columns, the total number of rows and columns and all the metadata available for them:
 
 ```
 > annMat
@@ -246,8 +242,7 @@ annMat@ID
 NULL
 ```
 
-When operations on *annMatrix* object involve functions that don't loose the class,
-the result is a proper *annMatrix* object:
+When operations on *annMatrix* object involve functions that don't loose the class, the result is a proper *annMatrix* object:
 
 ```
 > scale(annMat)
@@ -279,8 +274,7 @@ class(mat)
 [1] "matrix"
 ```
 
-In such a case we can preserve the class and all the metadata by changing the matrix
-instead of the entire variable via `[<-`:
+In such a case we can preserve the class and all the metadata by changing the matrix instead of the entire variable via `[<-`:
 
 ```r
 annMat[] <- apply(annMat, 2, cumsum)

@@ -7,9 +7,9 @@
 #'
 #' @rdname getter
 #'
-#' @param annMat annMatrix object.
-#' @param rname name of existing row annotation field
-#' @param cname name of existing column annotation field
+#' @param x annMatrix object.
+#' @param object annMatrix object.
+#' @param name name of existing row/column annotation field
 #'
 #' @return One-column data frame with selected annotation.
 #'
@@ -17,44 +17,55 @@
 #' annotation data.frame is returned
 #'
 #' @examples
-#'   annMatExample$group
-#'   annMatExample@chr
-#'   annMatExample$.
-#'   annMatExample@.
+#' # construct the annMatrix object
+#' coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
+#'                       gender=sample(c("M", "F"), 40, replace=TRUE)
+#'                       )
+#' rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
+#'                          pos=runif(100, 0, 1000000)
+#'                          )
+#' annMat <- annMatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
+#'
+#' annMat$group
+#' annMat@chr
+#' annMat$.
+#' annMat@.
 #'
 #' @author Karolis Koncevicius
 #' @export
-`$.annMatrix` <- function(annMat, cname) {
-  colAnn <- attr(annMat, "colAnn")
-  if(cname==".") {
+`$.annMatrix` <- function(x, name) {
+  colAnn <- attr(x, ".annMatrix.colAnn")
+  if(name==".") {
     colAnn
   } else {
-    colAnn[[cname]]
+    colAnn[[name]]
   }
 }
 
+#' @import utils
 #' @export
-.DollarNames.annMatrix <- function(annMat, pattern = "") {
-  grep(pattern, names(attr(annMat, "colAnn")), value=TRUE)
+.DollarNames.annMatrix <- function(x, pattern="") {
+  grep(pattern, names(attr(x, ".annMatrix.colAnn")), value=TRUE)
 }
 
+#' @rdname getter
 #' @export
-`@` <- function (x, ...) {
+`@` <- function (object, name) {
   UseMethod("@")
 }
 
 #' @export
-`@.default` <- function(object, ...) base::`@`(object)
+`@.default` <- function(object, name) base::`@`(object, name)
 
 #' @rdname getter
 #' @export
-`@.annMatrix` <- function(annMat, rname) {
-  rname <- deparse(substitute(rname))
-  rowAnn <- attr(annMat, "rowAnn")
-  if(rname==".") {
+`@.annMatrix` <- function(object, name) {
+  name <- deparse(substitute(name))
+  rowAnn <- attr(object, ".annMatrix.rowAnn")
+  if(name==".") {
     rowAnn
   } else {
-    rowAnn[[rname]]
+    rowAnn[[name]]
   }
 }
 

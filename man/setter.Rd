@@ -2,21 +2,24 @@
 % Please edit documentation in R/setters.R
 \name{$<-.annMatrix}
 \alias{$<-.annMatrix}
+\alias{@<-}
 \alias{@<-.annMatrix}
 \title{annMatrix setters}
 \usage{
-\method{$}{annMatrix}(annMat, cname) <- value
+\method{$}{annMatrix}(x, name) <- value
 
-\method{@}{annMatrix}(annMat, rname) <- value
+@(object, name) <- value
+
+\method{@}{annMatrix}(object, name) <- value
 }
 \arguments{
-\item{annMat}{annMatrix object.}
+\item{x}{annMatrix object.}
 
-\item{cname}{name of existing column annotation field}
+\item{name}{name of existing row/column annotation field}
 
 \item{value}{assigned value}
 
-\item{rname}{name of existing row annotation field}
+\item{object}{annMatrix object.}
 }
 \value{
 annMatrix object with modified fields.
@@ -32,8 +35,17 @@ when a special symbol "." is used instead of a name - the whole
 annotation data.frame is replaced
 }
 \examples{
-   annMatExample@newField <- 1:nrow(annMatExample)
-   annMatExample$newField <- 1:ncol(annMatExample)
+# construct the annMatrix object
+coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
+                      gender=sample(c("M", "F"), 40, replace=TRUE)
+                      )
+rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
+                         pos=runif(100, 0, 1000000)
+                         )
+annMat <- annMatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
+
+annMat@newField <- 1:nrow(annMat)
+annMat$newField <- 1:ncol(annMat)
 
 }
 \author{

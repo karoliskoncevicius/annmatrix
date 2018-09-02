@@ -4,10 +4,10 @@
 \alias{t.annMatrix}
 \title{Transpose annMatrix object.}
 \usage{
-\method{t}{annMatrix}(annMat)
+\method{t}{annMatrix}(x)
 }
 \arguments{
-\item{annMat}{annMatrix object}
+\item{x}{annMatrix object}
 }
 \value{
 transposed annMatrix object
@@ -19,7 +19,16 @@ Transpose operator for annMatrix object.
 Transposes the matrix and switches the places of row and column meta-data.
 }
 \examples{
-  t(annMatExample)
+# construct the annMatrix object
+coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
+                      gender=sample(c("M", "F"), 40, replace=TRUE)
+                      )
+rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
+                         pos=runif(100, 0, 1000000)
+                         )
+annMat <- annMatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
+
+t(annMat)
 
 }
 \author{

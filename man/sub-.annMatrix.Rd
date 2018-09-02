@@ -4,14 +4,18 @@
 \alias{[.annMatrix}
 \title{Subset annMatrix object.}
 \usage{
-\method{[}{annMatrix}(annMat, i = TRUE, j = TRUE, ...)
+\method{[}{annMatrix}(x, i = TRUE, j = TRUE, ..., drop = TRUE)
 }
 \arguments{
-\item{annMat}{annMat object}
+\item{x}{annMat object}
 
 \item{i}{subset for rows}
 
 \item{j}{subset for columns}
+
+\item{...}{further arguments passed to methods}
+
+\item{drop}{if TRUE (default) the result of subsetting a single row or column is returned as a vector.}
 }
 \value{
 a subset of annMatrix object with preserved meta-data information
@@ -21,10 +25,19 @@ for selected rows and columns.
 Functions used to take subsets of annMatrix objects.
 }
 \examples{
-  annMatExample[1:2,]
-  annMatExample[,1:2]
-  annMatExample[1,]
-  annMatExample[1,,drop=FALSE]
+# construct the annMatrix object
+coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
+                      gender=sample(c("M", "F"), 40, replace=TRUE)
+                      )
+rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
+                         pos=runif(100, 0, 1000000)
+                         )
+annMat <- annMatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
+
+annMat[1:2,]
+annMat[,1:2]
+annMat[1,]
+annMat[1,,drop=FALSE]
 
 }
 \author{

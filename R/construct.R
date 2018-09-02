@@ -9,10 +9,11 @@
 #' @name construct
 #'
 #' @param mat a matrix
-#' @param rowAnn annotation data.frame for rows of the mat matrix.
-#' @param colAnn annotation data.frame for columns of the mat matrix.
+#' @param rowAnn annotation \code{data.frame} for rows of the mat matrix.
+#' @param colAnn annotation \code{data.frame} for columns of the mat matrix.
 #'
-#' @return annMatrix() - an annMatrix object.
+#' @return
+#'   annMatrix() - an annMatrix object.
 #'
 #'   is.annMatrix() - either TRUE or FALSE.
 #'
@@ -35,8 +36,8 @@ annMatrix <- function(mat=NULL, rowAnn=NULL, colAnn=NULL) {
   rowAnn <- data.frame(rowAnn, stringsAsFactors=FALSE)
   colAnn <- data.frame(colAnn, stringsAsFactors=FALSE)
   stopifnot(nrow(mat)==nrow(rowAnn) & ncol(mat)==nrow(colAnn))
-  attr(mat, "rowAnn") <- rowAnn
-  attr(mat, "colAnn") <- colAnn
+  attr(mat, ".annMatrix.rowAnn") <- rowAnn
+  attr(mat, ".annMatrix.colAnn") <- colAnn
   class(mat) <- append("annMatrix", class(mat))
   mat
 }

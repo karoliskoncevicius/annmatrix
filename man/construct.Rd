@@ -13,9 +13,9 @@ is.annMatrix(x)
 \arguments{
 \item{mat}{a matrix}
 
-\item{rowAnn}{annotation data.frame for rows of the mat matrix.}
+\item{rowAnn}{annotation \code{data.frame} for rows of the mat matrix.}
 
-\item{colAnn}{annotation data.frame for columns of the mat matrix.}
+\item{colAnn}{annotation \code{data.frame} for columns of the mat matrix.}
 
 \item{x}{an R object.}
 }

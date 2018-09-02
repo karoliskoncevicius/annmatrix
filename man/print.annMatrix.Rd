@@ -4,14 +4,16 @@
 \alias{print.annMatrix}
 \title{Print annMatrix object.}
 \usage{
-\method{print}{annMatrix}(annMat, nrow = 10, ncol = 10)
+\method{print}{annMatrix}(x, nrow = 10, ncol = 10, ...)
 }
 \arguments{
-\item{annMat}{a matrix}
+\item{x}{a matrix}
 
 \item{nrow}{number of rows to display}
 
 \item{ncol}{number of columns to display}
+
+\item{...}{further arguments passed to methods}
 }
 \value{
 invisibly returns annMatrix object.
@@ -24,8 +26,17 @@ annMatrix objects are printed in a shortened form (10 rows and 10 columns by def
 In addition the function displays information about available meta-data for rows and columns.
 }
 \examples{
-  print(annMatExample)
-  print(annMatExample, nrow=2, ncol=2)
+# construct the annMatrix object
+coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
+                      gender=sample(c("M", "F"), 40, replace=TRUE)
+                      )
+rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
+                         pos=runif(100, 0, 1000000)
+                         )
+annMat <- annMatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
+
+print(annMat)
+print(annMat, nrow=2, ncol=2)
 
 }
 \author{
