@@ -37,7 +37,7 @@ annMatrix <- function(mat=NULL, rowAnn=NULL, colAnn=NULL) {
   stopifnot(nrow(mat)==nrow(rowAnn) & ncol(mat)==nrow(colAnn))
   attr(mat, "rowAnn") <- rowAnn
   attr(mat, "colAnn") <- colAnn
-  class(mat) <- append(class(mat), "annMatrix")
+  class(mat) <- append("annMatrix", class(mat))
   mat
 }
 

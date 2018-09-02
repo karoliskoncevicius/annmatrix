@@ -22,7 +22,7 @@
   if(is.matrix(mat)) {
     attr(mat, "rowAnn") <- attr(annMat, "rowAnn")[i,,drop=FALSE]
     attr(mat, "colAnn") <- attr(annMat, "colAnn")[j,,drop=FALSE]
-    class(mat) <- append(class(mat), "annMatrix")
+    class(mat) <- append("annMatrix", class(mat))
   }
   mat
 }
