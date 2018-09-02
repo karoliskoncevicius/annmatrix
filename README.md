@@ -71,13 +71,6 @@ columns: 40 group, gender
 
 ```
 
-Except when selecting only single row or column (in order to be consistent with *matrix*)
-
-```
-> annMat[1,1:10]
-[1]  0.22964243 -0.57743591  0.71045094 -2.58439900  0.14421724  0.16017038  1.32646186  0.28064587 -0.52391383 -0.06777517
-```
-
 The attributes can be accessed through `@` (for row metadata) and `$` (for column metadata)
 
 ```r
@@ -119,6 +112,13 @@ columns: 5 group, gender
 [1] case case case case case
 ```
 
+Except when selecting only single row or column (in order to be consistent with *matrix*)
+
+```
+> annMat[1,1:10]
+[1]  0.22964243 -0.57743591  0.71045094 -2.58439900  0.14421724  0.16017038  1.32646186  0.28064587 -0.52391383 -0.06777517
+```
+
 As an example - to select all the cases and their values on chromosome 1 we would do:
 
 ```r
@@ -139,6 +139,7 @@ In order to change or add new metadata the functions `$<-` and `@<-` were implem
 
 ```r
 annMat@insideGene <- sample(c(TRUE, FALSE), 100, replace=TRUE)
+> annMat@insideGene
   [1] FALSE FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
  [13] FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
  [25] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE
@@ -158,7 +159,7 @@ annMat$age <- runif(40, 20, 100)
 [33] 30.07691 38.08329 46.87385 36.55873 60.62178 36.80180 63.71794 92.76238
 ```
 
-And in order to access the entire metadata data.frame a shortcuts of `$.` and `@.`
+And in order to access the entire metadata `data.frame` a shortcuts of `$.` and `@.`
 
 ```r
 
@@ -182,7 +183,7 @@ And in order to access the entire metadata data.frame a shortcuts of `$.` and `@
 
 ```
 
-To change the entire row or column metadata data.frame we can use:
+To change the entire row or column metadata `data.frame` we can use:
 
 ```r
 annMat@. <- data.frame(ID=1:100, gene=sample(LETTERS, 100, replace=TRUE))
