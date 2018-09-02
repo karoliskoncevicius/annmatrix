@@ -217,6 +217,7 @@ annMat@. <- data.frame(ID=1:100, gene=sample(LETTERS, 100, replace=TRUE))
 4  4    C
 5  5    Z
 6  6    U
+```
 
 ```r
 annMat$. <- data.frame(ID=1:40, weight=runif(40, 50, 150))
