@@ -2,13 +2,13 @@
 #'
 #' Functions to print an annMatrix object
 #'
-#' annMatrix objects are printed in a shortened form (10 rows and 10 columns by default).
+#' annMatrix objects are printed in a shortened form (5 rows and 5 columns by default).
 #' In addition the function displays information about available meta-data for rows and columns.
 #'
 #' @param x a matrix
-#' @param nrow number of rows to display
-#' @param ncol number of columns to display
-#' @param ... further arguments passed to methods
+#' @param nrow number of rows to display (default is 5)
+#' @param ncol number of columns to display (default is 5)
+#' @param ... further arguments passed to or from methods
 #'
 #' @return invisibly returns annMatrix object.
 #'
@@ -27,7 +27,7 @@
 #'
 #' @author Karolis Koncevicius
 #' @export
-print.annMatrix <- function(x, nrow=10, ncol=10, ...) {
+print.annMatrix <- function(x, nrow=5, ncol=5, ...) {
   rows <- nrow(x)
   cols <- ncol(x)
   if(rows > 0 & cols > 0) {

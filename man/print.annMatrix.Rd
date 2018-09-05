@@ -4,16 +4,16 @@
 \alias{print.annMatrix}
 \title{Print annMatrix object.}
 \usage{
-\method{print}{annMatrix}(x, nrow = 10, ncol = 10, ...)
+\method{print}{annMatrix}(x, nrow = 5, ncol = 5, ...)
 }
 \arguments{
 \item{x}{a matrix}
 
-\item{nrow}{number of rows to display}
+\item{nrow}{number of rows to display (default is 5)}
 
-\item{ncol}{number of columns to display}
+\item{ncol}{number of columns to display (default is 5)}
 
-\item{...}{further arguments passed to methods}
+\item{...}{further arguments passed to or from methods}
 }
 \value{
 invisibly returns annMatrix object.
@@ -22,7 +22,7 @@ invisibly returns annMatrix object.
 Functions to print an annMatrix object
 }
 \details{
-annMatrix objects are printed in a shortened form (10 rows and 10 columns by default).
+annMatrix objects are printed in a shortened form (5 rows and 5 columns by default).
 In addition the function displays information about available meta-data for rows and columns.
 }
 \examples{

@@ -30,14 +30,14 @@ t.annMatrix <- function(x) {
   x
 }
 
-#' Transform annMatrix object to long format
+#' Transform annMatrix Object to Long Format
 #'
-#' Turns the matrix and it's column and row meta-data into a long-format data.frame.
+#' Turns the matrix and it's column and row meta-data into a long-format \code{data.frame}.
 #'
 #' @param x annMatrix object
-#' @param ... other parameters passed to data.frame()
+#' @param ... other parameters passed to \code{data.frame()}
 #'
-#' @return data.frame
+#' @return a \code{data.frame}
 #'
 #' @examples
 #' # construct the annMatrix object

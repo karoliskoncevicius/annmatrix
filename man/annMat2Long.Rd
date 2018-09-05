@@ -2,20 +2,20 @@
 % Please edit documentation in R/transform.R
 \name{annMat2Long}
 \alias{annMat2Long}
-\title{Transform annMatrix object to long format}
+\title{Transform annMatrix Object to Long Format}
 \usage{
 annMat2Long(x, ...)
 }
 \arguments{
 \item{x}{annMatrix object}
 
-\item{...}{other parameters passed to data.frame()}
+\item{...}{other parameters passed to \code{data.frame()}}
 }
 \value{
-data.frame
+a \code{data.frame}
 }
 \description{
-Turns the matrix and it's column and row meta-data into a long-format data.frame.
+Turns the matrix and it's column and row meta-data into a long-format \code{data.frame}.
 }
 \examples{
 # construct the annMatrix object
