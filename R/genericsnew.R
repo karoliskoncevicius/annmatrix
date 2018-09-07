@@ -1,13 +1,13 @@
 #' New Generics For annmAtrix Class
 #'
-#' Newly implemented generic methods for annMatrix objects.
+#' Newly implemented generic methods for annmatrix objects.
 #'
 #' \code{@} operator in base R is used to access the slots within S4 objects.
-#' annMatrix makes this operator generic and uses it to select row-annotations
-#' from the \code{annMatrix} class.
+#' annmatrix makes this operator generic and uses it to select row-annotations
+#' from the \code{annmatrix} class.
 #'
 #' \code{@<-} replacement in base R is used to change the values of slots within S4 objects.
-#' annMatrix makes it generic and the same operator is then used within \code{annMatrix}
+#' annmatrix makes it generic and the same operator is then used within \code{annmatrix}
 #' class to change the row annotation values.
 #'
 #' @usage object@name

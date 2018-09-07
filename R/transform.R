@@ -1,64 +1,64 @@
-#' Transpose annMatrix object.
+#' Transpose annmatrix object.
 #'
-#' Transpose operator for annMatrix object.
+#' Transpose operator for annmatrix object.
 #'
 #' Transposes the matrix and switches the places of row and column meta-data.
 #'
-#' @param x annMatrix object
+#' @param x annmatrix object
 #'
-#' @return transposed annMatrix object
+#' @return transposed annmatrix object
 #'
 #' @examples
-#' # construct the annMatrix object
+#' # construct the annmatrix object
 #' coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
 #'                       gender=sample(c("M", "F"), 40, replace=TRUE)
 #'                       )
 #' rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
 #'                          pos=runif(100, 0, 1000000)
 #'                          )
-#' annMat <- annMatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
+#' annMat <- annmatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
 #'
 #' t(annMat)
 #'
 #' @author Karolis Koncevičius
 #' @export
-t.annMatrix <- function(x) {
+t.annmatrix <- function(x) {
   x <- t.default(x)
-  rowAnn <- attr(x, ".annMatrix.rowAnn")
-  attr(x, ".annMatrix.rowAnn") <- attr(x, ".annMatrix.colAnn")
-  attr(x, ".annMatrix.colAnn") <- rowAnn
+  rowann <- attr(x, ".annmatrix.rowann")
+  attr(x, ".annmatrix.rowann") <- attr(x, ".annmatrix.colann")
+  attr(x, ".annmatrix.colann") <- rowann
   x
 }
 
-#' Transform annMatrix Object to Long Format
+#' Transform annmatrix Object to Long Format
 #'
 #' Turns the matrix and it's column and row meta-data into a long-format \code{data.frame}.
 #'
-#' @param x annMatrix object
+#' @param x annmatrix object
 #' @param ... other parameters passed to \code{data.frame()}
 #'
 #' @return a \code{data.frame}
 #'
 #' @examples
-#' # construct the annMatrix object
+#' # construct the annmatrix object
 #' coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
 #'                       gender=sample(c("M", "F"), 40, replace=TRUE)
 #'                       )
 #' rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
 #'                          pos=runif(100, 0, 1000000)
 #'                          )
-#' annMat <- annMatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
+#' annMat <- annmatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
 #'
 #' annMat2Long(annMat)
 #'
 #' @author Karolis Koncevičius
 #' @export
 annMat2Long <- function(x, ...) {
-  rowAnn <- attr(x, ".annMatrix.rowAnn")
-  colAnn <- attr(x, ".annMatrix.colAnn")
+  rowann <- attr(x, ".annmatrix.rowann")
+  colann <- attr(x, ".annmatrix.colann")
   longdf <- data.frame(as.numeric(x),
-                       rowAnn[rep(seq_len(nrow(rowAnn)), nrow(colAnn)), ],
-                       colAnn[rep(seq_len(nrow(colAnn)), each=nrow(rowAnn)), ],
+                       rowann[rep(seq_len(nrow(rowann)), nrow(colann)), ],
+                       colann[rep(seq_len(nrow(colann)), each=nrow(rowann)), ],
                        ...
                        )
   longdf

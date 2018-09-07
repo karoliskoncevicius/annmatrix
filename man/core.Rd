@@ -2,35 +2,35 @@
 % Please edit documentation in R/core.R
 \name{core}
 \alias{core}
-\alias{annMatrix}
-\alias{is.annMatrix}
-\alias{[.annMatrix}
-\alias{$.annMatrix}
-\alias{@.annMatrix}
-\alias{$<-.annMatrix}
-\alias{@<-.annMatrix}
-\title{annMatrix Objects and Basic Functionality}
+\alias{annmatrix}
+\alias{is.annmatrix}
+\alias{[.annmatrix}
+\alias{$.annmatrix}
+\alias{@.annmatrix}
+\alias{$<-.annmatrix}
+\alias{@<-.annmatrix}
+\title{annmatrix Objects and Basic Functionality}
 \usage{
-annMatrix(x = NULL, rowAnn = NULL, colAnn = NULL)
+annmatrix(x = matrix(), rowann = NULL, colann = NULL)
 
-is.annMatrix(x)
+is.annmatrix(x)
 
-\method{[}{annMatrix}(x, i = TRUE, j = TRUE, ..., drop = TRUE)
+\method{[}{annmatrix}(x, i = TRUE, j = TRUE, ..., drop = TRUE)
 
-\method{$}{annMatrix}(x, name)
+\method{$}{annmatrix}(x, name)
 
-\method{@}{annMatrix}(object, name)
+\method{@}{annmatrix}(object, name)
 
-\method{$}{annMatrix}(x, name) <- value
+\method{$}{annmatrix}(x, name) <- value
 
-\method{@}{annMatrix}(object, name) <- value
+\method{@}{annmatrix}(object, name) <- value
 }
 \arguments{
 \item{x, object}{an R object to be converted, used or tested}
 
-\item{rowAnn}{annotation \code{data.frame} for rows of the annMatrix object}
+\item{rowann}{annotation \code{data.frame} for rows of the annmatrix object}
 
-\item{colAnn}{annotation \code{data.frame} for columns of the annMatrix object}
+\item{colann}{annotation \code{data.frame} for columns of the annmatrix object}
 
 \item{i}{subset for rows}
 
@@ -45,29 +45,29 @@ is.annMatrix(x)
 \item{value}{newly assigned value to row/column annotation field}
 }
 \value{
-\code{annMatrix} - an \code{annMatrix} object.
+\code{annmatrix} - an \code{annmatrix} object.
 
-\code{is.annMatrix} - either TRUE or FALSE.
+\code{is.annmatrix} - either TRUE or FALSE.
 
 \code{annMat@value} - a column named "value" from the row annotation \code{data.frame}
 
 \code{annMat$value} - a column named "value" from the column annotation \code{data.frame}
 
-\code{`[`.annMatrix} - a subset of  annMatrix and reletad meta-data annotations
+\code{`[`.annmatrix} - a subset of  annmatrix and reletad meta-data annotations
 }
 \description{
-Functions used to construct, test and use the objects of class \code{annMatrix}.
+Functions used to construct, test and use the objects of class \code{annmatrix}.
 }
 \details{
-\code{annMatrix} constructs an object of class \code{annMatrix}.
+\code{annmatrix} constructs an object of class \code{annmatrix}.
 The function expects \code{x} to be a \code{matrix}
-and \code{rowAnn} and \code{colAnn} to be of class \code{data.frame}.
+and \code{rowann} and \code{colann} to be of class \code{data.frame}.
 If the passed objects are of a different class the function will try to
 convert them via the use of \code{as.matrix} and \code{as.data.frame}.
 
-\code{is.annMatrix} checks if the object is an instance of \code{annMatrix}.
+\code{is.annmatrix} checks if the object is an instance of \code{annmatrix}.
 
-\code{`[.annMatrix`} returns a selected subset of annMatrix object.
+\code{`[.annmatrix`} returns a selected subset of annmatrix object.
 Row and column meta-data annotations are preserved and subsetted where needed.
 In the special case when only one column or row is selected - in order to be
 consistent with the \code{matrix} behavior the dimensions of matrix are
@@ -92,10 +92,10 @@ is replaced.
                         pos=runif(100, 0, 1000000)
                         )
   mat <- matrix(rnorm(100*40), 100, 40)
-  annMat <- annMatrix(mat, rowdata, coldata)
+  annMat <- annmatrix(mat, rowdata, coldata)
 
-  is.annMatrix(mat)
-  is.annMatrix(annMat)
+  is.annmatrix(mat)
+  is.annmatrix(annMat)
 
   annMat[1:2,1:2]
   annMat[1,,drop=FALSE]

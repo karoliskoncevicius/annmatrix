@@ -1,8 +1,8 @@
-#' Print annMatrix object.
+#' Print annmatrix object.
 #'
-#' Functions to print an annMatrix object
+#' Functions to print an annmatrix object
 #'
-#' annMatrix objects are printed in a shortened form (5 rows and 5 columns by default).
+#' annmatrix objects are printed in a shortened form (5 rows and 5 columns by default).
 #' In addition the function displays information about available meta-data for rows and columns.
 #'
 #' @param x a matrix
@@ -10,24 +10,24 @@
 #' @param ncol number of columns to display (default is 5)
 #' @param ... further arguments passed to or from methods
 #'
-#' @return invisibly returns annMatrix object.
+#' @return invisibly returns annmatrix object.
 #'
 #' @examples
-#' # construct the annMatrix object
+#' # construct the annmatrix object
 #' coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
 #'                       gender=sample(c("M", "F"), 40, replace=TRUE)
 #'                       )
 #' rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
 #'                          pos=runif(100, 0, 1000000)
 #'                          )
-#' annMat <- annMatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
+#' annMat <- annmatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
 #'
 #' print(annMat)
 #' print(annMat, nrow=2, ncol=2)
 #'
 #' @author Karolis Koncevičius
 #' @export
-print.annMatrix <- function(x, nrow=5, ncol=5, ...) {
+print.annmatrix <- function(x, nrow=5, ncol=5, ...) {
   rows <- nrow(x)
   cols <- ncol(x)
   if(rows > 0 & cols > 0) {
@@ -42,10 +42,10 @@ print.annMatrix <- function(x, nrow=5, ncol=5, ...) {
     cat("\n")
   }
   cat("rows:    ", rows, " ", sep="")
-  cat(names(attr(x, ".annMatrix.rowAnn")), sep=", ")
+  cat(names(attr(x, ".annmatrix.rowann")), sep=", ")
   cat("\n")
   cat("columns: ", cols, " ", sep="")
-  cat(names(attr(x, ".annMatrix.colAnn")), sep=", ")
+  cat(names(attr(x, ".annmatrix.colann")), sep=", ")
   cat("\n")
   invisible(x)
 }

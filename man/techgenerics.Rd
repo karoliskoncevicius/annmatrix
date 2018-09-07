@@ -2,18 +2,18 @@
 % Please edit documentation in R/genericstech.R
 \name{techgenerics}
 \alias{techgenerics}
-\alias{.DollarNames.annMatrix}
-\title{Technical Generic Functions for annMatrix Class}
+\alias{.DollarNames.annmatrix}
+\title{Technical Generic Functions for annmatrix Class}
 \usage{
-\method{.DollarNames}{annMatrix}(x, pattern = "")
+\method{.DollarNames}{annmatrix}(x, pattern = "")
 }
 \arguments{
-\item{x}{annMatrix object.}
+\item{x}{annmatrix object.}
 
 \item{pattern}{a regular expression used to select the returned auto-completion terms.}
 }
 \description{
-Generic function that help working with the annMatrix class objects easier.
+Generic function that help working with the annmatrix class objects easier.
 These include group generics, auto-completion helpers and similar.
 }
 \details{
