@@ -18,7 +18,7 @@
 #' @param name a character string name specifying a slot
 #' @param value newly assigned value to replace the slot specified by \code{name}
 #'
-#' @author Karolis Koncevicius
+#' @author Karolis Koncevičius
 #' @export
 `@` <- function(object, name) {
   UseMethod("@")

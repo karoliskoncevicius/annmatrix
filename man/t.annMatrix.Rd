@@ -32,5 +32,5 @@ t(annMat)
 
 }
 \author{
-Karolis Koncevicius
+Karolis Koncevičius
 }

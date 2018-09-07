@@ -20,7 +20,7 @@
 #'
 #' t(annMat)
 #'
-#' @author Karolis Koncevicius
+#' @author Karolis Koncevičius
 #' @export
 t.annMatrix <- function(x) {
   x <- t.default(x)
@@ -51,7 +51,7 @@ t.annMatrix <- function(x) {
 #'
 #' annMat2Long(annMat)
 #'
-#' @author Karolis Koncevicius
+#' @author Karolis Koncevičius
 #' @export
 annMat2Long <- function(x, ...) {
   rowAnn <- attr(x, ".annMatrix.rowAnn")

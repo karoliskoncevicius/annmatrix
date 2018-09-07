@@ -25,7 +25,7 @@
 #' print(annMat)
 #' print(annMat, nrow=2, ncol=2)
 #'
-#' @author Karolis Koncevicius
+#' @author Karolis Koncevičius
 #' @export
 print.annMatrix <- function(x, nrow=5, ncol=5, ...) {
   rows <- nrow(x)

@@ -113,5 +113,5 @@ is replaced.
 
 }
 \author{
-Karolis Koncevicius
+Karolis Koncevičius
 }

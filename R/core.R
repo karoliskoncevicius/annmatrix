@@ -77,7 +77,7 @@
 #'   annMat$newField <- NULL
 #'   annMat$newField
 #'
-#' @author Karolis Koncevicius
+#' @author Karolis Koncevičius
 #' @export
 annMatrix <- function(x=NULL, rowAnn=NULL, colAnn=NULL) {
   if(is.null(x)) x <- matrix(nrow=0, ncol=0)

@@ -40,5 +40,5 @@ print(annMat, nrow=2, ncol=2)
 
 }
 \author{
-Karolis Koncevicius
+Karolis Koncevičius
 }

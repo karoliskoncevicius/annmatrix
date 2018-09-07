@@ -36,5 +36,5 @@ annMatrix makes it generic and the same operator is then used within \code{annMa
 class to change the row annotation values.
 }
 \author{
-Karolis Koncevicius
+Karolis Koncevičius
 }
