@@ -80,7 +80,6 @@
 #' @author Karolis Koncevičius
 #' @export
 annmatrix <- function(x=matrix(), rowann=NULL, colann=NULL) {
-  if(is.null(x)) x <- matrix(nrow=0, ncol=0)
   x <- as.matrix(x)
   if(is.null(rowann)) rowann <- data.frame(row.names=seq_len(nrow(x)))
   if(is.null(colann)) colann <- data.frame(row.names=seq_len(ncol(x)))
