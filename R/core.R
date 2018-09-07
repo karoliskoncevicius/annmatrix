@@ -89,7 +89,7 @@ annMatrix <- function(x=NULL, rowAnn=NULL, colAnn=NULL) {
   stopifnot(nrow(x)==nrow(rowAnn) & ncol(x)==nrow(colAnn))
   attr(x, ".annMatrix.rowAnn") <- rowAnn
   attr(x, ".annMatrix.colAnn") <- colAnn
-  class(x) <- append("annMatrix", class(x))
+  if(!is.annMatrix(x)) class(x) <- append("annMatrix", class(x))
   x
 }
 
