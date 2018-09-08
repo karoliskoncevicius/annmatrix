@@ -11,7 +11,7 @@
 \alias{@<-.annmatrix}
 \title{annmatrix Objects and Basic Functionality}
 \usage{
-annmatrix(x = matrix(), rowann = NULL, colann = NULL)
+annmatrix(x = NULL, rowann = NULL, colann = NULL)
 
 is.annmatrix(x)
 
