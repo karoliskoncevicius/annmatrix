@@ -17,7 +17,7 @@ Technically *annmatrix* object is just a regular *R* matrix with additional attr
 So every operation that works on a *matrix* by design works in the same way on *annmatrix*.
 The only addition *annmatrix* provides is attaching row and column metadata that are preserved after sub-setting and some helper functions to use and to change this metadata.
 
-Imagine we have a small example of expression data with 100 genes measured across 40 samples:
+Imagine we have a small example of expression data with 25 genes measured across 10 samples:
 
 ```r
 mat <- matrix(rnorm(25*10), nrow=25, ncol=10)
