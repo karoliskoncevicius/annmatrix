@@ -4,31 +4,17 @@
 \alias{split}
 \alias{rowsplit}
 \alias{colsplit}
-\alias{rowsplit.default}
-\alias{colsplit.default}
-\alias{rowsplit.data.frame}
-\alias{colsplit.data.frame}
 \title{Split Matrix by Rows and Columns}
 \usage{
-rowsplit(x, group, ...)
+rowsplit(x, group)
 
-colsplit(x, group, ...)
-
-\method{rowsplit}{default}(x, group, ...)
-
-\method{colsplit}{default}(x, group, ...)
-
-\method{rowsplit}{data.frame}(x, group, ...)
-
-\method{colsplit}{data.frame}(x, group, ...)
+colsplit(x, group)
 }
 \arguments{
 \item{x}{an R object. Typically a \code{matrix} or \code{data.frame} to be divided into groups.}
 
 \item{group}{grouping variable for rows or columns used for dividing an object into groups.
 Can also be a list of groups in which case their interaction is used for grouping.}
-
-\item{...}{further arguments passed to or from methods.}
 }
 \value{
 transposed annmatrix object
