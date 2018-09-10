@@ -15,7 +15,7 @@ annmatrix(x = NULL, rowann = NULL, colann = NULL)
 
 is.annmatrix(x)
 
-\method{[}{annmatrix}(x, i = TRUE, j = TRUE, ..., drop = TRUE)
+\method{[}{annmatrix}(x, i, j, ..., drop = TRUE)
 
 \method{$}{annmatrix}(x, name)
 

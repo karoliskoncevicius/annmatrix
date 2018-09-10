@@ -99,11 +99,15 @@ is.annmatrix <- function(x) inherits(x, "annmatrix")
 
 #' @rdname core
 #' @export
-`[.annmatrix` <- function(x, i=TRUE, j=TRUE, ..., drop=TRUE) {
+`[.annmatrix` <- function(x, i, j, ..., drop=TRUE) {
   mat <- NextMethod("[")
   if(is.matrix(mat)) {
-    attr(mat, ".annmatrix.rowann") <- attr(x, ".annmatrix.rowann")[i,,drop=drop]
-    attr(mat, ".annmatrix.colann") <- attr(x, ".annmatrix.colann")[j,,drop=drop]
+    if(!missing(i)) {
+      attr(mat, ".annmatrix.rowann") <- attr(x, ".annmatrix.rowann")[i,,drop=FALSE]
+    }
+    if(!missing(j)) {
+      attr(mat, ".annmatrix.colann") <- attr(x, ".annmatrix.colann")[j,,drop=FALSE]
+    }
     class(mat) <- append("annmatrix", class(mat))
   }
   mat
