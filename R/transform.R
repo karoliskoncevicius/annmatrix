@@ -24,9 +24,9 @@
 #' @export
 t.annmatrix <- function(x) {
   x <- t.default(x)
-  rowann <- attr(x, ".annmatrix.rowann")
-  attr(x, ".annmatrix.rowann") <- attr(x, ".annmatrix.colann")
-  attr(x, ".annmatrix.colann") <- rowann
+  attnames <- names(attributes(annMat))
+  attnames[match(c(".annmatrix.rowann", ".annmatrix.colann"), attnames)] <- c(".annmatrix.colann", ".annmatrix.rowann")
+  names(attributes(x)) <- attnames
   x
 }
 
