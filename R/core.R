@@ -10,7 +10,9 @@
 #'
 #' \code{is.annmatrix} checks if the object is an instance of \code{annmatrix}.
 #'
-#' \code{`[.annmatrix`} returns a selected subset of annmatrix object.
+#' \code{as.matrix.} will turn an \code{annmatrix} object into plain matrix.
+#'
+#' \code{`[.`} returns a selected subset of annmatrix object.
 #' Row and column meta-data annotations are preserved and subsetted where needed.
 #' In the special case when only one column or row is selected - in order to be
 #' consistent with the \code{matrix} behavior the dimensions of matrix are
@@ -40,15 +42,17 @@
 #' @param ... further arguments passed to methods
 #'
 #' @return
-#' \code{annmatrix} - an \code{annmatrix} object.
+#' \code{annmatrix} - an \code{annmatrix} object
 #'
-#' \code{is.annmatrix} - either TRUE or FALSE.
+#' \code{is.annmatrix} - either TRUE or FALSE
+#'
+#' \code{as.matrix} - a \code{matrix} object
 #'
 #' \code{annMat@value} - a column named "value" from the row annotation \code{data.frame}
 #'
 #' \code{annMat$value} - a column named "value" from the column annotation \code{data.frame}
 #'
-#' \code{`[`.annmatrix} - a subset of  annmatrix and reletad meta-data annotations
+#' \code{`[`} - a subset of annmatrix and reletad meta-data annotations
 #'
 #' @examples
 #'   coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
@@ -81,7 +85,7 @@
 #' @export
 annmatrix <- function(x=NULL, rowann=NULL, colann=NULL) {
   if(is.null(x)) x <- matrix(nrow=0, ncol=0)
-  if (!is.matrix(x)) x <- as.matrix(x)
+  x <- as.matrix(x)
   if(is.null(rowann)) rowann <- data.frame(row.names=seq_len(nrow(x)))
   if(is.null(colann)) colann <- data.frame(row.names=seq_len(ncol(x)))
   rowann <- as.data.frame(rowann, stringsAsFactors=FALSE)
@@ -89,13 +93,23 @@ annmatrix <- function(x=NULL, rowann=NULL, colann=NULL) {
   stopifnot(nrow(x)==nrow(rowann) & ncol(x)==nrow(colann))
   attr(x, ".annmatrix.rowann") <- rowann
   attr(x, ".annmatrix.colann") <- colann
-  if(!is.annmatrix(x)) class(x) <- append("annmatrix", class(x))
+  class(x) <- append("annmatrix", class(x))
   x
 }
 
 #' @rdname core
 #' @export
-is.annmatrix <- function(x) inherits(x, "annmatrix")
+is.annmatrix <- function(x) {
+  inherits(x, "annmatrix")
+}
+
+#' @rdname core
+#' @export
+as.matrix.annmatrix <- function(x) {
+  attr(x, ".annmatrix.rowann") <- NULL
+  attr(x, ".annmatrix.colann") <- NULL
+  unclass(x)
+}
 
 #' @rdname core
 #' @export

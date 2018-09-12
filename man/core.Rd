@@ -4,6 +4,7 @@
 \alias{core}
 \alias{annmatrix}
 \alias{is.annmatrix}
+\alias{as.matrix.annmatrix}
 \alias{[.annmatrix}
 \alias{$.annmatrix}
 \alias{@.annmatrix}
@@ -14,6 +15,8 @@
 annmatrix(x = NULL, rowann = NULL, colann = NULL)
 
 is.annmatrix(x)
+
+\method{as.matrix}{annmatrix}(x)
 
 \method{[}{annmatrix}(x, i, j, ..., drop = TRUE)
 
@@ -45,15 +48,17 @@ is.annmatrix(x)
 \item{value}{newly assigned value to row/column annotation field}
 }
 \value{
-\code{annmatrix} - an \code{annmatrix} object.
+\code{annmatrix} - an \code{annmatrix} object
 
-\code{is.annmatrix} - either TRUE or FALSE.
+\code{is.annmatrix} - either TRUE or FALSE
+
+\code{as.matrix} - a \code{matrix} object
 
 \code{annMat@value} - a column named "value" from the row annotation \code{data.frame}
 
 \code{annMat$value} - a column named "value" from the column annotation \code{data.frame}
 
-\code{`[`.annmatrix} - a subset of  annmatrix and reletad meta-data annotations
+\code{`[`} - a subset of annmatrix and reletad meta-data annotations
 }
 \description{
 Functions used to construct, test and use the objects of class \code{annmatrix}.
@@ -67,7 +72,9 @@ convert them via the use of \code{as.matrix} and \code{as.data.frame}.
 
 \code{is.annmatrix} checks if the object is an instance of \code{annmatrix}.
 
-\code{`[.annmatrix`} returns a selected subset of annmatrix object.
+\code{as.matrix.} will turn an \code{annmatrix} object into plain matrix.
+
+\code{`[.`} returns a selected subset of annmatrix object.
 Row and column meta-data annotations are preserved and subsetted where needed.
 In the special case when only one column or row is selected - in order to be
 consistent with the \code{matrix} behavior the dimensions of matrix are
