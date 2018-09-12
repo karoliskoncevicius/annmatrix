@@ -25,7 +25,7 @@
 }
 
 #' @usage object@name
-#' @import ethods
+#' @import methods
 #' @rdname newgenerics
 #' @export
 `@.default` <- function(object, name) {
@@ -40,7 +40,7 @@
 }
 
 #' @usage object@name <- value
-#' @import ethods
+#' @import methods
 #' @rdname newgenerics
 #' @export
 `@<-.default` <- function(object, name, value) {
