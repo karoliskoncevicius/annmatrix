@@ -25,9 +25,12 @@
 }
 
 #' @usage object@name
+#' @import ethods
 #' @rdname newgenerics
 #' @export
-`@.default` <- function(object, name) base::`@`(object, name)
+`@.default` <- function(object, name) {
+  methods::slot(object, deparse(substitute(name)))
+}
 
 #' @usage object@name <- value
 #' @rdname newgenerics
@@ -37,7 +40,10 @@
 }
 
 #' @usage object@name <- value
+#' @import ethods
 #' @rdname newgenerics
 #' @export
-`@<-.default` <- function(object, name, value) base::`@<-`(object, name, value)
+`@<-.default` <- function(object, name, value) {
+  methods::`slot<-`(object, deparse(substitute(name)), check=TRUE, value)
+}
 
