@@ -54,31 +54,33 @@
 #' \code{`[`} - a subset of annmatrix and reletad meta-data annotations
 #'
 #' @examples
-#'   coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
-#'                         gender=sample(c("M", "F"), 40, replace=TRUE)
-#'                         )
-#'   rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
-#'                         pos=runif(100, 0, 1000000)
-#'                         )
-#'   mat <- matrix(rnorm(100*40), 100, 40)
-#'   annMat <- annmatrix(mat, rowdata, coldata)
+#' coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
+#'                       gender=sample(c("M", "F"), 40, replace=TRUE)
+#'                       )
+#' rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
+#'                       pos=runif(100, 0, 1000000)
+#'                       )
+#' mat <- matrix(rnorm(100*40), 100, 40)
+#' annMat <- annmatrix(mat, rowdata, coldata)
 #'
-#'   is.annmatrix(mat)
-#'   is.annmatrix(annMat)
+#' is.annmatrix(mat)
+#' is.annmatrix(annMat)
 #'
-#'   annMat[1:2,1:2]
-#'   annMat[1,,drop=FALSE]
+#' annMat[1:2,1:2]
+#' annMat[1,,drop=FALSE]
 #'
-#'   rowann(annMat)
-#'   colann(annMat)
-#'   rowann(annMat, "chr")
-#'   colann(annMat, "group")
+#' rowann(annMat)
+#' colann(annMat)
+#' rowann(annMat, "chr")
+#' colann(annMat, "group")
 #'
-#'   rowann(annMat, "newField") <- 1:nrow(annMat)
-#'   colann(annMat, "newField") <- 1:ncol(annMat)
-#'   colann(annMat, "newField")
-#'   colann(annMat, "newField") <- NULL
-#'   colann(annMat, "newField")
+#' rowann(annMat, "newField") <- 1:nrow(annMat)
+#' colann(annMat, "newField") <- 1:ncol(annMat)
+#' colann(annMat, "newField")
+#' colann(annMat, "newField") <- NULL
+#' colann(annMat, "newField")
+#'
+#' @seealso `$.annmatrix` `@.annmatrix`
 #'
 #' @author Karolis Koncevičius
 #' @export
