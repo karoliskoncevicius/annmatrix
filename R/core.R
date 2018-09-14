@@ -20,26 +20,25 @@
 #' additional argument \code{drop=FALSE} can be provided in order to bypass this
 #' and return a proper matrix instead.
 #'
-#' \code{$} and \code{@} returns the selected field from column and row annotation
-#' \code{data.frame} respectively. When a special symbol "." is used instead of
-#' the field name - the whole annotation \code{data.frame} is returned.
+#' \code{rowann} and \code{colann} returns the selected field from column and
+#' row annotation \code{data.frame} respectively. When the selected field is
+#' not specified the whole annotation \code{data.frame} is returned.
 #'
-#' \code{$<-} and \code{@<-} functions can be used to replace the fields from
-#' column and row annotation \code{data.frame} respectively. When a special
-#' symbol "." is used instead of a name - the whole annotation \code{data.frame}
-#' is replaced.
+#' \code{rowann<-} and \code{colann<-} functions can be used to replace the fields from
+#' column and row annotation \code{data.frame} respectively. When the selected field
+#' is not specified the whole annotation \code{data.frame} is replaced.
 #'
 #' @name core
 #'
-#' @param x,object an R object to be converted, used or tested
-#' @param rowann annotation \code{data.frame} for rows of the annmatrix object
-#' @param colann annotation \code{data.frame} for columns of the annmatrix object
+#' @param x an R object to be converted, used or tested
+#' @param rowann annotation \code{data.frame} for rows of the \code{annmatrix} object
+#' @param colann annotation \code{data.frame} for columns of the \code{annmatrix} object
 #' @param i subset for rows
 #' @param j subset for columns
 #' @param drop if TRUE (default) the result of subsetting a single row or column is returned as a vector.
 #' @param name a character string name of existing row/column annotation field
 #' @param value newly assigned value to row/column annotation field
-#' @param ... further arguments passed to methods
+#' @param ... further arguments passed to or from methods
 #'
 #' @return
 #' \code{annmatrix} - an \code{annmatrix} object
@@ -70,16 +69,16 @@
 #'   annMat[1:2,1:2]
 #'   annMat[1,,drop=FALSE]
 #'
-#'   annMat$group
-#'   annMat@chr
-#'   annMat$.
-#'   annMat@.
+#'   rowann(annMat)
+#'   colann(annMat)
+#'   rowann(annMat, "chr")
+#'   colann(annMat, "group")
 #'
-#'   annMat@newField <- 1:nrow(annMat)
-#'   annMat$newField <- 1:ncol(annMat)
-#'   annMat$newField
-#'   annMat$newField <- NULL
-#'   annMat$newField
+#'   rowann(annMat, "newField") <- 1:nrow(annMat)
+#'   colann(annMat, "newField") <- 1:ncol(annMat)
+#'   colann(annMat, "newField")
+#'   colann(annMat, "newField") <- NULL
+#'   colann(annMat, "newField")
 #'
 #' @author Karolis Koncevičius
 #' @export
@@ -105,7 +104,7 @@ is.annmatrix <- function(x) {
 
 #' @rdname core
 #' @export
-as.matrix.annmatrix <- function(x) {
+as.matrix.annmatrix <- function(x, ...) {
   attr(x, ".annmatrix.rowann") <- NULL
   attr(x, ".annmatrix.colann") <- NULL
   unclass(x)
@@ -133,33 +132,29 @@ as.matrix.annmatrix <- function(x) {
 
 #' @rdname core
 #' @export
-`$.annmatrix` <- function(x, name) {
-  colann <- attr(x, ".annmatrix.colann")
-  if(name==".") {
-    colann
+colann <- function(x, name=NULL) {
+  if(is.null(name)) {
+    attr(x, ".annmatrix.colann")
   } else {
-    colann[[name]]
-  }
-}
-
-#' @usage \method{@}{annmatrix}(object, name)
-#' @rdname core
-#' @export
-`@.annmatrix` <- function(object, name) {
-  name <- deparse(substitute(name))
-  rowann <- attr(object, ".annmatrix.rowann")
-  if(name==".") {
-    rowann
-  } else {
-    rowann[[name]]
+    attr(x, ".annmatrix.colann")[[name]]
   }
 }
 
 #' @rdname core
 #' @export
-`$<-.annmatrix` <- function(x, name, value) {
+rowann <- function(x, name=NULL) {
+  if(is.null(name)) {
+    attr(x, ".annmatrix.rowann")
+  } else {
+    attr(x, ".annmatrix.rowann")[[name]]
+  }
+}
+
+#' @rdname core
+#' @export
+`colann<-` <- function(x, name=NULL, value) {
   colann <- attr(x, ".annmatrix.colann")
-  if(name==".") {
+  if(is.null(name)) {
     if(is.null(value)) {
       colann <- data.frame(row.names=1:ncol(x))
     } else if(!is.data.frame(value)) {
@@ -176,18 +171,16 @@ as.matrix.annmatrix <- function(x) {
   x
 }
 
-#' @usage \method{@}{annmatrix}(object, name) <- value
 #' @rdname core
 #' @export
-`@<-.annmatrix` <- function(object, name, value) {
-  name <- deparse(substitute(name))
-  rowann <- attr(object, ".annmatrix.rowann")
-  if(name==".") {
+`rowann<-` <- function(x, name=NULL, value) {
+  rowann <- attr(x, ".annmatrix.rowann")
+  if(is.null(name)) {
     if(is.null(value)) {
-      rowann <- data.frame(row.names=1:nrow(object))
+      rowann <- data.frame(row.names=1:ncol(x))
     } else if(!is.data.frame(value)) {
       stop("row meta data should be a data.frame")
-    } else if(nrow(value) != nrow(object)) {
+    } else if(nrow(value) != ncol(x)) {
       stop("new row meta data should have the same number of rows as there are rows in the matrix")
     } else {
       rowann <- value
@@ -195,7 +188,7 @@ as.matrix.annmatrix <- function(x) {
   } else {
     rowann[,name] <- value
   }
-  attr(object, ".annmatrix.rowann") <- rowann
-  object
+  attr(x, ".annmatrix.rowann") <- rowann
+  x
 }
 

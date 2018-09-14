@@ -6,40 +6,40 @@
 \alias{is.annmatrix}
 \alias{as.matrix.annmatrix}
 \alias{[.annmatrix}
-\alias{$.annmatrix}
-\alias{@.annmatrix}
-\alias{$<-.annmatrix}
-\alias{@<-.annmatrix}
+\alias{colann}
+\alias{rowann}
+\alias{colann<-}
+\alias{rowann<-}
 \title{annmatrix Objects and Basic Functionality}
 \usage{
 annmatrix(x = NULL, rowann = NULL, colann = NULL)
 
 is.annmatrix(x)
 
-\method{as.matrix}{annmatrix}(x)
+\method{as.matrix}{annmatrix}(x, ...)
 
 \method{[}{annmatrix}(x, i, j, ..., drop = TRUE)
 
-\method{$}{annmatrix}(x, name)
+colann(x, name = NULL)
 
-\method{@}{annmatrix}(object, name)
+rowann(x, name = NULL)
 
-\method{$}{annmatrix}(x, name) <- value
+colann(x, name = NULL) <- value
 
-\method{@}{annmatrix}(object, name) <- value
+rowann(x, name = NULL) <- value
 }
 \arguments{
-\item{x, object}{an R object to be converted, used or tested}
+\item{x}{an R object to be converted, used or tested}
 
-\item{rowann}{annotation \code{data.frame} for rows of the annmatrix object}
+\item{rowann}{annotation \code{data.frame} for rows of the \code{annmatrix} object}
 
-\item{colann}{annotation \code{data.frame} for columns of the annmatrix object}
+\item{colann}{annotation \code{data.frame} for columns of the \code{annmatrix} object}
+
+\item{...}{further arguments passed to or from methods}
 
 \item{i}{subset for rows}
 
 \item{j}{subset for columns}
-
-\item{...}{further arguments passed to methods}
 
 \item{drop}{if TRUE (default) the result of subsetting a single row or column is returned as a vector.}
 
@@ -82,14 +82,13 @@ dropped and a vector is returned. Just like in the case of matrices the
 additional argument \code{drop=FALSE} can be provided in order to bypass this
 and return a proper matrix instead.
 
-\code{$} and \code{@} returns the selected field from column and row annotation
-\code{data.frame} respectively. When a special symbol "." is used instead of
-the field name - the whole annotation \code{data.frame} is returned.
+\code{rowann} and \code{colann} returns the selected field from column and
+row annotation \code{data.frame} respectively. When the selected field is
+not specified the whole annotation \code{data.frame} is returned.
 
-\code{$<-} and \code{@<-} functions can be used to replace the fields from
-column and row annotation \code{data.frame} respectively. When a special
-symbol "." is used instead of a name - the whole annotation \code{data.frame}
-is replaced.
+\code{rowann<-} and \code{colann<-} functions can be used to replace the fields from
+column and row annotation \code{data.frame} respectively. When the selected field
+is not specified the whole annotation \code{data.frame} is replaced.
 }
 \examples{
   coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
@@ -107,16 +106,16 @@ is replaced.
   annMat[1:2,1:2]
   annMat[1,,drop=FALSE]
 
-  annMat$group
-  annMat@chr
-  annMat$.
-  annMat@.
+  rowann(annMat)
+  colann(annMat)
+  rowann(annMat, "chr")
+  colann(annMat, "group")
 
-  annMat@newField <- 1:nrow(annMat)
-  annMat$newField <- 1:ncol(annMat)
-  annMat$newField
-  annMat$newField <- NULL
-  annMat$newField
+  rowann(annMat, "newField") <- 1:nrow(annMat)
+  colann(annMat, "newField") <- 1:ncol(annMat)
+  colann(annMat, "newField")
+  colann(annMat, "newField") <- NULL
+  colann(annMat, "newField")
 
 }
 \author{

@@ -4,7 +4,7 @@ Version: 0.0.1
 Authors@R: person("Karolis", "Koncevičius", email = "karolis.koncevicius@gmail.com", role = c("aut", "cre"))
 Description: Provides a annotated matrix class useful for keeping additional meta information about row and column entries. The object tracks row and column information by setting dedicated attributes. Matrix methods are overloaded so that they keep track and subset the row and column metadata when possible.
 Depends: R (>= 3.4.0)
-Imports: utils
+Imports: utils, methods
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
