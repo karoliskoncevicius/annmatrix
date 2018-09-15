@@ -84,11 +84,11 @@
 #'
 #' @author Karolis Koncevičius
 #' @export
-annmatrix <- function(x=NULL, rowann=NULL, colann=NULL) {
-  if(is.null(x)) x <- matrix(nrow=0, ncol=0)
+annmatrix <- function(x, rowann, colann) {
+  if(missing(x)) x <- matrix(nrow=0, ncol=0)
   x <- as.matrix(x)
-  if(is.null(rowann)) rowann <- data.frame(row.names=seq_len(nrow(x)))
-  if(is.null(colann)) colann <- data.frame(row.names=seq_len(ncol(x)))
+  if(missing(rowann)) rowann <- data.frame(row.names=seq_len(nrow(x)))
+  if(missing(colann)) colann <- data.frame(row.names=seq_len(ncol(x)))
   rowann <- as.data.frame(rowann, stringsAsFactors=FALSE)
   colann <- as.data.frame(colann, stringsAsFactors=FALSE)
   stopifnot(nrow(x)==nrow(rowann) & ncol(x)==nrow(colann))
@@ -134,8 +134,8 @@ as.matrix.annmatrix <- function(x, ...) {
 
 #' @rdname core
 #' @export
-colann <- function(x, name=NULL) {
-  if(is.null(name)) {
+colann <- function(x, name) {
+  if(missing(name)) {
     attr(x, ".annmatrix.colann")
   } else {
     attr(x, ".annmatrix.colann")[[name]]
@@ -144,8 +144,8 @@ colann <- function(x, name=NULL) {
 
 #' @rdname core
 #' @export
-rowann <- function(x, name=NULL) {
-  if(is.null(name)) {
+rowann <- function(x, name) {
+  if(missing(name)) {
     attr(x, ".annmatrix.rowann")
   } else {
     attr(x, ".annmatrix.rowann")[[name]]
@@ -154,9 +154,9 @@ rowann <- function(x, name=NULL) {
 
 #' @rdname core
 #' @export
-`colann<-` <- function(x, name=NULL, value) {
+`colann<-` <- function(x, name, value) {
   colann <- attr(x, ".annmatrix.colann")
-  if(is.null(name)) {
+  if(missing(name)) {
     if(is.null(value)) {
       colann <- data.frame(row.names=1:ncol(x))
     } else if(!is.data.frame(value)) {
@@ -175,9 +175,9 @@ rowann <- function(x, name=NULL) {
 
 #' @rdname core
 #' @export
-`rowann<-` <- function(x, name=NULL, value) {
+`rowann<-` <- function(x, name, value) {
   rowann <- attr(x, ".annmatrix.rowann")
-  if(is.null(name)) {
+  if(missing(name)) {
     if(is.null(value)) {
       rowann <- data.frame(row.names=1:ncol(x))
     } else if(!is.data.frame(value)) {

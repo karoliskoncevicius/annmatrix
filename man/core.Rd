@@ -12,7 +12,7 @@
 \alias{rowann<-}
 \title{annmatrix Objects and Basic Functionality}
 \usage{
-annmatrix(x = NULL, rowann = NULL, colann = NULL)
+annmatrix(x, rowann, colann)
 
 is.annmatrix(x)
 
@@ -20,13 +20,13 @@ is.annmatrix(x)
 
 \method{[}{annmatrix}(x, i, j, ..., drop = TRUE)
 
-colann(x, name = NULL)
+colann(x, name)
 
-rowann(x, name = NULL)
+rowann(x, name)
 
-colann(x, name = NULL) <- value
+colann(x, name) <- value
 
-rowann(x, name = NULL) <- value
+rowann(x, name) <- value
 }
 \arguments{
 \item{x}{an R object to be converted, used or tested}
