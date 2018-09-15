@@ -137,6 +137,8 @@ as.matrix.annmatrix <- function(x, ...) {
 colann <- function(x, names) {
   if(missing(names)) {
     attr(x, ".annmatrix.colann")
+  } else if (length(names)==1) {
+    attr(x, ".annmatrix.colann")[[names]]
   } else {
     attr(x, ".annmatrix.colann")[,names]
   }
@@ -147,6 +149,8 @@ colann <- function(x, names) {
 rowann <- function(x, names) {
   if(missing(names)) {
     attr(x, ".annmatrix.rowann")
+  } else if(length(names)==1) {
+    attr(x, ".annmatrix.rowann")[[names]]
   } else {
     attr(x, ".annmatrix.rowann")[,names]
   }

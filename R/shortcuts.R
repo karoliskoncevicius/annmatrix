@@ -84,26 +84,44 @@
 #' @rdname shortcuts
 #' @export
 `@.annmatrix` <- function(object, name) {
-  rowann(object, deparse(substitute(name)))
+  name <- deparse(substitute(name))
+  if(name=='""') {
+    rowann(object)
+  } else {
+    rowann(object, name)
+  }
 }
 
 #' @rdname shortcuts
 #' @export
 `@<-.annmatrix` <- function(object, name, value) {
-  rowann(object, deparse(substitute(name))) <- value
+  name <- deparse(substitute(name))
+  if(name=='""') {
+    rowann(object) <- value
+  } else {
+    rowann(object, name) <- value
+  }
   object
 }
 
 #' @rdname shortcuts
 #' @export
 `$.annmatrix` <- function(x, name) {
-  colann(x, name)
+  if(nchar(name)==0) {
+    colann(x)
+  } else {
+    colann(x, name)
+  }
 }
 
 #' @rdname shortcuts
 #' @export
 `$<-.annmatrix` <- function(x, name, value) {
-  colann(x, name) <- value
+  if(nchar(name)==0) {
+    colann(x) <- value
+  } else {
+    colann(x, name) <- value
+  }
   x
 }
 
