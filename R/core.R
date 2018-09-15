@@ -36,7 +36,7 @@
 #' @param i subset for rows
 #' @param j subset for columns
 #' @param drop if TRUE (default) the result of subsetting a single row or column is returned as a vector.
-#' @param name a character string name of existing row/column annotation field
+#' @param names a character vector of existing row/column annotation names
 #' @param value newly assigned value to row/column annotation field
 #' @param ... further arguments passed to or from methods
 #'
@@ -72,7 +72,7 @@
 #' rowann(annMat)
 #' colann(annMat)
 #' rowann(annMat, "chr")
-#' colann(annMat, "group")
+#' colann(annMat, c("group", "gender"))
 #'
 #' rowann(annMat, "newField") <- 1:nrow(annMat)
 #' colann(annMat, "newField") <- 1:ncol(annMat)
@@ -134,29 +134,29 @@ as.matrix.annmatrix <- function(x, ...) {
 
 #' @rdname core
 #' @export
-colann <- function(x, name) {
-  if(missing(name)) {
+colann <- function(x, names) {
+  if(missing(names)) {
     attr(x, ".annmatrix.colann")
   } else {
-    attr(x, ".annmatrix.colann")[[name]]
+    attr(x, ".annmatrix.colann")[,names]
   }
 }
 
 #' @rdname core
 #' @export
-rowann <- function(x, name) {
-  if(missing(name)) {
+rowann <- function(x, names) {
+  if(missing(names)) {
     attr(x, ".annmatrix.rowann")
   } else {
-    attr(x, ".annmatrix.rowann")[[name]]
+    attr(x, ".annmatrix.rowann")[,names]
   }
 }
 
 #' @rdname core
 #' @export
-`colann<-` <- function(x, name, value) {
+`colann<-` <- function(x, names, value) {
   colann <- attr(x, ".annmatrix.colann")
-  if(missing(name)) {
+  if(missing(names)) {
     if(is.null(value)) {
       colann <- data.frame(row.names=1:ncol(x))
     } else if(!is.data.frame(value)) {
@@ -167,7 +167,7 @@ rowann <- function(x, name) {
       colann <- value
     }
   } else {
-    colann[,name] <- value
+    colann[,names] <- value
   }
   attr(x, ".annmatrix.colann") <- colann
   x
@@ -175,20 +175,20 @@ rowann <- function(x, name) {
 
 #' @rdname core
 #' @export
-`rowann<-` <- function(x, name, value) {
+`rowann<-` <- function(x, names, value) {
   rowann <- attr(x, ".annmatrix.rowann")
-  if(missing(name)) {
+  if(missing(names)) {
     if(is.null(value)) {
-      rowann <- data.frame(row.names=1:ncol(x))
+      rowann <- data.frame(row.names=1:nrow(x))
     } else if(!is.data.frame(value)) {
       stop("row meta data should be a data.frame")
-    } else if(nrow(value) != ncol(x)) {
+    } else if(nrow(value) != nrow(x)) {
       stop("new row meta data should have the same number of rows as there are rows in the matrix")
     } else {
       rowann <- value
     }
   } else {
-    rowann[,name] <- value
+    rowann[,names] <- value
   }
   attr(x, ".annmatrix.rowann") <- rowann
   x

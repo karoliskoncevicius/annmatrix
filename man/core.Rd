@@ -20,13 +20,13 @@ is.annmatrix(x)
 
 \method{[}{annmatrix}(x, i, j, ..., drop = TRUE)
 
-colann(x, name)
+colann(x, names)
 
-rowann(x, name)
+rowann(x, names)
 
-colann(x, name) <- value
+colann(x, names) <- value
 
-rowann(x, name) <- value
+rowann(x, names) <- value
 }
 \arguments{
 \item{x}{an R object to be converted, used or tested}
@@ -43,7 +43,7 @@ rowann(x, name) <- value
 
 \item{drop}{if TRUE (default) the result of subsetting a single row or column is returned as a vector.}
 
-\item{name}{a character string name of existing row/column annotation field}
+\item{names}{a character vector of existing row/column annotation names}
 
 \item{value}{newly assigned value to row/column annotation field}
 }
@@ -109,7 +109,7 @@ annMat[1,,drop=FALSE]
 rowann(annMat)
 colann(annMat)
 rowann(annMat, "chr")
-colann(annMat, "group")
+colann(annMat, c("group", "gender"))
 
 rowann(annMat, "newField") <- 1:nrow(annMat)
 colann(annMat, "newField") <- 1:ncol(annMat)
