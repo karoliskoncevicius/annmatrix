@@ -6,13 +6,13 @@ R Annotated Matrix Object
 
 The `annmatrix` object tries to implement dimension-aware persistent metadata for R matrices.
 
-It uses S3 system of R to extend the base *matrix* class in order to provide it with persistent annotations that are associated with rows and columns.
+It uses S3 system of R to extend the base `matrix` class in order to provide it with persistent annotations that are associated with rows and columns.
 
 The use-case was born out of the need to better organize biomedical microarray and sequencing data within R.
-But it is readily applicable in other contexts where the data can be assembled into a matrix form with rows and columns representing distinct type of information.
+But it is readily applicable in other contexts where the data can be assembled into a `matrix` form with rows and columns representing distinct type of information.
 
-Technically `annmatrix` object is just a regular *R* matrix with additional attributes `.annmatrix.rowann` and `.annmatrix.colann`.
-So every operation that works on a *matrix* by design works in the same way on `annmatrix`.
+Technically `annmatrix` object is just a regular *R* `matrix` with additional attributes `.annmatrix.rowann` and `.annmatrix.colann`.
+So every operation that works on a `matrix` by design works in the same way on `annmatrix`.
 The only addition `annmatrix` provides is attaching row and column metadata that are preserved after sub-setting and some helper functions to use and to change this metadata.
 
 ## Usage ##
@@ -58,13 +58,13 @@ annMat
 ```
 
 ```
-##      [,1]     [,2]     [,3]     [,4]     [,5]     [,6]    
-## [1,] -1.14416  1.43033 -0.87312  0.29974  0.80084      ...
-## [2,] -0.13754  0.48740  0.56152 -1.26598  1.24515      ...
-## [3,]  0.26834  1.15042 -0.36435  0.29772 -1.48447      ...
-## [4,]  0.86574 -1.04754  1.29016 -0.79339  0.45015      ...
-## [5,] -1.09794 -0.47505 -0.48652  0.10367  1.15610      ...
-## [6,]      ...      ...      ...      ...      ...      ...
+##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
+## [1,] -0.546478 -0.995943  1.728842  0.789954 -1.493911       ...
+## [2,]  1.673162  1.573800 -0.606875 -1.168075 -0.607056       ...
+## [3,]  1.876453  0.423539  0.580571  1.145703  0.270331       ...
+## [4,]  0.877341 -2.262257  0.089509  0.084198 -0.781048       ...
+## [5,] -0.272941  0.783686  0.035691 -1.131001 -1.039066       ...
+## [6,]       ...       ...       ...       ...       ...       ...
 ## 
 ## rows:    25 chr, pos
 ## columns: 10 group, gender
@@ -78,9 +78,9 @@ rowann(annMat, "chr")
 ```
 
 ```
-##  [1] "chr1" "chr2" "chr3" "chr3" "chr1" "chr3" "chr2" "chr3" "chr3" "chr2"
-## [11] "chr3" "chr2" "chr1" "chr1" "chr1" "chr3" "chr2" "chr1" "chr2" "chr1"
-## [21] "chr3" "chr3" "chr1" "chr1" "chr3"
+##  [1] "chr1" "chr3" "chr2" "chr2" "chr2" "chr1" "chr2" "chr2" "chr3" "chr1"
+## [11] "chr2" "chr2" "chr2" "chr1" "chr3" "chr3" "chr1" "chr1" "chr1" "chr3"
+## [21] "chr1" "chr1" "chr2" "chr3" "chr1"
 ```
 
 ```r
@@ -89,16 +89,16 @@ colann(annMat, c("group", "gender"))
 
 ```
 ##      group gender
-## 1     case      F
+## 1     case      M
 ## 2     case      F
-## 3     case      M
-## 4     case      F
+## 3     case      F
+## 4     case      M
 ## 5     case      M
-## 6  control      F
-## 7  control      M
-## 8  control      M
-## 9  control      F
-## 10 control      F
+## 6  control      M
+## 7  control      F
+## 8  control      F
+## 9  control      M
+## 10 control      M
 ```
 
 When the second argument is not provided - entire `data.frame` will be returned:
@@ -110,16 +110,16 @@ colann(annMat)
 
 ```
 ##      group gender
-## 1     case      F
+## 1     case      M
 ## 2     case      F
-## 3     case      M
-## 4     case      F
+## 3     case      F
+## 4     case      M
 ## 5     case      M
-## 6  control      F
-## 7  control      M
-## 8  control      M
-## 9  control      F
-## 10 control      F
+## 6  control      M
+## 7  control      F
+## 8  control      F
+## 9  control      M
+## 10 control      M
 ```
 
 The same functions can also be used to alter the metadata or remove/add fields to it:
@@ -200,16 +200,16 @@ annMat$''
 
 ```
 ##      group gender
-## 1     case      F
+## 1     case      M
 ## 2     case      F
-## 3     case      M
-## 4     case      F
+## 3     case      F
+## 4     case      M
 ## 5     case      M
-## 6  control      F
-## 7  control      M
-## 8  control      M
-## 9  control      F
-## 10 control      F
+## 6  control      M
+## 7  control      F
+## 8  control      F
+## 9  control      M
+## 10 control      M
 ```
 
 When subsetting the `annmatrix` object all the metadata are correctly adjusted and class is preserved:
@@ -222,8 +222,8 @@ amat
 
 ```
 ##      [,1]     [,2]     [,3]    
-## [1,] -1.14416  1.43033 -0.87312
-## [2,] -0.13754  0.48740  0.56152
+## [1,] -0.54648 -0.99594  1.72884
+## [2,]  1.67316  1.57380 -0.60688
 ## 
 ## rows:    2 chr, pos
 ## columns: 3 group, gender
@@ -235,8 +235,8 @@ rowann(amat)
 
 ```
 ##    chr      pos
-## 1 chr2 545801.6
-## 2 chr2 934479.3
+## 1 chr2 986579.7
+## 2 chr2 559360.8
 ```
 
 ```r
@@ -245,9 +245,9 @@ colann(amat)
 
 ```
 ##   group gender
-## 1  case      F
+## 1  case      M
 ## 2  case      F
-## 3  case      M
+## 3  case      F
 ```
 
 However in order to be consistent with `matrix` the class is dropped when selecting only a single row or column:
@@ -258,8 +258,8 @@ annMat[1,]
 ```
 
 ```
-##  [1] -1.1441621  1.4303286 -0.8731225  0.2997429  0.8008371  0.4380678
-##  [7]  0.5932692  1.2618104  1.0874959  0.1472184
+##  [1] -0.54647751 -0.99594299  1.72884173  0.78995390 -1.49391117
+##  [6]  1.71404235  0.98198519 -1.02442083  0.02159985  0.14095487
 ```
 
 But just like with `matrix` we can enforce it to preserve all the annotations and class by setting `drop=FALSE`
@@ -271,7 +271,7 @@ annMat[1,, drop=FALSE]
 
 ```
 ##      [,1]     [,2]     [,3]     [,4]     [,5]     [,6]    
-## [1,] -1.14416  1.43033 -0.87312  0.29974  0.80084      ...
+## [1,] -0.54648 -0.99594  1.72884  0.78995 -1.49391      ...
 ## 
 ## rows:    1 chr, pos
 ## columns: 10 group, gender
@@ -292,11 +292,11 @@ annMat > 0
 
 ```
 ##      [,1]  [,2]  [,3]  [,4]  [,5]  [,6] 
-## [1,] FALSE  TRUE FALSE  TRUE  TRUE   ...
-## [2,] FALSE  TRUE  TRUE FALSE  TRUE   ...
-## [3,]  TRUE  TRUE FALSE  TRUE FALSE   ...
-## [4,]  TRUE FALSE  TRUE FALSE  TRUE   ...
-## [5,] FALSE FALSE FALSE  TRUE  TRUE   ...
+## [1,] FALSE FALSE  TRUE  TRUE FALSE   ...
+## [2,]  TRUE  TRUE FALSE FALSE FALSE   ...
+## [3,]  TRUE  TRUE  TRUE  TRUE  TRUE   ...
+## [4,]  TRUE FALSE  TRUE  TRUE FALSE   ...
+## [5,] FALSE  TRUE  TRUE FALSE FALSE   ...
 ## [6,]   ...   ...   ...   ...   ...   ...
 ## 
 ## rows:    25 chr, pos
@@ -310,11 +310,11 @@ annMat
 
 ```
 ##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,] -1.548311  1.026180 -1.277271 -0.104406  0.396689       ...
-## [2,] -0.084606  0.540340  0.614455 -1.213046  1.298087       ...
-## [3,]  0.233193  1.115276 -0.399502  0.262575 -1.519618       ...
-## [4,]  0.640463 -1.272818  1.064888 -1.018663  0.224875       ...
-## [5,] -1.255200 -0.632315 -0.643785 -0.053592  0.998839       ...
+## [1,] -0.678140 -1.127606  1.597179  0.658291 -1.625574       ...
+## [2,]  1.287301  1.187939 -0.992737 -1.553936 -0.992917       ...
+## [3,]  1.340897 -0.112018  0.045014  0.610147 -0.265226       ...
+## [4,]  1.192944 -1.946654  0.405112  0.399800 -0.465446       ...
+## [5,]  0.220378  1.277005  0.529009 -0.637683 -0.545747       ...
 ## [6,]       ...       ...       ...       ...       ...       ...
 ## 
 ## rows:    25 chr, pos
@@ -343,13 +343,13 @@ annMat
 ```
 
 ```
-##      [,1]     [,2]     [,3]     [,4]     [,5]     [,6]    
-## [1,] -1.61963  0.95815 -1.56679 -0.17913  0.37312      ...
-## [2,]  0.20195  0.53527  1.01745 -1.64014  1.38045      ...
-## [3,]  0.59745  1.03570 -0.36769  0.30449 -1.76838      ...
-## [4,]  1.10429 -1.04296  1.63278 -1.38397  0.18112      ...
-## [5,] -1.25485 -0.48544 -0.70140 -0.11217  1.04604      ...
-## [6,]      ...      ...      ...      ...      ...      ...
+##      [,1]       [,2]       [,3]       [,4]       [,5]       [,6]      
+## [1,] -0.6833593 -1.2701960  1.7343465  1.1556021 -1.6589214        ...
+## [2,]  1.2299558  1.6320019 -0.9885345 -1.5287015 -0.9738413        ...
+## [3,]  1.2821296  0.0026957  0.1024940  1.0971835 -0.1858519        ...
+## [4,]  1.1381011 -2.2967542  0.4810789  0.8419507 -0.4026624        ...
+## [5,]  0.1913285  1.7436334  0.6113374 -0.4169254 -0.4896177        ...
+## [6,]        ...        ...        ...        ...        ...        ...
 ## 
 ## rows:    25 chr, pos
 ## columns: 10 group, gender
@@ -360,5 +360,5 @@ annMat
 Similar ideas can be found in:
 
 1. [Henrik Bengtsson's "wishlist for R"](https://github.com/HenrikBengtsson/Wishlist-for-R/issues/2)
-2. [BioConductor's AnnotatedDataFrame object](https://bioconductor.org/packages/devel/bioc/manuals/Biobase/man/Biobase.pdf)
+2. [BioConductor's AnnotatedDataFrame object](https://www.rdocumentation.org/packages/Biobase/versions/2.32.0/topics/AnnotatedDataFrame)
 
