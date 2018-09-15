@@ -49,11 +49,11 @@ t.annmatrix <- function(x) {
 #'                          )
 #' annMat <- annmatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
 #'
-#' annMat2Long(annMat)
+#' annmat2long(annMat)
 #'
 #' @author Karolis Koncevičius
 #' @export
-annMat2Long <- function(x, ...) {
+annmat2long <- function(x, ...) {
   rowann <- attr(x, ".annmatrix.rowann")
   colann <- attr(x, ".annmatrix.colann")
   longdf <- data.frame(as.numeric(x),
