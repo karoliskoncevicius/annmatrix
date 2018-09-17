@@ -11,7 +11,7 @@ It uses S3 system of R to extend the base `matrix` class in order to provide it 
 The use-case was born out of the need to better organize biomedical microarray and sequencing data within R.
 But it is readily applicable in other contexts where the data can be assembled into a `matrix` form with rows and columns representing distinct type of information.
 
-Technically `annmatrix` object is just a regular *R* `matrix` with additional attributes `.annmatrix.rowann` and `.annmatrix.colann`.
+Technically `annmatrix` object is just a regular *R* `matrix` with additional attributes `.annmatrix.rann` and `.annmatrix.cann`.
 So every operation that works on a `matrix` by design works in the same way on `annmatrix`.
 The only addition `annmatrix` provides is attaching row and column metadata that are preserved after sub-setting and some helper functions to use and to change this metadata.
 
@@ -59,100 +59,96 @@ annMat
 
 ```
 ##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,] -0.546478 -0.995943  1.728842  0.789954 -1.493911       ...
-## [2,]  1.673162  1.573800 -0.606875 -1.168075 -0.607056       ...
-## [3,]  1.876453  0.423539  0.580571  1.145703  0.270331       ...
-## [4,]  0.877341 -2.262257  0.089509  0.084198 -0.781048       ...
-## [5,] -0.272941  0.783686  0.035691 -1.131001 -1.039066       ...
+## [1,] -0.412852  0.480246 -0.667628 -1.300305 -0.506013       ...
+## [2,] -0.848179 -1.650363  0.613437 -0.576292  1.453715       ...
+## [3,]  0.119304 -0.915139 -1.861053 -0.535924  0.199388       ...
+## [4,]  0.188267 -0.417044  0.136320 -0.922746  0.221261       ...
+## [5,]  1.572805  0.588687 -0.629479  0.028843 -1.804262       ...
 ## [6,]       ...       ...       ...       ...       ...       ...
 ## 
 ## rows:    25 chr, pos
 ## columns: 10 group, gender
 ```
 
-The attributes can be accessed with `rowann` (for row metadata) and `colann` (for column metadata):
+The attributes can be accessed with `rann` (for row metadata) and `cann` (for column metadata):
 
 
 ```r
-rowann(annMat, "chr")
+rowanns(annMat, "chr")
 ```
 
 ```
-##  [1] "chr1" "chr3" "chr2" "chr2" "chr2" "chr1" "chr2" "chr2" "chr3" "chr1"
-## [11] "chr2" "chr2" "chr2" "chr1" "chr3" "chr3" "chr1" "chr1" "chr1" "chr3"
-## [21] "chr1" "chr1" "chr2" "chr3" "chr1"
+## Error in rowanns(annMat, "chr"): could not find function "rowanns"
 ```
 
 ```r
-colann(annMat, c("group", "gender"))
+colanns(annMat, c("group", "gender"))
 ```
 
 ```
-##      group gender
-## 1     case      M
-## 2     case      F
-## 3     case      F
-## 4     case      M
-## 5     case      M
-## 6  control      M
-## 7  control      F
-## 8  control      F
-## 9  control      M
-## 10 control      M
+## Error in colanns(annMat, c("group", "gender")): could not find function "colanns"
 ```
 
 When the second argument is not provided - entire `data.frame` will be returned:
 
 
 ```r
-colann(annMat)
+colanns(annMat)
 ```
 
 ```
-##      group gender
-## 1     case      M
-## 2     case      F
-## 3     case      F
-## 4     case      M
-## 5     case      M
-## 6  control      M
-## 7  control      F
-## 8  control      F
-## 9  control      M
-## 10 control      M
+## Error in colanns(annMat): could not find function "colanns"
 ```
 
 The same functions can also be used to alter the metadata or remove/add fields to it:
 
 
 ```r
-rowann(annMat, "chr") <- "chr1"
-rowann(annMat, "chr")
+rowanns(annMat, "chr") <- "chr1"
 ```
 
 ```
-##  [1] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
-## [11] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
-## [21] "chr1" "chr1" "chr1" "chr1" "chr1"
+## Error in rowanns(annMat, "chr") <- "chr1": could not find function "rowanns<-"
 ```
 
 ```r
-rowann(annMat, "strand") <- "+"
-rowann(annMat, "strand")
+rowanns(annMat, "chr")
 ```
 
 ```
-##  [1] "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+"
-## [18] "+" "+" "+" "+" "+" "+" "+" "+"
+## Error in rowanns(annMat, "chr"): could not find function "rowanns"
 ```
 
 ```r
-rowann(annMat, "strand") <- NULL
-rowann(annMat, "strand")
+rowanns(annMat, "strand") <- "+"
 ```
 
 ```
-## NULL
+## Error in rowanns(annMat, "strand") <- "+": could not find function "rowanns<-"
+```
+
+```r
+rowanns(annMat, "strand")
+```
+
+```
+## Error in rowanns(annMat, "strand"): could not find function "rowanns"
+```
+
+```r
+rowanns(annMat, "strand") <- NULL
+```
+
+```
+## Error in rowanns(annMat, "strand") <- NULL: could not find function "rowanns<-"
+```
+
+```r
+rowanns(annMat, "strand")
+```
+
+```
+## Error in rowanns(annMat, "strand"): could not find function "rowanns"
 ```
 
 For convenience the operators `@` and `$` are available to select row and column metadata respectively:
@@ -163,9 +159,9 @@ annMat@chr
 ```
 
 ```
-##  [1] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
-## [11] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
-## [21] "chr1" "chr1" "chr1" "chr1" "chr1"
+##  [1] "chr1" "chr2" "chr3" "chr2" "chr1" "chr2" "chr1" "chr2" "chr2" "chr1"
+## [11] "chr2" "chr3" "chr2" "chr2" "chr3" "chr3" "chr1" "chr2" "chr1" "chr1"
+## [21] "chr2" "chr1" "chr2" "chr2" "chr3"
 ```
 
 ```r
@@ -200,16 +196,16 @@ annMat$''
 
 ```
 ##      group gender
-## 1     case      M
-## 2     case      F
-## 3     case      F
+## 1     case      F
+## 2     case      M
+## 3     case      M
 ## 4     case      M
 ## 5     case      M
 ## 6  control      M
 ## 7  control      F
 ## 8  control      F
-## 9  control      M
-## 10 control      M
+## 9  control      F
+## 10 control      F
 ```
 
 When subsetting the `annmatrix` object all the metadata are correctly adjusted and class is preserved:
@@ -222,32 +218,27 @@ amat
 
 ```
 ##      [,1]     [,2]     [,3]    
-## [1,] -0.54648 -0.99594  1.72884
-## [2,]  1.67316  1.57380 -0.60688
+## [1,] -0.41285  0.48025 -0.66763
+## [2,] -0.84818 -1.65036  0.61344
 ## 
 ## rows:    2 chr, pos
 ## columns: 3 group, gender
 ```
 
 ```r
-rowann(amat)
+rowanns(amat)
 ```
 
 ```
-##    chr      pos
-## 1 chr2 986579.7
-## 2 chr2 559360.8
+## Error in rowanns(amat): could not find function "rowanns"
 ```
 
 ```r
-colann(amat)
+colanns(amat)
 ```
 
 ```
-##   group gender
-## 1  case      M
-## 2  case      F
-## 3  case      F
+## Error in colanns(amat): could not find function "colanns"
 ```
 
 However in order to be consistent with `matrix` the class is dropped when selecting only a single row or column:
@@ -258,8 +249,8 @@ annMat[1,]
 ```
 
 ```
-##  [1] -0.54647751 -0.99594299  1.72884173  0.78995390 -1.49391117
-##  [6]  1.71404235  0.98198519 -1.02442083  0.02159985  0.14095487
+##  [1] -0.4128520  0.4802455 -0.6676284 -1.3003053 -0.5060134 -0.5116670
+##  [7]  0.8499302  0.3454944 -0.2478704  2.2656775
 ```
 
 But just like with `matrix` we can enforce it to preserve all the annotations and class by setting `drop=FALSE`
@@ -271,7 +262,7 @@ annMat[1,, drop=FALSE]
 
 ```
 ##      [,1]     [,2]     [,3]     [,4]     [,5]     [,6]    
-## [1,] -0.54648 -0.99594  1.72884  0.78995 -1.49391      ...
+## [1,] -0.41285  0.48025 -0.66763 -1.30031 -0.50601      ...
 ## 
 ## rows:    1 chr, pos
 ## columns: 10 group, gender
@@ -292,11 +283,11 @@ annMat > 0
 
 ```
 ##      [,1]  [,2]  [,3]  [,4]  [,5]  [,6] 
-## [1,] FALSE FALSE  TRUE  TRUE FALSE   ...
-## [2,]  TRUE  TRUE FALSE FALSE FALSE   ...
-## [3,]  TRUE  TRUE  TRUE  TRUE  TRUE   ...
-## [4,]  TRUE FALSE  TRUE  TRUE FALSE   ...
-## [5,] FALSE  TRUE  TRUE FALSE FALSE   ...
+## [1,] FALSE  TRUE FALSE FALSE FALSE   ...
+## [2,] FALSE FALSE  TRUE FALSE  TRUE   ...
+## [3,]  TRUE FALSE FALSE FALSE  TRUE   ...
+## [4,]  TRUE FALSE  TRUE FALSE  TRUE   ...
+## [5,]  TRUE  TRUE FALSE  TRUE FALSE   ...
 ## [6,]   ...   ...   ...   ...   ...   ...
 ## 
 ## rows:    25 chr, pos
@@ -310,11 +301,11 @@ annMat
 
 ```
 ##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,] -0.678140 -1.127606  1.597179  0.658291 -1.625574       ...
-## [2,]  1.287301  1.187939 -0.992737 -1.553936 -0.992917       ...
-## [3,]  1.340897 -0.112018  0.045014  0.610147 -0.265226       ...
-## [4,]  1.192944 -1.946654  0.405112  0.399800 -0.465446       ...
-## [5,]  0.220378  1.277005  0.529009 -0.637683 -0.545747       ...
+## [1,] -0.442353  0.450744 -0.697130 -1.329806 -0.535514       ...
+## [2,] -0.647063 -1.449248  0.814553 -0.375176  1.654831       ...
+## [3,]  0.570807 -0.463636 -1.409550 -0.084421  0.650891       ...
+## [4,]  0.112373 -0.492938  0.060427 -0.998639  0.145368       ...
+## [5,]  1.425306  0.441189 -0.776977 -0.118656 -1.951761       ...
 ## [6,]       ...       ...       ...       ...       ...       ...
 ## 
 ## rows:    25 chr, pos
@@ -344,11 +335,11 @@ annMat
 
 ```
 ##      [,1]       [,2]       [,3]       [,4]       [,5]       [,6]      
-## [1,] -0.6833593 -1.2701960  1.7343465  1.1556021 -1.6589214        ...
-## [2,]  1.2299558  1.6320019 -0.9885345 -1.5287015 -0.9738413        ...
-## [3,]  1.2821296  0.0026957  0.1024940  1.0971835 -0.1858519        ...
-## [4,]  1.1381011 -2.2967542  0.4810789  0.8419507 -0.4026624        ...
-## [5,]  0.1913285  1.7436334  0.6113374 -0.4169254 -0.4896177        ...
+## [1,] -0.5731975  0.4520815 -0.6877762 -1.2831501 -0.3858683        ...
+## [2,] -0.7817372 -2.0505052  1.1356244 -0.2971653  1.6123199        ...
+## [3,]  0.4589179 -0.7523002 -1.5471025  0.0031392  0.6964547        ...
+## [4,] -0.0080929 -0.7908960  0.2259925 -0.9411061  0.2352808        ...
+## [5,]  1.3294037  0.4394954 -0.7840890 -0.0322195 -1.6778686        ...
 ## [6,]        ...        ...        ...        ...        ...        ...
 ## 
 ## rows:    25 chr, pos
