@@ -13,20 +13,20 @@
 #'
 #' @examples
 #'
-#' rowsplit(iris, iris$Species)
-#' colsplit(iris, c(1,1,1,1,2))
+#' rsplit(iris, iris$Species)
+#' csplit(iris, c(1,1,1,1,2))
 #'
-#' rowsplit(matrix(rnorm(20), nrow=5), c(1,1,2,2,3))
+#' rsplit(matrix(rnorm(20), nrow=5), c(1,1,2,2,3))
 #'
 #' @author Karolis Koncevičius
 #' @export
-rowsplit <- function(x, group) {
+rsplit <- function(x, group) {
   lapply(split(seq_len(nrow(x)), group), function(ind) x[ind, , drop=FALSE])
 }
 
 #' @rdname split
 #' @export
-colsplit <- function(x, group) {
+csplit <- function(x, group) {
   lapply(split(seq_len(ncol(x)), group), function(ind) x[, ind, drop=FALSE])
 }
 

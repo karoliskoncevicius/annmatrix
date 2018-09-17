@@ -2,13 +2,13 @@
 % Please edit documentation in R/split.R
 \name{split}
 \alias{split}
-\alias{rowsplit}
-\alias{colsplit}
+\alias{rsplit}
+\alias{csplit}
 \title{Split Matrix by Rows and Columns}
 \usage{
-rowsplit(x, group)
+rsplit(x, group)
 
-colsplit(x, group)
+csplit(x, group)
 }
 \arguments{
 \item{x}{an R object. Typically a \code{matrix} or \code{data.frame} to be divided into groups.}
@@ -25,10 +25,10 @@ or columns.
 }
 \examples{
 
-rowsplit(iris, iris$Species)
-colsplit(iris, c(1,1,1,1,2))
+rsplit(iris, iris$Species)
+csplit(iris, c(1,1,1,1,2))
 
-rowsplit(matrix(rnorm(20), nrow=5), c(1,1,2,2,3))
+rsplit(matrix(rnorm(20), nrow=5), c(1,1,2,2,3))
 
 }
 \author{
