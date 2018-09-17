@@ -42,10 +42,10 @@ print.annmatrix <- function(x, nrow=5, ncol=5, ...) {
     cat("\n")
   }
   cat("rows:    ", rows, " ", sep="")
-  cat(names(attr(x, ".annmatrix.rowann")), sep=", ")
+  cat(names(attr(x, ".annmatrix.rann")), sep=", ")
   cat("\n")
   cat("columns: ", cols, " ", sep="")
-  cat(names(attr(x, ".annmatrix.colann")), sep=", ")
+  cat(names(attr(x, ".annmatrix.cann")), sep=", ")
   cat("\n")
   invisible(x)
 }

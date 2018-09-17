@@ -86,9 +86,9 @@
 `@.annmatrix` <- function(object, name) {
   name <- deparse(substitute(name))
   if(name=='""') {
-    rowann(object)
+    rowanns(object)
   } else {
-    rowann(object, name)
+    rowanns(object, name)
   }
 }
 
@@ -97,9 +97,9 @@
 `@<-.annmatrix` <- function(object, name, value) {
   name <- deparse(substitute(name))
   if(name=='""') {
-    rowann(object) <- value
+    rowanns(object) <- value
   } else {
-    rowann(object, name) <- value
+    rowanns(object, name) <- value
   }
   object
 }
@@ -108,9 +108,9 @@
 #' @export
 `$.annmatrix` <- function(x, name) {
   if(nchar(name)==0) {
-    colann(x)
+    colanns(x)
   } else {
-    colann(x, name)
+    colanns(x, name)
   }
 }
 
@@ -118,9 +118,9 @@
 #' @export
 `$<-.annmatrix` <- function(x, name, value) {
   if(nchar(name)==0) {
-    colann(x) <- value
+    colanns(x) <- value
   } else {
-    colann(x, name) <- value
+    colanns(x, name) <- value
   }
   x
 }
@@ -139,6 +139,6 @@
 #' @author Karolis Koncevičius
 #' @export
 .DollarNames.annmatrix <- function(x, pattern="") {
-  grep(pattern, names(attr(x, ".annmatrix.colann")), value=TRUE)
+  grep(pattern, names(attr(x, ".annmatrix.colanns")), value=TRUE)
 }
 

@@ -25,7 +25,7 @@
 t.annmatrix <- function(x) {
   x <- t.default(x)
   attnames <- names(attributes(x))
-  attnames[match(c(".annmatrix.rowann", ".annmatrix.colann"), attnames)] <- c(".annmatrix.colann", ".annmatrix.rowann")
+  attnames[match(c(".annmatrix.rann", ".annmatrix.cann"), attnames)] <- c(".annmatrix.cann", ".annmatrix.rann")
   names(attributes(x)) <- attnames
   x
 }
@@ -54,11 +54,11 @@ t.annmatrix <- function(x) {
 #' @author Karolis Koncevičius
 #' @export
 annmat2long <- function(x, ...) {
-  rowann <- attr(x, ".annmatrix.rowann")
-  colann <- attr(x, ".annmatrix.colann")
+  rann <- attr(x, ".annmatrix.rann")
+  cann <- attr(x, ".annmatrix.cann")
   longdf <- data.frame(as.numeric(x),
-                       rowann[rep(seq_len(nrow(rowann)), nrow(colann)), ],
-                       colann[rep(seq_len(nrow(colann)), each=nrow(rowann)), ],
+                       rann[rep(seq_len(nrow(rann)), nrow(cann)), ],
+                       cann[rep(seq_len(nrow(cann)), each=nrow(rann)), ],
                        ...
                        )
   longdf

@@ -7,11 +7,11 @@
 #'
 #' @export
 Ops.annmatrix <- function(e1, e2) {
-  rowann <- attr(e1, ".annmatrix.rowann")
-  colann <- attr(e1, ".annmatrix.colann")
+  rann <- attr(e1, ".annmatrix.rann")
+  cann <- attr(e1, ".annmatrix.cann")
 
   e1 <- unclass(e1)
   if (!missing(e2)) e2 <- unclass(e2)
-  annmatrix(NextMethod(), rowann=rowann, colann=colann)
+  annmatrix(NextMethod(), rann=rann, cann=cann)
 }
 

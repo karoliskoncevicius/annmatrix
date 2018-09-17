@@ -4,7 +4,7 @@
 #'
 #' \code{annmatrix} constructs an object of class \code{annmatrix}.
 #' The function expects \code{x} to be a \code{matrix}
-#' and \code{rowann} and \code{colann} to be of class \code{data.frame}.
+#' and \code{rowanns} and \code{colanns} to be of class \code{data.frame}.
 #' If the passed objects are of a different class the function will try to
 #' convert them via the use of \code{as.matrix} and \code{as.data.frame}.
 #'
@@ -20,19 +20,19 @@
 #' additional argument \code{drop=FALSE} can be provided in order to bypass this
 #' and return a proper matrix instead.
 #'
-#' \code{rowann} and \code{colann} returns the selected field from column and
+#' \code{rowanns} and \code{colanns} returns the selected field from column and
 #' row annotation \code{data.frame} respectively. When the selected field is
 #' not specified the whole annotation \code{data.frame} is returned.
 #'
-#' \code{rowann<-} and \code{colann<-} functions can be used to replace the fields from
+#' \code{rowanns<-} and \code{colanns<-} functions can be used to replace the fields from
 #' column and row annotation \code{data.frame} respectively. When the selected field
 #' is not specified the whole annotation \code{data.frame} is replaced.
 #'
 #' @name core
 #'
 #' @param x an R object to be converted, used or tested
-#' @param rowann annotation \code{data.frame} for rows of the \code{annmatrix} object
-#' @param colann annotation \code{data.frame} for columns of the \code{annmatrix} object
+#' @param rann annotation \code{data.frame} for rows of the \code{annmatrix} object
+#' @param cann annotation \code{data.frame} for columns of the \code{annmatrix} object
 #' @param i subset for rows
 #' @param j subset for columns
 #' @param drop if TRUE (default) the result of subsetting a single row or column is returned as a vector.
@@ -69,31 +69,31 @@
 #' annMat[1:2,1:2]
 #' annMat[1,,drop=FALSE]
 #'
-#' rowann(annMat)
-#' colann(annMat)
-#' rowann(annMat, "chr")
-#' colann(annMat, c("group", "gender"))
+#' rowanns(annMat)
+#' colanns(annMat)
+#' rowanns(annMat, "chr")
+#' colanns(annMat, c("group", "gender"))
 #'
-#' rowann(annMat, "newField") <- 1:nrow(annMat)
-#' colann(annMat, "newField") <- 1:ncol(annMat)
-#' colann(annMat, "newField")
-#' colann(annMat, "newField") <- NULL
-#' colann(annMat, "newField")
+#' rowanns(annMat, "newField") <- 1:nrow(annMat)
+#' colanns(annMat, "newField") <- 1:ncol(annMat)
+#' colanns(annMat, "newField")
+#' colanns(annMat, "newField") <- NULL
+#' colanns(annMat, "newField")
 #'
 #' @seealso `$.annmatrix` `@.annmatrix`
 #'
 #' @author Karolis Koncevičius
 #' @export
-annmatrix <- function(x, rowann, colann) {
+annmatrix <- function(x, rann, cann) {
   if(missing(x)) x <- matrix(nrow=0, ncol=0)
   x <- as.matrix(x)
-  if(missing(rowann)) rowann <- data.frame(row.names=seq_len(nrow(x)))
-  if(missing(colann)) colann <- data.frame(row.names=seq_len(ncol(x)))
-  rowann <- as.data.frame(rowann, stringsAsFactors=FALSE)
-  colann <- as.data.frame(colann, stringsAsFactors=FALSE)
-  stopifnot(nrow(x)==nrow(rowann) & ncol(x)==nrow(colann))
-  attr(x, ".annmatrix.rowann") <- rowann
-  attr(x, ".annmatrix.colann") <- colann
+  if(missing(rann)) rann <- data.frame(row.names=seq_len(nrow(x)))
+  if(missing(cann)) cann <- data.frame(row.names=seq_len(ncol(x)))
+  rann <- as.data.frame(rann, stringsAsFactors=FALSE)
+  cann <- as.data.frame(cann, stringsAsFactors=FALSE)
+  stopifnot(nrow(x)==nrow(rann) & ncol(x)==nrow(cann))
+  attr(x, ".annmatrix.rann") <- rann
+  attr(x, ".annmatrix.cann") <- cann
   class(x) <- append("annmatrix", class(x))
   x
 }
@@ -107,8 +107,8 @@ is.annmatrix <- function(x) {
 #' @rdname core
 #' @export
 as.matrix.annmatrix <- function(x, ...) {
-  attr(x, ".annmatrix.rowann") <- NULL
-  attr(x, ".annmatrix.colann") <- NULL
+  attr(x, ".annmatrix.rann") <- NULL
+  attr(x, ".annmatrix.cann") <- NULL
   unclass(x)
 }
 
@@ -118,14 +118,14 @@ as.matrix.annmatrix <- function(x, ...) {
   mat <- NextMethod("[")
   if(is.matrix(mat)) {
     if(missing(i)) {
-      attr(mat, ".annmatrix.rowann") <- attr(x, ".annmatrix.rowann")
+      attr(mat, ".annmatrix.rann") <- attr(x, ".annmatrix.rann")
     } else {
-      attr(mat, ".annmatrix.rowann") <- attr(x, ".annmatrix.rowann")[i,,drop=FALSE]
+      attr(mat, ".annmatrix.rann") <- attr(x, ".annmatrix.rann")[i,,drop=FALSE]
     }
     if(missing(j)) {
-      attr(mat, ".annmatrix.colann") <- attr(x, ".annmatrix.colann")
+      attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")
     } else {
-      attr(mat, ".annmatrix.colann") <- attr(x, ".annmatrix.colann")[j,,drop=FALSE]
+      attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")[j,,drop=FALSE]
     }
     class(mat) <- append("annmatrix", class(mat))
   }
@@ -134,67 +134,67 @@ as.matrix.annmatrix <- function(x, ...) {
 
 #' @rdname core
 #' @export
-colann <- function(x, names) {
+colanns <- function(x, names) {
   if(missing(names)) {
-    attr(x, ".annmatrix.colann")
+    attr(x, ".annmatrix.cann")
   } else if (length(names)==1) {
-    attr(x, ".annmatrix.colann")[[names]]
+    attr(x, ".annmatrix.cann")[[names]]
   } else {
-    attr(x, ".annmatrix.colann")[,names]
+    attr(x, ".annmatrix.cann")[,names]
   }
 }
 
 #' @rdname core
 #' @export
-rowann <- function(x, names) {
+rowanns <- function(x, names) {
   if(missing(names)) {
-    attr(x, ".annmatrix.rowann")
+    attr(x, ".annmatrix.rann")
   } else if(length(names)==1) {
-    attr(x, ".annmatrix.rowann")[[names]]
+    attr(x, ".annmatrix.rann")[[names]]
   } else {
-    attr(x, ".annmatrix.rowann")[,names]
+    attr(x, ".annmatrix.rann")[,names]
   }
 }
 
 #' @rdname core
 #' @export
-`colann<-` <- function(x, names, value) {
-  colann <- attr(x, ".annmatrix.colann")
+`colanns<-` <- function(x, names, value) {
+  cann <- attr(x, ".annmatrix.cann")
   if(missing(names)) {
     if(is.null(value)) {
-      colann <- data.frame(row.names=1:ncol(x))
+      cann <- data.frame(row.names=1:ncol(x))
     } else if(!is.data.frame(value)) {
       stop("column meta data should be a data.frame")
     } else if(nrow(value) != ncol(x)) {
       stop("new column meta data should have the same number of rows as there are columns in the matrix")
     } else {
-      colann <- value
+      cann <- value
     }
   } else {
-    colann[,names] <- value
+    cann[,names] <- value
   }
-  attr(x, ".annmatrix.colann") <- colann
+  attr(x, ".annmatrix.cann") <- cann
   x
 }
 
 #' @rdname core
 #' @export
-`rowann<-` <- function(x, names, value) {
-  rowann <- attr(x, ".annmatrix.rowann")
+`rowanns<-` <- function(x, names, value) {
+  rann <- attr(x, ".annmatrix.rann")
   if(missing(names)) {
     if(is.null(value)) {
-      rowann <- data.frame(row.names=1:nrow(x))
+      rann <- data.frame(row.names=1:nrow(x))
     } else if(!is.data.frame(value)) {
       stop("row meta data should be a data.frame")
     } else if(nrow(value) != nrow(x)) {
       stop("new row meta data should have the same number of rows as there are rows in the matrix")
     } else {
-      rowann <- value
+      rann <- value
     }
   } else {
-    rowann[,names] <- value
+    rann[,names] <- value
   }
-  attr(x, ".annmatrix.rowann") <- rowann
+  attr(x, ".annmatrix.rann") <- rann
   x
 }
 

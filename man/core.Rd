@@ -6,13 +6,13 @@
 \alias{is.annmatrix}
 \alias{as.matrix.annmatrix}
 \alias{[.annmatrix}
-\alias{colann}
-\alias{rowann}
-\alias{colann<-}
-\alias{rowann<-}
+\alias{colanns}
+\alias{rowanns}
+\alias{colanns<-}
+\alias{rowanns<-}
 \title{annmatrix Objects and Basic Functionality}
 \usage{
-annmatrix(x, rowann, colann)
+annmatrix(x, rann, cann)
 
 is.annmatrix(x)
 
@@ -20,20 +20,20 @@ is.annmatrix(x)
 
 \method{[}{annmatrix}(x, i, j, ..., drop = TRUE)
 
-colann(x, names)
+colanns(x, names)
 
-rowann(x, names)
+rowanns(x, names)
 
-colann(x, names) <- value
+colanns(x, names) <- value
 
-rowann(x, names) <- value
+rowanns(x, names) <- value
 }
 \arguments{
 \item{x}{an R object to be converted, used or tested}
 
-\item{rowann}{annotation \code{data.frame} for rows of the \code{annmatrix} object}
+\item{rann}{annotation \code{data.frame} for rows of the \code{annmatrix} object}
 
-\item{colann}{annotation \code{data.frame} for columns of the \code{annmatrix} object}
+\item{cann}{annotation \code{data.frame} for columns of the \code{annmatrix} object}
 
 \item{...}{further arguments passed to or from methods}
 
@@ -66,7 +66,7 @@ Functions used to construct, test and use the objects of class \code{annmatrix}.
 \details{
 \code{annmatrix} constructs an object of class \code{annmatrix}.
 The function expects \code{x} to be a \code{matrix}
-and \code{rowann} and \code{colann} to be of class \code{data.frame}.
+and \code{rowanns} and \code{colanns} to be of class \code{data.frame}.
 If the passed objects are of a different class the function will try to
 convert them via the use of \code{as.matrix} and \code{as.data.frame}.
 
@@ -82,11 +82,11 @@ dropped and a vector is returned. Just like in the case of matrices the
 additional argument \code{drop=FALSE} can be provided in order to bypass this
 and return a proper matrix instead.
 
-\code{rowann} and \code{colann} returns the selected field from column and
+\code{rowanns} and \code{colanns} returns the selected field from column and
 row annotation \code{data.frame} respectively. When the selected field is
 not specified the whole annotation \code{data.frame} is returned.
 
-\code{rowann<-} and \code{colann<-} functions can be used to replace the fields from
+\code{rowanns<-} and \code{colanns<-} functions can be used to replace the fields from
 column and row annotation \code{data.frame} respectively. When the selected field
 is not specified the whole annotation \code{data.frame} is replaced.
 }
@@ -106,16 +106,16 @@ is.annmatrix(annMat)
 annMat[1:2,1:2]
 annMat[1,,drop=FALSE]
 
-rowann(annMat)
-colann(annMat)
-rowann(annMat, "chr")
-colann(annMat, c("group", "gender"))
+rowanns(annMat)
+colanns(annMat)
+rowanns(annMat, "chr")
+colanns(annMat, c("group", "gender"))
 
-rowann(annMat, "newField") <- 1:nrow(annMat)
-colann(annMat, "newField") <- 1:ncol(annMat)
-colann(annMat, "newField")
-colann(annMat, "newField") <- NULL
-colann(annMat, "newField")
+rowanns(annMat, "newField") <- 1:nrow(annMat)
+colanns(annMat, "newField") <- 1:ncol(annMat)
+colanns(annMat, "newField")
+colanns(annMat, "newField") <- NULL
+colanns(annMat, "newField")
 
 }
 \seealso{
