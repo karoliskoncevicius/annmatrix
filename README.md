@@ -59,11 +59,11 @@ annMat
 
 ```
 ##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,] -1.460870 -0.094723 -0.459316  0.423635 -0.908035       ...
-## [2,]  0.457633 -2.439557  2.038390  0.413780 -0.031605       ...
-## [3,]  0.567247  0.318441  0.868275 -1.281060  0.577446       ...
-## [4,] -1.178497  1.511205 -0.945380 -1.364283 -1.156390       ...
-## [5,] -2.014972 -0.569157 -0.512141  0.768336 -1.432570       ...
+## [1,] -0.164455  0.022928  0.134618 -0.700237 -0.909821       ...
+## [2,] -0.528041 -0.095865 -2.112730 -2.965206  0.276316       ...
+## [3,] -0.147430 -0.176805  1.444041  0.046308  0.921337       ...
+## [4,] -0.239793  0.416520  2.246258  0.118137  0.192765       ...
+## [5,] -0.901759 -0.907739 -1.383355 -0.883386 -1.807295       ...
 ## [6,]       ...       ...       ...       ...       ...       ...
 ## 
 ## rows:    25 chr, pos
@@ -78,8 +78,8 @@ rowanns(annMat, "chr")
 ```
 
 ```
-##  [1] "chr1" "chr3" "chr1" "chr2" "chr1" "chr1" "chr1" "chr1" "chr1" "chr2" "chr2" "chr3" "chr1" "chr1" "chr3"
-## [16] "chr2" "chr2" "chr2" "chr2" "chr1" "chr2" "chr3" "chr2" "chr2" "chr1"
+##  [1] "chr1" "chr1" "chr2" "chr1" "chr2" "chr1" "chr1" "chr2" "chr2" "chr2" "chr3" "chr3" "chr2"
+## [14] "chr1" "chr1" "chr3" "chr2" "chr1" "chr3" "chr3" "chr1" "chr2" "chr2" "chr2" "chr2"
 ```
 
 ```r
@@ -89,15 +89,15 @@ colanns(annMat, c("group", "gender"))
 ```
 ##      group gender
 ## 1     case      M
-## 2     case      F
-## 3     case      M
-## 4     case      M
-## 5     case      M
-## 6  control      M
+## 2     case      M
+## 3     case      F
+## 4     case      F
+## 5     case      F
+## 6  control      F
 ## 7  control      M
 ## 8  control      M
 ## 9  control      M
-## 10 control      M
+## 10 control      F
 ```
 
 When the second argument is not provided - entire `data.frame` will be returned:
@@ -110,15 +110,15 @@ colanns(annMat)
 ```
 ##      group gender
 ## 1     case      M
-## 2     case      F
-## 3     case      M
-## 4     case      M
-## 5     case      M
-## 6  control      M
+## 2     case      M
+## 3     case      F
+## 4     case      F
+## 5     case      F
+## 6  control      F
 ## 7  control      M
 ## 8  control      M
 ## 9  control      M
-## 10 control      M
+## 10 control      F
 ```
 
 The same functions can also be used to alter the metadata or remove/add fields to it:
@@ -130,8 +130,8 @@ rowanns(annMat, "chr")
 ```
 
 ```
-##  [1] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
-## [16] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
+##  [1] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
+## [14] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
 ```
 
 ```r
@@ -140,7 +140,8 @@ rowanns(annMat, "strand")
 ```
 
 ```
-##  [1] "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+"
+##  [1] "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+"
+## [25] "+"
 ```
 
 ```r
@@ -160,8 +161,8 @@ annMat@chr
 ```
 
 ```
-##  [1] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
-## [16] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
+##  [1] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
+## [14] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
 ```
 
 ```r
@@ -169,7 +170,8 @@ annMat$group
 ```
 
 ```
-##  [1] "case"    "case"    "case"    "case"    "case"    "control" "control" "control" "control" "control"
+##  [1] "case"    "case"    "case"    "case"    "case"    "control" "control" "control" "control"
+## [10] "control"
 ```
 
 They also can be used in change the metadata.
@@ -181,8 +183,8 @@ annMat@chr
 ```
 
 ```
-##  [1] "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2"
-## [16] "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2"
+##  [1] "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2"
+## [14] "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2"
 ```
 
 When an empty name is provided it will return the whole metadata `data.frame`:
@@ -195,15 +197,15 @@ annMat$''
 ```
 ##      group gender
 ## 1     case      M
-## 2     case      F
-## 3     case      M
-## 4     case      M
-## 5     case      M
-## 6  control      M
+## 2     case      M
+## 3     case      F
+## 4     case      F
+## 5     case      F
+## 6  control      F
 ## 7  control      M
 ## 8  control      M
 ## 9  control      M
-## 10 control      M
+## 10 control      F
 ```
 
 When subsetting the `annmatrix` object all the metadata are correctly adjusted and class is preserved:
@@ -216,8 +218,8 @@ amat
 
 ```
 ##      [,1]      [,2]      [,3]     
-## [1,] -1.460870 -0.094723 -0.459316
-## [2,]  0.457633 -2.439557  2.038390
+## [1,] -0.164455  0.022928  0.134618
+## [2,] -0.528041 -0.095865 -2.112730
 ## 
 ## rows:    2 chr, pos
 ## columns: 3 group, gender
@@ -229,8 +231,8 @@ rowanns(amat)
 
 ```
 ##    chr      pos
-## 1 chr2 711874.2
-## 2 chr2 347885.1
+## 1 chr2 551352.5
+## 2 chr2 733536.0
 ```
 
 ```r
@@ -240,8 +242,8 @@ colanns(amat)
 ```
 ##   group gender
 ## 1  case      M
-## 2  case      F
-## 3  case      M
+## 2  case      M
+## 3  case      F
 ```
 
 However in order to be consistent with `matrix` the class is dropped when selecting only a single row or column:
@@ -252,8 +254,8 @@ annMat[1,]
 ```
 
 ```
-##  [1] -1.46086966 -0.09472295 -0.45931587  0.42363502 -0.90803484  0.92115314 -0.40705251 -0.20498454
-##  [9] -0.08012871 -0.84596316
+##  [1] -0.16445454  0.02292837  0.13461838 -0.70023704 -0.90982076 -0.44028929 -0.39524514  0.81102698
+##  [9] -0.33360032  0.69062679
 ```
 
 But just like with `matrix` we can enforce it to preserve all the annotations and class by setting `drop=FALSE`
@@ -265,7 +267,7 @@ annMat[1,, drop=FALSE]
 
 ```
 ##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,] -1.460870 -0.094723 -0.459316  0.423635 -0.908035       ...
+## [1,] -0.164455  0.022928  0.134618 -0.700237 -0.909821       ...
 ## 
 ## rows:    1 chr, pos
 ## columns: 10 group, gender
@@ -286,11 +288,11 @@ annMat > 0
 
 ```
 ##      [,1]  [,2]  [,3]  [,4]  [,5]  [,6] 
-## [1,] FALSE FALSE FALSE  TRUE FALSE   ...
-## [2,]  TRUE FALSE  TRUE  TRUE FALSE   ...
-## [3,]  TRUE  TRUE  TRUE FALSE  TRUE   ...
-## [4,] FALSE  TRUE FALSE FALSE FALSE   ...
-## [5,] FALSE FALSE FALSE  TRUE FALSE   ...
+## [1,] FALSE  TRUE  TRUE FALSE FALSE   ...
+## [2,] FALSE FALSE FALSE FALSE  TRUE   ...
+## [3,] FALSE FALSE  TRUE  TRUE  TRUE   ...
+## [4,] FALSE  TRUE  TRUE  TRUE  TRUE   ...
+## [5,] FALSE FALSE FALSE FALSE FALSE   ...
 ## [6,]   ...   ...   ...   ...   ...   ...
 ## 
 ## rows:    25 chr, pos
@@ -303,13 +305,13 @@ annMat
 ```
 
 ```
-##      [,1]     [,2]     [,3]     [,4]     [,5]     [,6]    
-## [1,] -1.14924  0.21691 -0.14769  0.73526 -0.59641      ...
-## [2,]  0.16912 -2.72807  1.74988  0.12527 -0.32012      ...
-## [3,]  0.71792  0.46911  1.01895 -1.13039  0.72812      ...
-## [4,] -0.78444  1.90526 -0.55132 -0.97022 -0.76233      ...
-## [5,] -1.66020 -0.21438 -0.15736  1.12311 -1.07779      ...
-## [6,]      ...      ...      ...      ...      ...      ...
+##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
+## [1,] -0.036010  0.151373  0.263063 -0.571792 -0.781376       ...
+## [2,]  0.169437  0.601614 -1.415251 -2.267727  0.973794       ...
+## [3,] -0.466735 -0.496109  1.124736 -0.272997  0.602032       ...
+## [4,] -0.717212 -0.060899  1.768839 -0.359282 -0.284655       ...
+## [5,] -0.355456 -0.361437 -0.837052 -0.337083 -1.260992       ...
+## [6,]       ...       ...       ...       ...       ...       ...
 ## 
 ## rows:    25 chr, pos
 ## columns: 10 group, gender
@@ -337,13 +339,13 @@ annMat
 ```
 
 ```
-##      [,1]       [,2]       [,3]       [,4]       [,5]       [,6]      
-## [1,] -1.0093011  0.3571585 -0.2603825  0.6917811 -0.5335282        ...
-## [2,]  0.2303162 -2.7193441  1.4940477 -0.0051291 -0.1508837        ...
-## [3,]  0.7463327  0.6206307  0.8182510 -1.4396989  1.3008495        ...
-## [4,] -0.6662882  2.1209230 -0.6335693 -1.2567141 -0.7633222        ...
-## [5,] -1.4897362 -0.0933903 -0.2693297  1.1348930 -1.2002174        ...
-## [6,]        ...        ...        ...        ...        ...        ...
+##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
+## [1,]  0.100056  0.117370  0.081736 -0.483201 -1.165991       ...
+## [2,]  0.322914  0.650283 -1.299882 -2.753068  1.009318       ...
+## [3,] -0.367170 -0.649003  0.791081 -0.083288  0.548566       ...
+## [4,] -0.638874 -0.133880  1.321317 -0.198774 -0.550369       ...
+## [5,] -0.246462 -0.489601 -0.823898 -0.169061 -1.760413       ...
+## [6,]       ...       ...       ...       ...       ...       ...
 ## 
 ## rows:    25 chr, pos
 ## columns: 10 group, gender
