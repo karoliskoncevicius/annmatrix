@@ -139,6 +139,6 @@
 #' @author Karolis Koncevičius
 #' @export
 .DollarNames.annmatrix <- function(x, pattern="") {
-  grep(pattern, names(attr(x, ".annmatrix.colanns")), value=TRUE)
+  grep(pattern, names(attr(x, ".annmatrix.cann")), value=TRUE)
 }
 
