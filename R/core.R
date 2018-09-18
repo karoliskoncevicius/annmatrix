@@ -89,8 +89,8 @@ annmatrix <- function(x, rann, cann) {
   x <- as.matrix(x)
   if(missing(rann)) rann <- data.frame(row.names=seq_len(nrow(x)))
   if(missing(cann)) cann <- data.frame(row.names=seq_len(ncol(x)))
-  rann <- as.data.frame(rann, stringsAsFactors=FALSE)
-  cann <- as.data.frame(cann, stringsAsFactors=FALSE)
+  rann <- as.data.frame(rann)
+  cann <- as.data.frame(cann)
   stopifnot(nrow(x)==nrow(rann) & ncol(x)==nrow(cann))
   attr(x, ".annmatrix.rann") <- rann
   attr(x, ".annmatrix.cann") <- cann
