@@ -56,9 +56,9 @@ t.annmatrix <- function(x) {
 annmat2long <- function(x, ...) {
   rann <- attr(x, ".annmatrix.rann")
   cann <- attr(x, ".annmatrix.cann")
-  longdf <- data.frame(as.numeric(x),
-                       rann[rep(seq_len(nrow(rann)), nrow(cann)), ],
-                       cann[rep(seq_len(nrow(cann)), each=nrow(rann)), ],
+  longdf <- data.frame(value=as.numeric(x),
+                       rann[rep(seq_len(nrow(rann)), nrow(cann)), , drop=FALSE],
+                       cann[rep(seq_len(nrow(cann)), each=nrow(rann)), , drop=FALSE ],
                        ...
                        )
   longdf
