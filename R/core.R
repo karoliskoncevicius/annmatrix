@@ -87,8 +87,8 @@
 annmatrix <- function(x, rann, cann) {
   if(missing(x)) x <- matrix(nrow=0, ncol=0)
   x <- as.matrix(x)
-  if(missing(rann) || is.null(rann)) rann <- data.frame(row.names=seq_len(nrow(x)))
-  if(missing(cann) || is.null(cann)) cann <- data.frame(row.names=seq_len(ncol(x)))
+  if(missing(rann)) rann <- data.frame(row.names=seq_len(nrow(x)))
+  if(missing(cann)) cann <- data.frame(row.names=seq_len(ncol(x)))
   rann <- as.data.frame(rann)
   cann <- as.data.frame(cann)
   stopifnot(nrow(x)==nrow(rann) & ncol(x)==nrow(cann))
