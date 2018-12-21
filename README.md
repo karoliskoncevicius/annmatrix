@@ -363,12 +363,3 @@ Similar ideas can be found in:
 
 1. [Henrik Bengtsson's "wishlist for R"](https://github.com/HenrikBengtsson/Wishlist-for-R/issues/2)
 2. [BioConductor's AnnotatedDataFrame object](https://www.rdocumentation.org/packages/Biobase/versions/2.32.0/topics/AnnotatedDataFrame)
-
-A connection with                      
-description "stdout"  
-class       "terminal"
-mode        "w"       
-text        "text"    
-opened      "opened"  
-can read    "no"      
-can write   "yes"     
