@@ -19,7 +19,7 @@ The only addition `annmatrix` provides is attaching row and column metadata that
 
 Using `devtools` library:
 
-`devtools::install_github("KKPWM/annmatrix")`
+`devtools::install_github("KKPMW/annmatrix")`
 
 ## Usage ##
 
@@ -65,11 +65,11 @@ annMat
 
 ```
 ##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,] -0.085367  1.841969  0.125285  2.207039  1.925318       ...
-## [2,] -0.044398  1.384137  0.476496 -1.275680 -0.936873       ...
-## [3,] -0.917512 -1.619758  0.338843  1.067277 -1.647326       ...
-## [4,] -0.681122 -0.304784 -2.216567 -1.036474 -0.119566       ...
-## [5,] -1.108362 -1.322911 -1.691756  0.575496  2.114062       ...
+## [1,]  1.129127  0.186222  0.135926 -1.643235 -0.062387       ...
+## [2,]  0.043306  1.229182 -1.728610  1.552950  1.351227       ...
+## [3,]  0.212287  0.936532 -0.077224 -1.612147  0.603509       ...
+## [4,]  0.123369  1.825294  0.610138 -1.916757  0.162795       ...
+## [5,]  0.584265 -0.323781  1.756105  0.053521 -0.641604       ...
 ## [6,]       ...       ...       ...       ...       ...       ...
 ## 
 ## rows:    25 chr, pos
@@ -84,8 +84,8 @@ rowanns(annMat, "chr")
 ```
 
 ```
-##  [1] "chr2" "chr2" "chr3" "chr3" "chr1" "chr1" "chr3" "chr2" "chr1" "chr3" "chr2" "chr3" "chr1"
-## [14] "chr1" "chr2" "chr3" "chr3" "chr2" "chr2" "chr1" "chr1" "chr2" "chr2" "chr3" "chr1"
+##  [1] "chr3" "chr3" "chr3" "chr2" "chr3" "chr1" "chr3" "chr1" "chr3" "chr1" "chr3" "chr1" "chr1"
+## [14] "chr3" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr1" "chr1" "chr3" "chr1" "chr2"
 ```
 
 ```r
@@ -95,14 +95,14 @@ colanns(annMat, c("group", "gender"))
 ```
 ##      group gender
 ## 1     case      F
-## 2     case      M
+## 2     case      F
 ## 3     case      F
-## 4     case      F
-## 5     case      F
-## 6  control      M
+## 4     case      M
+## 5     case      M
+## 6  control      F
 ## 7  control      M
 ## 8  control      F
-## 9  control      M
+## 9  control      F
 ## 10 control      M
 ```
 
@@ -116,14 +116,14 @@ colanns(annMat)
 ```
 ##      group gender
 ## 1     case      F
-## 2     case      M
+## 2     case      F
 ## 3     case      F
-## 4     case      F
-## 5     case      F
-## 6  control      M
+## 4     case      M
+## 5     case      M
+## 6  control      F
 ## 7  control      M
 ## 8  control      F
-## 9  control      M
+## 9  control      F
 ## 10 control      M
 ```
 
@@ -203,14 +203,14 @@ annMat$''
 ```
 ##      group gender
 ## 1     case      F
-## 2     case      M
+## 2     case      F
 ## 3     case      F
-## 4     case      F
-## 5     case      F
-## 6  control      M
+## 4     case      M
+## 5     case      M
+## 6  control      F
 ## 7  control      M
 ## 8  control      F
-## 9  control      M
+## 9  control      F
 ## 10 control      M
 ```
 
@@ -224,8 +224,8 @@ amat
 
 ```
 ##      [,1]      [,2]      [,3]     
-## [1,] -0.085367  1.841969  0.125285
-## [2,] -0.044398  1.384137  0.476496
+## [1,]  1.129127  0.186222  0.135926
+## [2,]  0.043306  1.229182 -1.728610
 ## 
 ## rows:    2 chr, pos
 ## columns: 3 group, gender
@@ -236,9 +236,9 @@ rowanns(amat)
 ```
 
 ```
-##    chr       pos
-## 1 chr2  81598.04
-## 2 chr2 317084.06
+##    chr      pos
+## 1 chr2 997460.1
+## 2 chr2 773943.7
 ```
 
 ```r
@@ -248,7 +248,7 @@ colanns(amat)
 ```
 ##   group gender
 ## 1  case      F
-## 2  case      M
+## 2  case      F
 ## 3  case      F
 ```
 
@@ -260,8 +260,8 @@ annMat[1,]
 ```
 
 ```
-##  [1] -0.08536681  1.84196889  0.12528477  2.20703892  1.92531798  0.64210349 -0.76858078  0.30503045
-##  [9] -0.79562561 -1.36755884
+##  [1]  1.12912725  0.18622171  0.13592558 -1.64323467 -0.06238711 -0.68400126 -0.19800254 -1.73957675
+##  [9] -1.21199972 -1.90221542
 ```
 
 But just like with `matrix` we can enforce it to preserve all the annotations and class by setting `drop=FALSE`
@@ -273,7 +273,7 @@ annMat[1,, drop=FALSE]
 
 ```
 ##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,] -0.085367  1.841969  0.125285  2.207039  1.925318       ...
+## [1,]  1.129127  0.186222  0.135926 -1.643235 -0.062387       ...
 ## 
 ## rows:    1 chr, pos
 ## columns: 10 group, gender
@@ -294,11 +294,11 @@ annMat > 0
 
 ```
 ##      [,1]  [,2]  [,3]  [,4]  [,5]  [,6] 
-## [1,] FALSE  TRUE  TRUE  TRUE  TRUE   ...
-## [2,] FALSE  TRUE  TRUE FALSE FALSE   ...
-## [3,] FALSE FALSE  TRUE  TRUE FALSE   ...
-## [4,] FALSE FALSE FALSE FALSE FALSE   ...
-## [5,] FALSE FALSE FALSE  TRUE  TRUE   ...
+## [1,]  TRUE  TRUE  TRUE FALSE FALSE   ...
+## [2,]  TRUE  TRUE FALSE  TRUE  TRUE   ...
+## [3,]  TRUE  TRUE FALSE FALSE  TRUE   ...
+## [4,]  TRUE  TRUE  TRUE FALSE  TRUE   ...
+## [5,]  TRUE FALSE  TRUE  TRUE FALSE   ...
 ## [6,]   ...   ...   ...   ...   ...   ...
 ## 
 ## rows:    25 chr, pos
@@ -312,11 +312,11 @@ annMat
 
 ```
 ##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,] -0.488328  1.439008 -0.277676  1.804078  1.522357       ...
-## [2,] -0.081591  1.346944  0.439303 -1.312873 -0.974066       ...
-## [3,] -0.757328 -1.459574  0.499027  1.227461 -1.487142       ...
-## [4,] -0.417551 -0.041213 -1.952996 -0.772903  0.144005       ...
-## [5,] -0.616288 -0.830838 -1.199683  1.067569  2.606135       ...
+## [1,]  1.728142  0.785236  0.734940 -1.044220  0.536627       ...
+## [2,]  0.105376  1.291253 -1.666539  1.615020  1.413298       ...
+## [3,]  0.025853  0.750099 -0.263657 -1.798580  0.417075       ...
+## [4,] -0.003085  1.698840  0.483684 -2.043210  0.036342       ...
+## [5,]  0.397529 -0.510517  1.569369 -0.133215 -0.828340       ...
 ## [6,]       ...       ...       ...       ...       ...       ...
 ## 
 ## rows:    25 chr, pos
@@ -346,11 +346,11 @@ annMat
 
 ```
 ##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,] -0.215214  1.610876 -0.360565  1.571275  1.189674       ...
-## [2,]  0.154662  1.525579  0.380753 -1.470602 -0.908483       ...
-## [3,] -0.459835 -1.074643  0.442505  1.008547 -1.339705       ...
-## [4,] -0.150851  0.239460 -2.092754 -0.943637  0.031218       ...
-## [5,] -0.331578 -0.492122 -1.313869  0.852506  2.100552       ...
+## [1,]  1.779032  0.977275  1.081681 -0.936408  0.170845       ...
+## [2,]  0.018796  1.479531 -1.698952  1.381487  1.084952       ...
+## [3,] -0.067464  0.942398 -0.074578 -1.593937  0.046187       ...
+## [4,] -0.098854  1.884090  0.790756 -1.807166 -0.350805       ...
+## [5,]  0.335698 -0.308851  2.047853 -0.142341 -1.252412       ...
 ## [6,]       ...       ...       ...       ...       ...       ...
 ## 
 ## rows:    25 chr, pos
@@ -363,3 +363,4 @@ Similar ideas can be found in:
 
 1. [Henrik Bengtsson's "wishlist for R"](https://github.com/HenrikBengtsson/Wishlist-for-R/issues/2)
 2. [BioConductor's AnnotatedDataFrame object](https://www.rdocumentation.org/packages/Biobase/versions/2.32.0/topics/AnnotatedDataFrame)
+
