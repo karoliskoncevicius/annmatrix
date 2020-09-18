@@ -19,7 +19,7 @@ The only addition `annmatrix` provides is attaching row and column metadata that
 
 Using `devtools` library:
 
-`devtools::install_github("KKPMW/annmatrix")`
+`devtools::install_github("karoliskoncevicius/annmatrix")`
 
 ## Usage ##
 
