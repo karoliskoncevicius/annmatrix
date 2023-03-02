@@ -89,6 +89,8 @@ annmatrix <- function(x, rann, cann) {
   x <- as.matrix(x)
   if(missing(rann)) rann <- data.frame(row.names=seq_len(nrow(x)))
   if(missing(cann)) cann <- data.frame(row.names=seq_len(ncol(x)))
+  if(is.vector(rann)) rann <- setNames(as.data.frame(rann), deparse(substitute(rann)))
+  if(is.vector(cann)) cann <- setNames(as.data.frame(cann), deparse(substitute(cann)))
   rann <- as.data.frame(rann)
   cann <- as.data.frame(cann)
   stopifnot(nrow(x)==nrow(rann) & ncol(x)==nrow(cann))
@@ -120,11 +122,13 @@ as.matrix.annmatrix <- function(x, ...) {
     if(missing(i)) {
       attr(mat, ".annmatrix.rann") <- attr(x, ".annmatrix.rann")
     } else {
+      if(is.character(i)) i <- match(i, rownames(x))
       attr(mat, ".annmatrix.rann") <- attr(x, ".annmatrix.rann")[i,,drop=FALSE]
     }
     if(missing(j)) {
       attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")
     } else {
+      if(is.character(j)) j <- match(j, colnames(x))
       attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")[j,,drop=FALSE]
     }
     class(mat) <- append("annmatrix", class(mat))

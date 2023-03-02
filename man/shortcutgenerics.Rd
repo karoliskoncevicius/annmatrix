@@ -8,11 +8,11 @@
 \alias{@<-.default}
 \title{New Generic Functions for annmatrix Class}
 \usage{
-"@"(object, name)
+`@`(object, name)
 
 \method{@}{default}(object, name)
 
-@(object, name) <- value
+`@`(object, name) <- value
 
 \method{@}{default}(object, name) <- value
 }
