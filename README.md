@@ -2,6 +2,8 @@
 
 R Annotated Matrix Object
 
+![illustration](http://karolis.koncevicius.lt/data/annmatrix/illustration.png)
+
 ## Description ##
 
 The `annmatrix` object tries to implement dimension-aware persistent metadata for R matrices.
