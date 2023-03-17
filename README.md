@@ -8,11 +8,10 @@ R Annotated Matrix Object
 
 The `annmatrix` object tries to implement dimension-aware persistent metadata for R matrices.
 
-It uses S3 system of R to extend the base `matrix` class in order to provide it with persistent annotations that are associated with rows and columns.
-
 The use-case was born out of the need to better organize biomedical microarray and sequencing data within R.
 But it is readily applicable in other contexts where the data can be assembled into a `matrix` form with rows and columns representing distinct type of information.
 
+It uses S3 system of R to extend the base `matrix` class in order to provide it with persistent annotations that are associated with rows and columns.
 Technically `annmatrix` object is just a regular *R* `matrix` with additional attributes `.annmatrix.rann` and `.annmatrix.cann`.
 So every operation that works on a `matrix` by design works in the same way on `annmatrix`.
 The only addition `annmatrix` provides is attaching row and column metadata that are preserved after sub-setting and some helper functions to use and to change this metadata.
