@@ -36,7 +36,14 @@ print.annmatrix <- function(x, nrow=5, ncol=5, ...) {
   if(rows > nrow) rinds <- c(head(rinds, -1), NA, rows)
   if(cols > ncol) cinds <- c(head(cinds, -1), NA, cols)
 
-  mat  <- as.matrix(x[rinds, cinds, drop=FALSE])
+  mat <- as.matrix(x[rinds, cinds, drop=FALSE])
+
+  if(typeof(mat) == "list") {
+    classes <- sapply(mat, function(x) class(x)[1])
+    classes <- paste0(classes, "<", sapply(lapply(mat, dim), paste, collapse=","), ">")
+    mat <- matrix(classes, nrow=nrow(mat), ncol=ncol(mat))
+  }
+
   mat  <- format(mat)
   fill <- paste(rep(".", max(0, nchar(mat))), collapse="")
   mat[is.na(rinds),] <- fill
