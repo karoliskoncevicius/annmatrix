@@ -64,13 +64,20 @@
       args  <- list(...)
       for(i in 1:nrow(mat)) {
         for(j in 1:ncol(mat)) {
-          mat[[i,j]] <- do.call(args[[1]], c(mat[i,j], args[-1]))
+          res <- do.call(args[[1]], c(mat[i,j], args[-1]))
+          if(!is.null(res)) {
+            mat[[i,j]] <- res
+          } else {
+            mat[[i,j]] <- list()
+          }
         }
       }
     }
 
     if(all(lengths(mat) == 1) & all(sapply(mat, is.atomic))) {
       storage.mode(mat) <- storage.mode(mat[[1]])
+    } else if(all(lengths(mat) == 0)) {
+      mat <- NULL
     }
 
   }
