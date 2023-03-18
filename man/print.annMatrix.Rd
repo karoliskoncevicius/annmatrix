@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.R
 \name{print.annmatrix}
 \alias{print.annmatrix}
-\title{Print annmatrix object.}
+\title{Print annmatrix object}
 \usage{
 \method{print}{annmatrix}(x, nrow = 5, ncol = 5, ...)
 }

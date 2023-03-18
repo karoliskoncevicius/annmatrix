@@ -1,4 +1,4 @@
-#' Print annmatrix object.
+#' Print annmatrix object
 #'
 #' Functions to print an annmatrix object
 #'
@@ -41,7 +41,7 @@ print.annmatrix <- function(x, nrow=5, ncol=5, ...) {
   if(typeof(mat) == "list") {
     classes <- sapply(mat, function(x) class(x)[1])
     classes <- paste0(classes, "<", sapply(lapply(mat, dim), paste, collapse=","), ">")
-    mat <- matrix(classes, nrow=nrow(mat), ncol=ncol(mat))
+    mat <- matrix(classes, nrow=nrow(mat), ncol=ncol(mat), dimnames=dimnames(mat))
   }
 
   mat  <- format(mat)
