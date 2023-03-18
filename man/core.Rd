@@ -54,9 +54,9 @@ rowanns(x, names) <- value
 
 \code{as.matrix} - a \code{matrix} object
 
-\code{annMat@value} - a column named "value" from the row annotation \code{data.frame}
+\code{X@value} - a column named "value" from the row annotation \code{data.frame}
 
-\code{annMat$value} - a column named "value" from the column annotation \code{data.frame}
+\code{X$value} - a column named "value" from the column annotation \code{data.frame}
 
 \code{`[`} - a subset of annmatrix and reletad meta-data annotations
 }
@@ -97,25 +97,25 @@ coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
 rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
                       pos=runif(100, 0, 1000000)
                       )
-mat <- matrix(rnorm(100*40), 100, 40)
-annMat <- annmatrix(mat, rowdata, coldata)
+x <- matrix(rnorm(100*40), 100, 40)
+X <- annmatrix(x, rowdata, coldata)
 
-is.annmatrix(mat)
-is.annmatrix(annMat)
+is.annmatrix(x)
+is.annmatrix(X)
 
-annMat[1:2,1:2]
-annMat[1,,drop=FALSE]
+X[1:2,1:2]
+X[1,,drop=FALSE]
 
-rowanns(annMat)
-colanns(annMat)
-rowanns(annMat, "chr")
-colanns(annMat, c("group", "gender"))
+rowanns(X)
+colanns(X)
+rowanns(X, "chr")
+colanns(X, c("group", "gender"))
 
-rowanns(annMat, "newField") <- 1:nrow(annMat)
-colanns(annMat, "newField") <- 1:ncol(annMat)
-colanns(annMat, "newField")
-colanns(annMat, "newField") <- NULL
-colanns(annMat, "newField")
+rowanns(X, "newField") <- 1:nrow(X)
+colanns(X, "newField") <- 1:ncol(X)
+colanns(X, "newField")
+colanns(X, "newField") <- NULL
+colanns(X, "newField")
 
 }
 \seealso{
