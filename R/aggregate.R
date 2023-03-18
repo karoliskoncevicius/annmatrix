@@ -23,7 +23,7 @@
 #' rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
 #'                       pos=runif(100, 0, 1000000)
 #'                       )
-#' X <- annmatrix(mat, rowdata, coldata)
+#' X <- annmatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
 #'
 #' # split X by rows and by columns
 #' X[[X@chr, X$gender,]]
@@ -62,12 +62,19 @@
 
     if(dots[[1]] != "") {
       args  <- list(...)
-      mat   <- apply(mat, 1:2, function(x) do.call(args[[1]], c(x, args[-1])))
-      if(!is.null(mat)) {
-        mat <- annmatrix(mat, rann, cann)
+      for(i in 1:nrow(mat)) {
+        for(j in 1:ncol(mat)) {
+          mat[[i,j]] <- do.call(args[[1]], c(mat[i,j], args[-1]))
+        }
       }
     }
+
+    if(all(lengths(mat) == 1) & all(sapply(mat, is.atomic))) {
+      storage.mode(mat) <- storage.mode(mat[[1]])
+    }
+
   }
+
   mat
 }
 
