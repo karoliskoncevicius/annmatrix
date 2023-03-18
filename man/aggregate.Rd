@@ -10,9 +10,9 @@
 \arguments{
 \item{x}{an \code{annmatrix} object}
 
-\item{i}{vector of length \code(nrow(x)) specifying row-wise groups}
+\item{i}{vector of length \code{nrow(x)} specifying row-wise groups}
 
-\item{j}{vector of length \code(ncol(x)) specifying column-wise groups}
+\item{j}{vector of length \code{ncol(x)} specifying column-wise groups}
 
 \item{...}{optional arguments where first argument specifies the function to be applied on each row-colum group and remaining arguments are passed as additional arguments for this function}
 

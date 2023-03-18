@@ -7,8 +7,8 @@
 #' @name aggregate
 #'
 #' @param x an \code{annmatrix} object
-#' @param i vector of length \code(nrow(x)) specifying row-wise groups
-#' @param j vector of length \code(ncol(x)) specifying column-wise groups
+#' @param i vector of length \code{nrow(x)} specifying row-wise groups
+#' @param j vector of length \code{ncol(x)} specifying column-wise groups
 #' @param ... optional arguments where first argument specifies the function to be applied on each row-colum group and remaining arguments are passed as additional arguments for this function
 #' @param drop if TRUE (default) the result of subsetting a single row or column is returned as a vector.
 #' @param exact if TRUE (default) the result of subsetting a single row or column is returned as a vector.
