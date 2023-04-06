@@ -94,10 +94,7 @@ annmatrix <- function(x, rann, cann) {
   rann <- as.data.frame(rann)
   cann <- as.data.frame(cann)
   stopifnot(nrow(x)==nrow(rann) & ncol(x)==nrow(cann))
-  attr(x, ".annmatrix.rann") <- rann
-  attr(x, ".annmatrix.cann") <- cann
-  class(x) <- append("annmatrix", class(x))
-  x
+  structure(x, class=c("annmatrix", class(x)), .annmatrix.rann=rann, .annmatrix.cann=cann)
 }
 
 #' @rdname core

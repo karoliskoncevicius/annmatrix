@@ -33,10 +33,10 @@ coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
 rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
                          pos=runif(100, 0, 1000000)
                          )
-annMat <- annmatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
+X <- annmatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
 
-print(annMat)
-print(annMat, nrow=2, ncol=2)
+print(X)
+print(X, nrow=2, ncol=2)
 
 }
 \author{

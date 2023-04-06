@@ -43,16 +43,16 @@ rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
                       pos=runif(100, 0, 1000000)
                       )
 mat <- matrix(rnorm(100*40), 100, 40)
-annMat <- annmatrix(mat, rowdata, coldata)
+X <- annmatrix(mat, rowdata, coldata)
 
-annMat$group
-annMat@chr
+X$group
+X@chr
 
-annMat@newField <- 1:nrow(annMat)
-annMat$newField <- 1:ncol(annMat)
-annMat$newField
-annMat$newField <- NULL
-annMat$newField
+X@newField <- 1:nrow(X)
+X$newField <- 1:ncol(X)
+X$newField
+X$newField <- NULL
+X$newField
 
 }
 \author{

@@ -36,7 +36,7 @@ coldata <- data.frame(group=c(rep("case", 20), rep("control", 20)),
 rowdata <- data.frame(chr=sample(c("chr1", "chr2"), 100, replace=TRUE),
                       pos=runif(100, 0, 1000000)
                       )
-X <- annmatrix(mat, rowdata, coldata)
+X <- annmatrix(matrix(rnorm(100*40), 100, 40), rowdata, coldata)
 
 # split X by rows and by columns
 X[[X@chr, X$gender,]]
