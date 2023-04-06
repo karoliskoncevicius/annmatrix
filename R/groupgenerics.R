@@ -12,15 +12,16 @@ Ops.annmatrix <- function(e1, e2) {
     cann <- attr(e1, ".annmatrix.cann")
 
     e1 <- as.matrix(e1)
-    if (!missing(e2)) e2 <- unclass(e2)
-    annmatrix(NextMethod(), rann=rann, cann=cann)
+    structure(NextMethod(), class=c("annmatrix", class(e1)), .annmatrix.rann=rann, .annmatrix.cann=cann)
   } else if(is.annmatrix(e2)) {
     rann <- attr(e2, ".annmatrix.rann")
     cann <- attr(e2, ".annmatrix.cann")
 
     e2 <- as.matrix(e2)
-    if (!missing(e1)) e1 <- unclass(e1)
-    annmatrix(NextMethod(), rann=rann, cann=cann)
+    structure(NextMethod(), class=c("annmatrix", class(e2)), .annmatrix.rann=rann, .annmatrix.cann=cann)
   }
 }
 
+# TODO: take a look at chooseOpsMethod() once R 4.3.0 is out
+#       check problems with X + Sys.Date()
+#       need to make sure matrix and annmatrix performs the same
