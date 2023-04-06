@@ -14,9 +14,13 @@ Ops.annmatrix <- function(e1, e2) {
     e1 <- as.matrix(e1)
     if (!missing(e2)) e2 <- unclass(e2)
     annmatrix(NextMethod(), rann=rann, cann=cann)
-  } else {
+  } else if(is.annmatrix(e2)) {
+    rann <- attr(e2, ".annmatrix.rann")
+    cann <- attr(e2, ".annmatrix.cann")
+
     e2 <- as.matrix(e2)
-    NextMethod()
+    if (!missing(e1)) e1 <- unclass(e1)
+    annmatrix(NextMethod(), rann=rann, cann=cann)
   }
 }
 
