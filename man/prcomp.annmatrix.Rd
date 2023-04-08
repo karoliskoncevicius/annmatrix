@@ -4,7 +4,15 @@
 \alias{prcomp.annmatrix}
 \title{Principal Component Analysis for annmatrix}
 \usage{
-\method{prcomp}{annmatrix}(x, retx = TRUE, center = TRUE, scale. = FALSE, tol = NULL, rank. = NULL)
+\method{prcomp}{annmatrix}(
+  x,
+  retx = TRUE,
+  center = TRUE,
+  scale. = FALSE,
+  tol = NULL,
+  rank. = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{annmatrix object.}
