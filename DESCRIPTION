@@ -1,12 +1,10 @@
 Package: annmatrix
-Title: Annotated Matrix Class for Matrices with Row and Column Information
-Version: 0.0.1
+Title: Annotated Matrix: Matrices with Persistent Row and Column Annotations
+Version: 0.1.0
 Authors@R: person("Karolis", "Koncevičius", email = "karolis.koncevicius@gmail.com", role = c("aut", "cre"))
-Description: Provides a annotated matrix class useful for keeping additional meta information about row and column entries. The object tracks row and column information by setting dedicated attributes. Matrix methods are overloaded so that they keep track and subset the row and column metadata when possible.
-Depends: R (>= 3.3.0)
-Imports: utils, methods
+Description: Annotated matrix object provides the functionality for persistenlty storing information about row and column entries. The annotations associated with rows and columns are kept in two separate data.frames and are preserved after subsetting, transposition, and various other matrix-specific operations. Intended use case is for storing and manipulating genomic datasets which typically consist of a matrix of measurements (like gene expression values) as well as annotations about rows (i.e. genomic locations) and annotations about columns (i.e. meta-data about collected samples). But annmatrix objects are also expected be useful in various other contexts.
+Depends: R (>= 4.3.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
-Suggests: testthat
