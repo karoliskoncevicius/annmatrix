@@ -1,6 +1,6 @@
 Package: annmatrix
 Title: Annotated Matrix: Matrices with Persistent Row and Column Annotations
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Karolis", "Koncevičius", email = "karolis.koncevicius@gmail.com", role = c("aut", "cre"))
 Description: Implements persistent row and column annotations for R matrices. The annotations associated with rows and columns are preserved after subsetting, transposition, and various other matrix-specific operations. Intended use case is for storing and manipulating genomic datasets which typically consist of a matrix of measurements (like gene expression values) as well as annotations about rows (i.e. genomic locations) and annotations about columns (i.e. meta-data about collected samples). But 'annmatrix' objects are also expected to be useful in various other contexts.
 Depends: R (>= 4.3.0)

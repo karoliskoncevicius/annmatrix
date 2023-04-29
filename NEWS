@@ -1,6 +1,13 @@
 Package: annmatrix
 ==================
 
+Version: 0.1.1 [TBD]
+
+NEW FEATURES:
+
+ * New method - stack.annmatrix() - for turning annmatrix object into a data frame.
+
+
 Version: 0.1.0 [TBD]
 
 NEW FEATURES:
