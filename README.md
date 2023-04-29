@@ -285,7 +285,7 @@ colMedians(X[X@chr == "chr1",])
  [1]  0.50924058  0.36853396 -0.45264119 -0.05081974 -0.76821029  0.28775099
 
 
-# Bartlett's test for equal variance between cases and control
+# Gene-wise Bartlett's test for equal variance between cases and control
 
 library(matrixTests)
 row_bartlett(X, X$group)
@@ -303,7 +303,7 @@ row_bartlett(X, X$group)
 10       6          2  1.0400756  1 6.832203465 0.008952875
 
 
-# Pearson's Correlation test between each gene expression values and subjects age
+# Pearson's correlation test between each gene's expression values and the age of subjects
 
 library(matrixTests)
 row_cor_pearson(X, X$age)
