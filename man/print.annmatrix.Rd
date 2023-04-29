@@ -13,6 +13,8 @@
 
 \item{ncol}{number of columns to display (default is 5)}
 
+\item{digits}{number of digits to display (default set to getOptions("digits"))}
+
 \item{...}{further arguments passed to or from methods}
 }
 \value{

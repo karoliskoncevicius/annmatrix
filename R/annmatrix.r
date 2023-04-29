@@ -46,8 +46,6 @@
 #' Examples). A replacement of an empty value - \code{X@'' <- df} and
 #' \code{X$'' <- df} will replace the whole annotation data.frame.
 #'
-#' @name annmatrix
-#'
 #' @param x,object an R object.
 #' @param rann annotation \code{data.frame} for rows of the \code{annmatrix} object.
 #' @param cann annotation \code{data.frame} for columns of the \code{annmatrix} object.
@@ -119,6 +117,7 @@
 #' Y[, 1, drop = FALSE]
 #'
 #' @author Karolis Koncevičius
+#' @name annmatrix
 #' @export
 annmatrix <- function(x, rann, cann) {
 

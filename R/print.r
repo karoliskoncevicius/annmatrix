@@ -5,10 +5,11 @@
 #' annmatrix objects are printed in a shortened form (5 rows and 5 columns by default).
 #' In addition the function displays information about available meta-data for rows and columns.
 #'
-#' @param x a matrix
-#' @param nrow number of rows to display (default is 5)
-#' @param ncol number of columns to display (default is 5)
-#' @param ... further arguments passed to or from methods
+#' @param x a matrix.
+#' @param nrow number of rows to display (default is 5).
+#' @param ncol number of columns to display (default is 5).
+#' @param digits number of digits to display (default set to getOptions("digits")).
+#' @param ... further arguments passed to or from methods.
 #'
 #' @return invisibly returns annmatrix object.
 #'
@@ -35,6 +36,7 @@
 #' print(X)
 #'
 #' @author Karolis Koncevičius
+#' @name print
 #' @export
 print.annmatrix <- function(x, nrow = 5, ncol = 5, digits = getOption("digits"), ...) {
   rinds <- seq_len(min(nrow, nrow(x)))

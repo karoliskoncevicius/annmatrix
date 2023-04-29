@@ -2,13 +2,14 @@
 #'
 #' The functions listed here work under the hood and are almost never called by the user.
 #'
-#' @name groupgenerics
 #' @param e1,e2 annmatrix objects.
 #' @param x,y The objects being dispatched on by the group generic.
 #' @param mx,my The methods found for objects 'x' and 'y'.
 #' @param cl The call to the group generic.
 #' @param reverse A logical value indicating whether 'x' and 'y' are reversed from the way they were supplied to the generic.
 #'
+#' @author Karolis Koncevičius
+#' @name groupgenerics
 #' @export
 Ops.annmatrix <- function(e1, e2) {
 
