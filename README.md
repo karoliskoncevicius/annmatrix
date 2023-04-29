@@ -4,61 +4,56 @@ R Annotated Matrix Object
 
 ![illustration](http://karolis.koncevicius.lt/data/annmatrix/illustration.png)
 
+
 ## Description ##
 
-The `annmatrix` object tries to implement dimension-aware persistent metadata for R matrices.
+`annmatrix` object implements persistent row and column annotations for R matrices.
 
 The use-case was born out of the need to better organize biomedical microarray and sequencing data within R.
-But it is readily applicable in other contexts where the data can be assembled into a `matrix` form with rows and columns representing distinct type of information.
+But annmatrix is readily applicable in other contexts where the data can be assembled into a matrix form with rows and columns representing distinct type of information.
 
-It uses S3 system of R to extend the base `matrix` class in order to provide it with persistent annotations that are associated with rows and columns.
-Technically `annmatrix` object is just a regular *R* `matrix` with additional attributes `.annmatrix.rann` and `.annmatrix.cann`.
-So every operation that works on a `matrix` by design works in the same way on `annmatrix`.
-The only addition `annmatrix` provides is attaching row and column metadata that are preserved after sub-setting and some helper functions to use and to change this metadata.
+The main advantage of annmatrix over other similar implementations like [SummarizedExperiment](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html) or [AnnotatedDataFrame](https://www.rdocumentation.org/packages/Biobase/versions/2.32.0/topics/AnnotatedDataFrame) of BioConductor is simplicity.
+Since annmatrix is based on a regular matrix, and not a list or a data-frame, it behaves like a regular matrix and can be directly passed to various methods that expect a matrix for an input.
+
 
 ## Installation ##
 
-Using `devtools` library:
+Using `remotes` library:
 
-`devtools::install_github("karoliskoncevicius/annmatrix")`
+`remotes::install_github("karoliskoncevicius/annmatrix")`
+
 
 ## Usage ##
 
-
-
-Imagine you have a small example of expression data with 25 genes measured across 10 samples:
-
+Say, we have a small example of expression data with 25 genes measured across 10 samples:
 
 ```r
-mat <- matrix(rnorm(25*10), nrow=25, ncol=10)
+mat <- matrix(rnorm(25 * 10), nrow = 25, ncol = 10)
 ```
 
-And also some information about genes and samples:
-
+And some additional information about genes and samples:
 
 ```r
 # sample metadata
-group  <- c(rep("case", 5), rep("control", 5))
-gender <- sample(c("M", "F"), 10, replace=TRUE)
+group  <- rep(c("case", "control"), each=5)
+gender <- sample(c("M", "F"), 10, replace = TRUE)
 
-coldata <- data.frame(group=group, gender=gender, stringsAsFactors=FALSE)
+coldata <- data.frame(group = group, gender = gender)
 
 # row metadata
-chromosome <- sample(c("chr1", "chr2", "chr3"), 25, replace=TRUE)
+chromosome <- sample(c("chr1", "chr2", "chr3"), 25, replace = TRUE)
 position   <- runif(25, 0, 1000000)
 
-rowdata <- data.frame(chr=chromosome, pos=position, stringsAsFactors=FALSE)
+rowdata <- data.frame(chr = chromosome, pos = position)
 ```
 
 We can then arrange all of this data inside a single `annmatrix` object:
-
 
 ```r
 annMat <- annmatrix(mat, rowdata, coldata)
 ```
 
 When printing it shows 5 rows and columns, the total number of rows and columns and all the metadata available for them:
-
 
 ```r
 annMat
@@ -357,6 +352,14 @@ annMat
 ## rows:    25 chr, pos
 ## columns: 10 group, gender
 ```
+
+
+## Technical Details ##
+
+`annmatrix` uses S3 system of R to extend the base `matrix` class in order to provide it with persistent annotations that are associated with rows and columns.
+Technically `annmatrix` object is just a regular *R* `matrix` with additional attributes `.annmatrix.rann` and `.annmatrix.cann` that are preserved after sub-setting and other matrix-specific operations.
+Hence, every function that works on a `matrix` by design should work the same way with `annmatrix`.
+
 
 ## See Also ##
 

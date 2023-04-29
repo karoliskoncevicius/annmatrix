@@ -11,7 +11,7 @@
 \method{.AtNames}{annmatrix}(x, pattern = "")
 }
 \arguments{
-\item{x}{annmatrix object}
+\item{x}{annmatrix object.}
 
 \item{pattern}{a regular expression used to select possible auto-completion names.}
 }

@@ -48,17 +48,16 @@
 #'
 #' @name annmatrix
 #'
-#' @param x an R object
-#' @param object an R object
-#' @param rann annotation \code{data.frame} for rows of the \code{annmatrix} object
-#' @param cann annotation \code{data.frame} for columns of the \code{annmatrix} object
-#' @param i subset for rows
-#' @param j subset for columns
-#' @param drop if TRUE (default) subsetting a single row or column will returned a vector
-#' @param names a character vector of existing row/column annotation names
-#' @param name a name of an existing row/column annotation
-#' @param value a value that will be assigned to row/column annotation field
-#' @param ... further arguments passed to or from methods
+#' @param x,object an R object.
+#' @param rann annotation \code{data.frame} for rows of the \code{annmatrix} object.
+#' @param cann annotation \code{data.frame} for columns of the \code{annmatrix} object.
+#' @param i subset for rows.
+#' @param j subset for columns.
+#' @param drop if TRUE (default) subsetting a single row or column will returned a vector.
+#' @param names a character vector of existing row/column annotation names.
+#' @param name a name of an existing row/column annotation.
+#' @param value a value that will be assigned to row/column annotation field.
+#' @param ... further arguments passed to or from methods.
 #'
 #' @examples
 #' coldata <- data.frame(group  = rep(c("case", "control"), each = 5),
@@ -113,38 +112,38 @@
 #' @export
 annmatrix <- function(x, rann, cann) {
 
-  if(missing(x)) {
-    x <- matrix(nrow=0, ncol=0)
+  if (missing(x)) {
+    x <- matrix(nrow = 0, ncol = 0)
   } else {
     x <- as.matrix(x)
   }
 
-  if(missing(rann)) {
-    rann <- data.frame(row.names=seq_len(nrow(x)))
-  } else if(is.vector(rann)) {
+  if (missing(rann)) {
+    rann <- data.frame(row.names = seq_len(nrow(x)))
+  } else if (is.vector(rann)) {
     rann <- as.data.frame(rann)
     names(rann) <- deparse(substitute(rann))
   } else {
     rann <- as.data.frame(rann)
   }
 
-  if(missing(cann)) {
-    cann <- data.frame(row.names=seq_len(ncol(x)))
-  } else if(is.vector(cann)) {
+  if (missing(cann)) {
+    cann <- data.frame(row.names = seq_len(ncol(x)))
+  } else if (is.vector(cann)) {
     cann <- as.data.frame(cann)
     names(cann) <- deparse(substitute(cann))
   } else {
     cann <- as.data.frame(cann)
   }
 
-  if(nrow(x) != nrow(rann)) {
+  if (nrow(x) != nrow(rann)) {
     stop("Number of 'rann' rows must match the number of rows in 'x'")
   }
-  if(ncol(x) != nrow(cann)) {
+  if (ncol(x) != nrow(cann)) {
     stop("Number of 'cann' rows must match the number of columns in 'x'")
   }
 
-  structure(x, class=c("annmatrix", class(x)), .annmatrix.rann=rann, .annmatrix.cann=cann)
+  structure(x, class = c("annmatrix", class(x)), .annmatrix.rann = rann, .annmatrix.cann = cann)
 }
 
 #' @rdname annmatrix
@@ -163,32 +162,37 @@ as.matrix.annmatrix <- function(x, ...) {
 
 #' @rdname annmatrix
 #' @export
-`[.annmatrix` <- function(x, i, j, ..., drop=TRUE) {
+`[.annmatrix` <- function(x, i, j, ..., drop = TRUE) {
   mat <- NextMethod("[")
-  if(is.matrix(mat)) {
-    if(missing(i)) {
+
+  if (is.matrix(mat)) {
+
+    if (missing(i)) {
       attr(mat, ".annmatrix.rann") <- attr(x, ".annmatrix.rann")
     } else {
-      if(is.character(i)) i <- match(i, rownames(x))
-      attr(mat, ".annmatrix.rann") <- attr(x, ".annmatrix.rann")[i,,drop=FALSE]
+      if (is.character(i)) i <- match(i, rownames(x))
+      attr(mat, ".annmatrix.rann") <- attr(x, ".annmatrix.rann")[i,,drop = FALSE]
     }
-    if(missing(j)) {
+
+    if (missing(j)) {
       attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")
     } else {
-      if(is.character(j)) j <- match(j, colnames(x))
-      attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")[j,,drop=FALSE]
+      if (is.character(j)) j <- match(j, colnames(x))
+      attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")[j,,drop = FALSE]
     }
+
     class(mat) <- append("annmatrix", class(mat))
   }
+
   mat
 }
 
 #' @rdname annmatrix
 #' @export
 rowanns <- function(x, names) {
-  if(missing(names)) {
+  if (missing(names)) {
     attr(x, ".annmatrix.rann")
-  } else if(length(names)==1) {
+  } else if (length(names) == 1) {
     attr(x, ".annmatrix.rann")[[names]]
   } else {
     attr(x, ".annmatrix.rann")[,names]
@@ -198,7 +202,7 @@ rowanns <- function(x, names) {
 #' @rdname annmatrix
 #' @export
 `@.annmatrix` <- function(object, name) {
-  if(nchar(name)==0) {
+  if (nchar(name) == 0) {
     rowanns(object)
   } else {
     rowanns(object, name)
@@ -208,9 +212,9 @@ rowanns <- function(x, names) {
 #' @rdname annmatrix
 #' @export
 colanns <- function(x, names) {
-  if(missing(names)) {
+  if (missing(names)) {
     attr(x, ".annmatrix.cann")
-  } else if (length(names)==1) {
+  } else if (length(names) == 1) {
     attr(x, ".annmatrix.cann")[[names]]
   } else {
     attr(x, ".annmatrix.cann")[,names]
@@ -220,7 +224,7 @@ colanns <- function(x, names) {
 #' @rdname annmatrix
 #' @export
 `$.annmatrix` <- function(x, name) {
-  if(nchar(name)==0) {
+  if (nchar(name) == 0) {
     colanns(x)
   } else {
     colanns(x, name)
@@ -231,12 +235,13 @@ colanns <- function(x, names) {
 #' @export
 `rowanns<-` <- function(x, names, value) {
   rann <- attr(x, ".annmatrix.rann")
-  if(missing(names)) {
-    if(is.null(value)) {
-      rann <- data.frame(row.names=1:nrow(x))
-    } else if(!is.data.frame(value)) {
+
+  if (missing(names)) {
+    if (is.null(value)) {
+      rann <- data.frame(row.names = 1:nrow(x))
+    } else if (!is.data.frame(value)) {
       stop("row annotations should be in a data.frame")
-    } else if(nrow(value) != nrow(x)) {
+    } else if (nrow(value) != nrow(x)) {
       stop("new row annotation data should have the same number of rows as there are rows in the matrix")
     } else {
       rann <- value
@@ -244,6 +249,7 @@ colanns <- function(x, names) {
   } else {
     rann[,names] <- value
   }
+
   attr(x, ".annmatrix.rann") <- rann
   x
 }
@@ -251,7 +257,7 @@ colanns <- function(x, names) {
 #' @rdname annmatrix
 #' @export
 `@<-.annmatrix` <- function(object, name, value) {
-  if(nchar(name)==0) {
+  if (nchar(name) == 0) {
     rowanns(object) <- value
   } else {
     rowanns(object, name) <- value
@@ -263,12 +269,13 @@ colanns <- function(x, names) {
 #' @export
 `colanns<-` <- function(x, names, value) {
   cann <- attr(x, ".annmatrix.cann")
-  if(missing(names)) {
-    if(is.null(value)) {
-      cann <- data.frame(row.names=1:ncol(x))
-    } else if(!is.data.frame(value)) {
+
+  if (missing(names)) {
+    if (is.null(value)) {
+      cann <- data.frame(row.names = 1:ncol(x))
+    } else if (!is.data.frame(value)) {
       stop("column annotations should be in a data.frame")
-    } else if(nrow(value) != ncol(x)) {
+    } else if (nrow(value) != ncol(x)) {
       stop("new column annotation data should have the same number of rows as there are columns in the matrix")
     } else {
       cann <- value
@@ -276,6 +283,7 @@ colanns <- function(x, names) {
   } else {
     cann[,names] <- value
   }
+
   attr(x, ".annmatrix.cann") <- cann
   x
 }
@@ -283,7 +291,7 @@ colanns <- function(x, names) {
 #' @rdname annmatrix
 #' @export
 `$<-.annmatrix` <- function(x, name, value) {
-  if(nchar(name)==0) {
+  if (nchar(name) == 0) {
     colanns(x) <- value
   } else {
     colanns(x, name) <- value

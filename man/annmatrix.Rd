@@ -40,27 +40,25 @@ colanns(x, names) <- value
 \method{$}{annmatrix}(x, name) <- value
 }
 \arguments{
-\item{x}{an R object}
+\item{x, object}{an R object.}
 
-\item{rann}{annotation \code{data.frame} for rows of the \code{annmatrix} object}
+\item{rann}{annotation \code{data.frame} for rows of the \code{annmatrix} object.}
 
-\item{cann}{annotation \code{data.frame} for columns of the \code{annmatrix} object}
+\item{cann}{annotation \code{data.frame} for columns of the \code{annmatrix} object.}
 
-\item{...}{further arguments passed to or from methods}
+\item{...}{further arguments passed to or from methods.}
 
-\item{i}{subset for rows}
+\item{i}{subset for rows.}
 
-\item{j}{subset for columns}
+\item{j}{subset for columns.}
 
-\item{drop}{if TRUE (default) subsetting a single row or column will returned a vector}
+\item{drop}{if TRUE (default) subsetting a single row or column will returned a vector.}
 
-\item{names}{a character vector of existing row/column annotation names}
+\item{names}{a character vector of existing row/column annotation names.}
 
-\item{object}{an R object}
+\item{name}{a name of an existing row/column annotation.}
 
-\item{name}{a name of an existing row/column annotation}
-
-\item{value}{a value that will be assigned to row/column annotation field}
+\item{value}{a value that will be assigned to row/column annotation field.}
 }
 \description{
 Annotated matrix is a regular matrix with additional functionality for
