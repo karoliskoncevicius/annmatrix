@@ -210,38 +210,6 @@ rowanns <- function(x, names) {
 
 #' @rdname annmatrix
 #' @export
-`@.annmatrix` <- function(object, name) {
-  if (nchar(name) == 0) {
-    rowanns(object)
-  } else {
-    rowanns(object, name)
-  }
-}
-
-#' @rdname annmatrix
-#' @export
-colanns <- function(x, names) {
-  if (missing(names)) {
-    attr(x, ".annmatrix.cann")
-  } else if (length(names) == 1) {
-    attr(x, ".annmatrix.cann")[[names]]
-  } else {
-    attr(x, ".annmatrix.cann")[,names]
-  }
-}
-
-#' @rdname annmatrix
-#' @export
-`$.annmatrix` <- function(x, name) {
-  if (nchar(name) == 0) {
-    colanns(x)
-  } else {
-    colanns(x, name)
-  }
-}
-
-#' @rdname annmatrix
-#' @export
 `rowanns<-` <- function(x, names, value) {
   rann <- attr(x, ".annmatrix.rann")
 
@@ -265,14 +233,16 @@ colanns <- function(x, names) {
 
 #' @rdname annmatrix
 #' @export
-`@<-.annmatrix` <- function(object, name, value) {
-  if (nchar(name) == 0) {
-    rowanns(object) <- value
+colanns <- function(x, names) {
+  if (missing(names)) {
+    attr(x, ".annmatrix.cann")
+  } else if (length(names) == 1) {
+    attr(x, ".annmatrix.cann")[[names]]
   } else {
-    rowanns(object, name) <- value
+    attr(x, ".annmatrix.cann")[,names]
   }
-  object
 }
+
 
 #' @rdname annmatrix
 #' @export
@@ -295,6 +265,36 @@ colanns <- function(x, names) {
 
   attr(x, ".annmatrix.cann") <- cann
   x
+}
+#' @rdname annmatrix
+#' @export
+`@.annmatrix` <- function(object, name) {
+  if (nchar(name) == 0) {
+    rowanns(object)
+  } else {
+    rowanns(object, name)
+  }
+}
+
+#' @rdname annmatrix
+#' @export
+`@<-.annmatrix` <- function(object, name, value) {
+  if (nchar(name) == 0) {
+    rowanns(object) <- value
+  } else {
+    rowanns(object, name) <- value
+  }
+  object
+}
+
+#' @rdname annmatrix
+#' @export
+`$.annmatrix` <- function(x, name) {
+  if (nchar(name) == 0) {
+    colanns(x)
+  } else {
+    colanns(x, name)
+  }
 }
 
 #' @rdname annmatrix

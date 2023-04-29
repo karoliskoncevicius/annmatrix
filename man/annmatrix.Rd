@@ -6,12 +6,12 @@
 \alias{as.matrix.annmatrix}
 \alias{[.annmatrix}
 \alias{rowanns}
-\alias{@.annmatrix}
-\alias{colanns}
-\alias{$.annmatrix}
 \alias{rowanns<-}
-\alias{@<-.annmatrix}
+\alias{colanns}
 \alias{colanns<-}
+\alias{@.annmatrix}
+\alias{@<-.annmatrix}
+\alias{$.annmatrix}
 \alias{$<-.annmatrix}
 \title{annmatrix Objects and Basic Functionality}
 \usage{
@@ -25,17 +25,17 @@ is.annmatrix(x)
 
 rowanns(x, names)
 
-`@.annmatrix`(object, name)
+rowanns(x, names) <- value
 
 colanns(x, names)
 
-\method{$}{annmatrix}(x, name)
+colanns(x, names) <- value
 
-rowanns(x, names) <- value
+`@.annmatrix`(object, name)
 
 \method{@}{annmatrix}(object, name) <- value
 
-colanns(x, names) <- value
+\method{$}{annmatrix}(x, name)
 
 \method{$}{annmatrix}(x, name) <- value
 }
@@ -56,9 +56,9 @@ colanns(x, names) <- value
 
 \item{names}{a character vector of existing row/column annotation names.}
 
-\item{name}{a name of an existing row/column annotation.}
-
 \item{value}{a value that will be assigned to row/column annotation field.}
+
+\item{name}{a name of an existing row/column annotation.}
 }
 \description{
 Annotated matrix is a regular matrix with additional functionality for

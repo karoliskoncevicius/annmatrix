@@ -209,7 +209,7 @@ cann: chr, pos
 ```
 
 Principal component analysis with `prcomp` will add row and column annotations to the resulting objects.
-Furthermore, matrix cross-product will also preserve all annotations that are possible to preserve after the product.
+Furthermore, matrix cross-product will preserve all annotations that are possible to preserve after the product.
 Here is an example where information is carried over after applying PCA rotation to transform a new dataset.
 
 ```r
