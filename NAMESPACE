@@ -1,4 +1,5 @@
 S3method(as.matrix,annmatrix)
+S3method(print,annmatrix)
 S3method("[",annmatrix)
 S3method("$",annmatrix)
 S3method("$<-",annmatrix)

@@ -12,7 +12,7 @@ R Annotated Matrix Object
 The use-case was born out of the need to better organize biomedical microarray and sequencing data within R.
 But annmatrix is readily applicable in other contexts where the data can be assembled into a matrix form with rows and columns representing distinct type of information.
 
-The main advantage of annmatrix over other similar implementations like [SummarizedExperiment](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html) or [AnnotatedDataFrame](https://www.rdocumentation.org/packages/Biobase/versions/2.32.0/topics/AnnotatedDataFrame) of BioConductor is simplicity.
+The main advantage of annmatrix over BioConductor implementations like [SummarizedExperiment](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html) and [AnnotatedDataFrame](https://www.rdocumentation.org/packages/Biobase/versions/2.32.0/topics/AnnotatedDataFrame) is simplicity.
 Since annmatrix is based on a regular matrix, and not a list or a data-frame, it behaves like a regular matrix and can be directly passed to various methods that expect a matrix for an input.
 
 
@@ -20,18 +20,20 @@ Since annmatrix is based on a regular matrix, and not a list or a data-frame, it
 
 Using `remotes` library:
 
-`remotes::install_github("karoliskoncevicius/annmatrix")`
+```r
+remotes::install_github("karoliskoncevicius/annmatrix")
+```
 
 
 ## Usage ##
 
-Say, we have a small example of expression data with 25 genes measured across 10 samples:
+Say, you have a small gene expression dataset with 25 genes measured across 10 samples:
 
 ```r
 mat <- matrix(rnorm(25 * 10), nrow = 25, ncol = 10)
 ```
 
-And some additional information about genes and samples:
+And some additional information about those genes and samples:
 
 ```r
 # sample metadata
@@ -47,16 +49,16 @@ position   <- runif(25, 0, 1000000)
 rowdata <- data.frame(chr = chromosome, pos = position)
 ```
 
-We can then arrange all of this data inside a single `annmatrix` object:
+`annmatrix` allows you to attach this additional information to the rows and columns of the original matrix:
 
 ```r
-annMat <- annmatrix(mat, rowdata, coldata)
+X <- annmatrix(mat, rowdata, coldata)
 ```
 
-When printing it shows 5 rows and columns, the total number of rows and columns and all the metadata available for them:
+When printed `annmatrix` shows 5 first rows and columns from the matrix, and all the annotations available for them:
 
 ```r
-annMat
+X
 ```
 
 ```

@@ -60,13 +60,15 @@
 #' @param ... further arguments passed to or from methods.
 #'
 #' @examples
+#' # construct annmatrix object
+#' x <- matrix(rnorm(20*10), 20, 10)
+#'
 #' coldata <- data.frame(group  = rep(c("case", "control"), each = 5),
 #'                       gender = sample(c("M", "F"), 10, replace = TRUE))
 #'
 #' rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
 #'                       pos = runif(20, 0, 1000000))
 #'
-#' x <- matrix(rnorm(20*10), 20, 10)
 #' X <- annmatrix(x, rowdata, coldata)
 #'
 #' is.matrix(x)
@@ -75,7 +77,7 @@
 #' is.annmatrix(x)
 #' is.annmatrix(X)
 #'
-#' # without using shortcuts
+#' # manipulating annotations without using shortcuts
 #' rowanns(X)
 #' colanns(X)
 #'
@@ -107,6 +109,14 @@
 #' X$age
 #' X$'' <- data.frame(id = 1:10, name = LETTERS[1:10])
 #' X$name
+#'
+#' # annotations are preserved after subsetting
+#' Y <- X[X@chr == "chr1", X$name %in% c("A", "B", "C")]
+#' Y@chr
+#' Y$''
+#'
+#' Y[, 1]
+#' Y[, 1, drop = FALSE]
 #'
 #' @author Karolis Koncevičius
 #' @export
@@ -143,7 +153,7 @@ annmatrix <- function(x, rann, cann) {
     stop("Number of 'cann' rows must match the number of columns in 'x'")
   }
 
-  structure(x, class = c("annmatrix", class(x)), .annmatrix.rann = rann, .annmatrix.cann = cann)
+  structure(x, class = c("annmatrix", oldClass(x)), .annmatrix.rann = rann, .annmatrix.cann = cann)
 }
 
 #' @rdname annmatrix
@@ -181,7 +191,7 @@ as.matrix.annmatrix <- function(x, ...) {
       attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")[j,,drop = FALSE]
     }
 
-    class(mat) <- append("annmatrix", class(mat))
+    class(mat) <- append("annmatrix", oldClass(mat))
   }
 
   mat
