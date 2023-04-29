@@ -278,7 +278,7 @@ And, of course, you get all the goodies that comes from storing your data as a m
 
 ```r
 
-# medians of all samples
+# medians of all genes on chromosome 1
 
 library(matrixStats)
 colMedians(X[X@chr == "chr1",])
