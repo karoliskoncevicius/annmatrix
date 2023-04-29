@@ -8,6 +8,28 @@
 #'
 #' @param x,y numeric or complex matrices or vectors.
 #'
+#' @examples
+#' # construct annmatrix object
+#' x <- matrix(rnorm(20*10), 20, 10)
+#'
+#' coldata <- data.frame(group  = rep(c("case", "control"), each = 5),
+#'                       gender = sample(c("M", "F"), 10, replace = TRUE))
+#'
+#' rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
+#'                       pos = runif(20, 0, 1000000))
+#'
+#' X <- annmatrix(x, rowdata, coldata)
+#'
+#' res <- 1:20 %*% X
+#' res$group
+#'
+#' res <- X %*% 1:10
+#' res@chr
+#'
+#' res <- t(X) %*% X
+#' res@group
+#' res$group
+#'
 #' @author Karolis Koncevičius
 #' @name matrixgenerics
 #' @export
