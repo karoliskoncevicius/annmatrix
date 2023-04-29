@@ -10,10 +10,10 @@ R Annotated Matrix Object
 `annmatrix` object implements persistent row and column annotations for R matrices.
 
 The use-case was born out of the need to better organize biomedical microarray and sequencing data within R.
-But annmatrix is readily applicable in other contexts where the data can be assembled into a matrix form with rows and columns representing distinct type of information.
+But 'annmatrix' is readily applicable in other contexts where the data can be assembled into a matrix form with rows and columns representing distinct type of information.
 
-The main advantage of annmatrix over BioConductor implementations like [SummarizedExperiment](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html) and [AnnotatedDataFrame](https://www.rdocumentation.org/packages/Biobase/versions/2.32.0/topics/AnnotatedDataFrame) is simplicity.
-Since annmatrix is based on a regular matrix, and not a list or a data-frame, it behaves like a regular matrix and can be directly passed to various methods that expect a matrix for an input.
+The main advantage of 'annmatrix' over BioConductor implementations like [SummarizedExperiment](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html) and [AnnotatedDataFrame](https://www.rdocumentation.org/packages/Biobase/versions/2.32.0/topics/AnnotatedDataFrame) is simplicity.
+Since 'annmatrix' is based on a regular matrix, and not a list or a data frame, it behaves like a regular matrix and can be directly passed to various methods that expect a matrix for an input.
 
 
 ## Installation ##
@@ -25,342 +25,237 @@ remotes::install_github("karoliskoncevicius/annmatrix")
 ```
 
 
-## Usage ##
+## Demonstration ##
 
-Say, you have a small gene expression dataset with 25 genes measured across 10 samples:
+Say, you have a small gene expression dataset with 10 genes measured across 6 samples.
 
 ```r
-mat <- matrix(rnorm(25 * 10), nrow = 25, ncol = 10)
+mat <- matrix(rnorm(10 * 6), nrow = 10, ncol = 6)
 ```
 
-And some additional information about those genes and samples:
+And some additional information about those genes and samples.
 
 ```r
-# sample metadata
-group  <- rep(c("case", "control"), each=5)
-gender <- sample(c("M", "F"), 10, replace = TRUE)
+# sample annotations
+group   <- rep(c("case", "control"), each=3)
+gender  <- sample(c("M", "F"), 6, replace = TRUE)
 
 coldata <- data.frame(group = group, gender = gender)
 
-# row metadata
-chromosome <- sample(c("chr1", "chr2", "chr3"), 25, replace = TRUE)
-position   <- runif(25, 0, 1000000)
+# gene annotations
+chromosome <- sample(c("chr1", "chr2", "chr3"), 10, replace = TRUE)
+position   <- runif(10, 0, 1000000)
 
 rowdata <- data.frame(chr = chromosome, pos = position)
 ```
 
-`annmatrix` allows you to attach this additional information to the rows and columns of the original matrix:
+`annmatrix` allows you to attach this additional information to the rows and columns of the original matrix.
 
 ```r
 X <- annmatrix(mat, rowdata, coldata)
 ```
 
-When printed `annmatrix` shows 5 first rows and columns from the matrix, and all the annotations available for them:
+When printed `annmatrix` shows 4 first + the last row and 4 first + the last column from the matrix.
+All the available row and column annotations are listed under the printed matrix.
 
 ```r
 X
+
+             [,1]        [,2]        [,3]        [,4]                    [,6]
+ [1,]  0.66169350 -0.30735899  1.05689046 -0.12608955 ........... -0.57256277
+ [2,]  0.68271345  1.40599511  0.61957934  0.14596230 ........... -1.69882580
+ [3,] -2.78862062  1.16731768 -0.31053865  0.17378339 ........... -1.20254675
+ [4,] -0.01664427 -0.97852517 -0.90142778  0.64705772 ...........  0.29171123
+      ........... ........... ........... ........... ........... ...........
+[10,] -0.96844681  1.29051415  1.25168520  1.15311914 ...........  0.93371761
+
+rann: chr, pos
+cann: group, gender
 ```
 
-```
-##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,]  1.129127  0.186222  0.135926 -1.643235 -0.062387       ...
-## [2,]  0.043306  1.229182 -1.728610  1.552950  1.351227       ...
-## [3,]  0.212287  0.936532 -0.077224 -1.612147  0.603509       ...
-## [4,]  0.123369  1.825294  0.610138 -1.916757  0.162795       ...
-## [5,]  0.584265 -0.323781  1.756105  0.053521 -0.641604       ...
-## [6,]       ...       ...       ...       ...       ...       ...
-## 
-## rows:    25 chr, pos
-## columns: 10 group, gender
-```
-
-The attributes can be accessed with `rann` (for row metadata) and `cann` (for column metadata):
+Custom operators `@` and `$` are provided for convenient manipulation of row and column metadata.
 
 
 ```r
-rowanns(annMat, "chr")
-```
-
-```
-##  [1] "chr3" "chr3" "chr3" "chr2" "chr3" "chr1" "chr3" "chr1" "chr3" "chr1" "chr3" "chr1" "chr1"
-## [14] "chr3" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr1" "chr1" "chr3" "chr1" "chr2"
+X@chr
+ [1] "chr1" "chr3" "chr2" "chr2" "chr1" "chr2" "chr3" "chr3" "chr2" "chr3"
 ```
 
 ```r
-colanns(annMat, c("group", "gender"))
+X$group
+ [1] "case"    "case"    "case"    "control" "control" "control"
 ```
 
-```
-##      group gender
-## 1     case      F
-## 2     case      F
-## 3     case      F
-## 4     case      M
-## 5     case      M
-## 6  control      F
-## 7  control      M
-## 8  control      F
-## 9  control      F
-## 10 control      M
+They also can be used in adjust the annotations.
+
+```r
+X@chr <- "chr2"
+X@chr
+ [1] "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2"
 ```
 
-When the second argument is not provided - entire `data.frame` will be returned:
+Or create new ones.
+
+```r
+X$age <- seq(10, 60, 10)
+X$age
+ [1] 10 20 30 40 50 60
+```
+
+When an empty name is provided it will return the whole annotation `data.frame`.
+
+```r
+X$''
+    group gender age
+1    case      F  10
+2    case      F  20
+3    case      M  30
+4 control      F  40
+5 control      M  50
+6 control      M  60
+```
+
+When subsetting the `annmatrix` object all the annotations are correctly adjusted and class is preserved.
 
 
 ```r
-colanns(annMat)
-```
+X_case <- X[, X$group == "case"]
+X_case
+             [,1]        [,2]        [,3]
+ [1,]  0.66169350 -0.30735899  1.05689046
+ [2,]  0.68271345  1.40599511  0.61957934
+ [3,] -2.78862062  1.16731768 -0.31053865
+ [4,] -0.01664427 -0.97852517 -0.90142778
+      ........... ........... ...........
+[10,] -0.96844681  1.29051415  1.25168520
 
-```
-##      group gender
-## 1     case      F
-## 2     case      F
-## 3     case      F
-## 4     case      M
-## 5     case      M
-## 6  control      F
-## 7  control      M
-## 8  control      F
-## 9  control      F
-## 10 control      M
-```
-
-The same functions can also be used to alter the metadata or remove/add fields to it:
-
-
-```r
-rowanns(annMat, "chr") <- "chr1"
-rowanns(annMat, "chr")
-```
-
-```
-##  [1] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
-## [14] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
+rann: chr, pos
+cann: group, gender, age
 ```
 
 ```r
-rowanns(annMat, "strand") <- "+"
-rowanns(annMat, "strand")
+X_case$''
+  group gender age
+1  case      F  10
+2  case      F  20
+3  case      M  30
 ```
 
-```
-##  [1] "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+" "+"
-## [25] "+"
-```
+However in order to be consistent with `matrix` the class is dropped when selecting only a single row or column.
 
 ```r
-rowanns(annMat, "strand") <- NULL
-rowanns(annMat, "strand")
+X[1,]
+ [1]  0.6616935 -0.3073590  1.0568905 -0.1260895 -1.7833199 -0.5725628
 ```
 
-```
-## NULL
-```
-
-For convenience the operators `@` and `$` are available to select row and column metadata respectively:
+But just like with a matrix we can enforce it to preserve all the annotations and class by setting `drop=FALSE`.
 
 
 ```r
-annMat@chr
+X[1,, drop=FALSE]
+           [,1]       [,2]       [,3]       [,4]                  [,6]
+[1,]  0.6616935 -0.3073590  1.0568905 -0.1260895 .......... -0.5725628
+
+rann: chr, pos
+cann: group, gender, age
 ```
 
-```
-##  [1] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
-## [14] "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1" "chr1"
-```
-
-```r
-annMat$group
-```
-
-```
-##  [1] "case"    "case"    "case"    "case"    "case"    "control" "control" "control" "control"
-## [10] "control"
-```
-
-They also can be used in change the metadata.
+Operations on `annmatrix` object don't loose the class.
 
 
 ```r
-annMat@chr <- "chr2"
-annMat@chr
-```
+X > 0
+       [,1]  [,2]  [,3]  [,4]        [,6]
+ [1,]  TRUE FALSE  TRUE FALSE ..... FALSE
+ [2,]  TRUE  TRUE  TRUE  TRUE ..... FALSE
+ [3,] FALSE  TRUE FALSE  TRUE ..... FALSE
+ [4,] FALSE FALSE FALSE  TRUE .....  TRUE
+      ..... ..... ..... ..... ..... .....
+[10,] FALSE  TRUE  TRUE  TRUE .....  TRUE
 
-```
-##  [1] "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2"
-## [14] "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2"
-```
-
-When an empty name is provided it will return the whole metadata `data.frame`:
-
-
-```r
-annMat$''
-```
-
-```
-##      group gender
-## 1     case      F
-## 2     case      F
-## 3     case      F
-## 4     case      M
-## 5     case      M
-## 6  control      F
-## 7  control      M
-## 8  control      F
-## 9  control      F
-## 10 control      M
-```
-
-When subsetting the `annmatrix` object all the metadata are correctly adjusted and class is preserved:
-
-
-```r
-amat <- annMat[1:2,1:3]
-amat
-```
-
-```
-##      [,1]      [,2]      [,3]     
-## [1,]  1.129127  0.186222  0.135926
-## [2,]  0.043306  1.229182 -1.728610
-## 
-## rows:    2 chr, pos
-## columns: 3 group, gender
+rann: chr, pos
+cann: group, gender, age
 ```
 
 ```r
-rowanns(amat)
+X <- X - rowMeans(X)
+X
+             [,1]        [,2]        [,3]        [,4]                    [,6]
+ [1,]  0.84015137 -0.12890112  1.23534833  0.05236833 ........... -0.39410490
+ [2,]  0.58625309  1.30953476  0.52311899  0.04950195 ........... -1.79528616
+ [3,] -2.32988062  1.62605768  0.14820135  0.63252339 ........... -0.74380675
+ [4,]  0.17221049 -0.78967041 -0.71257302  0.83591248 ...........  0.48056599
+      ........... ........... ........... ........... ........... ...........
+[10,] -1.41900750  0.83995346  0.80112451  0.70255845 ...........  0.48315692
+
+rann: chr, pos
+cann: group, gender, age
 ```
 
-```
-##    chr      pos
-## 1 chr2 997460.1
-## 2 chr2 773943.7
-```
+Matrix transpose will preserve the class and correctly adjust row and column annotations.
 
 ```r
-colanns(amat)
+t(X)
+            [,1]        [,2]        [,3]        [,4]                   [,10]
+[1,]  0.84015137  0.58625309 -2.32988062  0.17221049 ........... -1.41900750
+[2,] -0.12890112  1.30953476  1.62605768 -0.78967041 ...........  0.83995346
+[3,]  1.23534833  0.52311899  0.14820135 -0.71257302 ...........  0.80112451
+[4,]  0.05236833  0.04950195  0.63252339  0.83591248 ...........  0.70255845
+     ........... ........... ........... ........... ........... ...........
+[6,] -0.39410490 -1.79528616 -0.74380675  0.48056599 ...........  0.48315692
+
+rann: group, gender, age
+cann: chr, pos
 ```
 
-```
-##   group gender
-## 1  case      F
-## 2  case      F
-## 3  case      F
-```
-
-However in order to be consistent with `matrix` the class is dropped when selecting only a single row or column:
-
+Principal component analysis with `prcomp` will add row and column annotations to the resulting objects.
+Furthermore, matrix cross-product will also preserve all annotations that are possible to preserve after the product.
+Here is an example where information is carried over after applying PCA rotation to transform a new dataset.
 
 ```r
-annMat[1,]
-```
+pca <- prcomp(t(X))
+pca$rotation
+              PC1         PC2         PC3         PC4                     PC6
+ [1,]  0.26080230 -0.45332277  0.05027243  0.46904186 ........... -0.48969715
+ [2,] -0.05442698 -0.50262139  0.41614222  0.03436835 ...........  0.26831539
+ [3,] -0.69297891 -0.16830036 -0.05224952 -0.17119413 ........... -0.55535463
+ [4,]  0.07115811  0.26610369 -0.17118495  0.39262010 ...........  0.04176179
+      ........... ........... ........... ........... ........... ...........
+[10,] -0.23156912 -0.41746097 -0.48222094  0.29355717 ...........  0.38049379
 
-```
-##  [1]  1.12912725  0.18622171  0.13592558 -1.64323467 -0.06238711 -0.68400126 -0.19800254 -1.73957675
-##  [9] -1.21199972 -1.90221542
-```
+rann: chr, pos
+cann: pc, sd, var, var_explained
 
-But just like with `matrix` we can enforce it to preserve all the annotations and class by setting `drop=FALSE`
+pca$rotation$var_explained
+ [1] 3.918872e-01 2.821670e-01 2.087386e-01 7.917492e-02 3.803232e-02 8.230025e-33
 
+y    <- matrix(rnorm(20), ncol=2)
+info <- data.frame(smoker = c(TRUE, FALSE))
+Y    <- annmatrix(y, cann = info)
 
-```r
-annMat[1,, drop=FALSE]
-```
+Y_scores <- t(pca$rotation) %*% Y
 
-```
-##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,]  1.129127  0.186222  0.135926 -1.643235 -0.062387       ...
-## 
-## rows:    1 chr, pos
-## columns: 10 group, gender
-```
+Y_scores@''
+     pc           sd          var var_explained
+PC1 PC1 1.930131e+00 3.725405e+00  3.918872e-01
+PC2 PC2 1.637794e+00 2.682370e+00  2.821670e-01
+PC3 PC3 1.408665e+00 1.984336e+00  2.087386e-01
+PC4 PC4 8.675610e-01 7.526621e-01  7.917492e-02
+PC5 PC5 6.012881e-01 3.615474e-01  3.803232e-02
+PC6 PC6 2.797092e-16 7.823725e-32  8.230025e-33
 
-As an example - to select all the cases and their values on chromosome 2 one would do:
-
-
-
-The meta data are also correctly adjusted after transposition `t(annMat)`.
-
-Operations on `annmatrix` object don't loose the class:
-
-
-```r
-annMat > 0
-```
-
-```
-##      [,1]  [,2]  [,3]  [,4]  [,5]  [,6] 
-## [1,]  TRUE  TRUE  TRUE FALSE FALSE   ...
-## [2,]  TRUE  TRUE FALSE  TRUE  TRUE   ...
-## [3,]  TRUE  TRUE FALSE FALSE  TRUE   ...
-## [4,]  TRUE  TRUE  TRUE FALSE  TRUE   ...
-## [5,]  TRUE FALSE  TRUE  TRUE FALSE   ...
-## [6,]   ...   ...   ...   ...   ...   ...
-## 
-## rows:    25 chr, pos
-## columns: 10 group, gender
-```
-
-```r
-annMat <- annMat - rowMeans(annMat)
-annMat
-```
-
-```
-##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,]  1.728142  0.785236  0.734940 -1.044220  0.536627       ...
-## [2,]  0.105376  1.291253 -1.666539  1.615020  1.413298       ...
-## [3,]  0.025853  0.750099 -0.263657 -1.798580  0.417075       ...
-## [4,] -0.003085  1.698840  0.483684 -2.043210  0.036342       ...
-## [5,]  0.397529 -0.510517  1.569369 -0.133215 -0.828340       ...
-## [6,]       ...       ...       ...       ...       ...       ...
-## 
-## rows:    25 chr, pos
-## columns: 10 group, gender
-```
-
-`as.matrix` will turn the `annmatrix` object into a `matrix` again and will drop all it's metadata.
-Therefore when using `annmatrix` object within a function the structure in most cases will be lost.
-This happens because a lot of functions in R call `as.matrix()` on their arguments.
-However we can preserve the class and all the metadata by using `[` for replacement:
-
-
-```r
-# scale() looses the class
-class(scale(annMat))
-```
-
-```
-## [1] "matrix"
-```
-
-```r
-# in order to preserve - re-assign
-annMat[] <- scale(annMat)
-annMat
-```
-
-```
-##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]     
-## [1,]  1.779032  0.977275  1.081681 -0.936408  0.170845       ...
-## [2,]  0.018796  1.479531 -1.698952  1.381487  1.084952       ...
-## [3,] -0.067464  0.942398 -0.074578 -1.593937  0.046187       ...
-## [4,] -0.098854  1.884090  0.790756 -1.807166 -0.350805       ...
-## [5,]  0.335698 -0.308851  2.047853 -0.142341 -1.252412       ...
-## [6,]       ...       ...       ...       ...       ...       ...
-## 
-## rows:    25 chr, pos
-## columns: 10 group, gender
+Y_scores$''
+  smoker
+1   TRUE
+2  FALSE
 ```
 
 
 ## Technical Details ##
 
-`annmatrix` uses S3 system of R to extend the base `matrix` class in order to provide it with persistent annotations that are associated with rows and columns.
-Technically `annmatrix` object is just a regular *R* `matrix` with additional attributes `.annmatrix.rann` and `.annmatrix.cann` that are preserved after sub-setting and other matrix-specific operations.
-Hence, every function that works on a `matrix` by design should work the same way with `annmatrix`.
+`annmatrix` uses R's S3 class system to extend the base `matrix` class in order to provide it with persistent annotations that are associated with rows and columns.
+Technically `annmatrix` object is just a regular R `matrix` with additional `data.frame` attributes `.annmatrix.rann` and `.annmatrix.cann` that are preserved after sub-setting and other matrix-specific operations.
+As a result, every function that works on a `matrix` by design should work the same way with `annmatrix`.
 
 
 ## See Also ##
