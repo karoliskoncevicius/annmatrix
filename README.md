@@ -10,10 +10,10 @@ R Annotated Matrix Object
 `annmatrix` object implements persistent row and column annotations for R matrices.
 
 The use-case was born out of the need to better organize biomedical microarray and sequencing data within R.
-But 'annmatrix' is readily applicable in other contexts where the data can be assembled into a matrix form with rows and columns representing distinct type of information.
+But 'annmatrix' is readily applicable in other contexts where the data can be assembled into a matrix form with rows and columns representing distinct types of information.
 
 The main advantage of 'annmatrix' over BioConductor implementations like [SummarizedExperiment](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html) and [AnnotatedDataFrame](https://www.rdocumentation.org/packages/Biobase/versions/2.32.0/topics/AnnotatedDataFrame) is simplicity.
-Since 'annmatrix' is based on a regular matrix, and not a list or a data frame, it behaves like a regular matrix and can be directly passed to various methods that expect a matrix for an input.
+Since 'annmatrix' is based on a matrix, and not a list or a data frame, it behaves like a regular matrix and can be directly passed to various methods that expect a matrix for an input.
 
 
 ## Installation ##
@@ -73,7 +73,7 @@ rann: chr, pos
 cann: group, sex
 ```
 
-Custom operators `@` and `$` are provided for convenient manipulation of row and column metadata.
+Custom operators `@` and `$` are provided for convenient manipulation of row and column data.
 
 
 ```r
@@ -88,12 +88,12 @@ X$group
  [1] "case"    "case"    "case"    "control" "control" "control"
 ```
 
-They also can be used in adjust the annotations.
+They also can be used to adjust the annotations.
 
 ```r
 X@pos
 
- [1]  43636.69 515054.59 970481.16  50346.18 725297.64 785234.14 725039.28 145226.04 928290.06 151757.38
+ [1] 638888.35 352616.94 544816.92 375751.76 872236.99 440757.96 285375.83 258407.09 709736.90  72866.01
 
 X@pos <- X@pos * 10
 
@@ -161,7 +161,7 @@ X[1,]
  [1] -0.6618498 -0.3828219 -1.2668148 -1.4219925 -0.4311744 -1.8654487
 ```
 
-But just like with a matrix we can enforce it to preserve all the annotations and class by setting `drop=FALSE`.
+But just like with a matrix we can enforce it to preserve all the annotations and the class by setting `drop=FALSE`.
 
 
 ```r
@@ -175,7 +175,6 @@ cann: group, sex, age
 ```
 
 Operations on `annmatrix` object don't loose the class.
-
 
 ```r
 X > 0
@@ -274,7 +273,7 @@ Y_scores$''
 2  FALSE
 ```
 
-And, of course, you get all the goodies that comes from storing your data as a matrix.
+And, of course, you get all the goodies that come from storing your data as a matrix.
 
 ```r
 
