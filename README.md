@@ -236,9 +236,7 @@ rann: group, sex, age
 cann: chr, pos
 ```
 
-Principal component analysis with `prcomp` will add row and column annotations to the resulting objects.
-Furthermore, matrix cross-product will preserve all annotations that are possible to preserve after the product.
-Here is an example where information is carried over after applying PCA rotation to transform a new dataset.
+Principal component analysis with `prcomp` will transform the PCA loadings into 'annmatrix' object and add row and column annotations to it, such as proportion of variance explained.
 
 ```r
 pca <- prcomp(t(X))
@@ -259,15 +257,28 @@ cann: pc, sd, var, var_explained
 pca$rotation$var_explained
 
  [1] 3.976151e-01 2.492482e-01 1.991826e-01 8.899235e-02 6.496171e-02 3.582514e-33
+```
+
+Furthermore, matrix cross-product will preserve all annotations that are possible to preserve after the product.
+
+```r
+
+X_scores <- t(pca$rotation) %*% X
+X_scores
+
+             [,1]          [,2]          [,3]          [,4]                        [,6]
+PC1  2.642132e+00  1.845104e+00 -3.957560e-01 -5.252007e-01 ............. -1.828050e+00
+PC2  1.486939e+00 -8.303449e-01 -2.172757e+00 -3.843922e-01 .............  1.723213e+00
+PC3  7.210412e-01 -8.182090e-01 -4.038344e-01  1.336113e-01 ............. -1.709567e+00
+PC4 -2.734391e-01  8.671400e-01  2.275004e-03 -1.559362e+00 .............  2.337191e-01
+    ............. ............. ............. ............. ............. .............
+PC6  1.110223e-16  2.220446e-15  2.553513e-15 -1.020364e-14 ............. -2.567391e-16
+
+rann: pc, sd, var, var_explained
+cann: group, sex, age
 
 
-y    <- matrix(rnorm(20), ncol=2)
-info <- data.frame(smoker = c(TRUE, FALSE))
-Y    <- annmatrix(y, cann = info)
-
-Y_scores <- t(pca$rotation) %*% Y
-
-Y_scores@''
+X_scores@''
 
      pc           sd          var var_explained
 PC1 PC1 1.853695e+00 3.436186e+00  3.976151e-01
@@ -278,11 +289,15 @@ PC5 PC5 7.492653e-01 5.613986e-01  6.496171e-02
 PC6 PC6 1.759547e-16 3.096006e-32  3.582514e-33
 
 
-Y_scores$''
+X_scores$''
 
-  smoker
-1   TRUE
-2  FALSE
+    group sex age
+1    case   F  10
+2    case   M  20
+3    case   M  30
+4 control   M  40
+5 control   F  50
+6 control   F  60
 ```
 
 And, of course, you get all the goodies that come from storing your data as a matrix.
@@ -292,9 +307,9 @@ And, of course, you get all the goodies that come from storing your data as a ma
 # medians of all genes on chromosome 1
 
 library(matrixStats)
-colMedians(X[X@chr == "chr1",])
+rowMedians(X[X@chr == "chr1",])
 
- [1]  1.28816445 -0.00962415 -0.28179010 -0.25531534 -0.15827820 -1.11488646
+ [1]  0.04068471 -0.27639844 -0.16650737 -0.19172644
 
 
 # Gene-wise Bartlett's test for equal variance between cases and control
