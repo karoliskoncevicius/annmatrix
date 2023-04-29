@@ -91,10 +91,15 @@ X$group
 They also can be used in adjust the annotations.
 
 ```r
-X@chr <- "chr2"
-X@chr
+X@pos
 
- [1] "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2" "chr2"
+ [1]  43636.69 515054.59 970481.16  50346.18 725297.64 785234.14 725039.28 145226.04 928290.06 151757.38
+
+X@pos <- X@pos * 10
+
+X@pos
+
+ [1] 6388883.5 3526169.4 5448169.2 3757517.6 8722369.9 4407579.6 2853758.3 2584070.9 7097369.0  728660.1
 ```
 
 Or create new ones.
@@ -273,12 +278,12 @@ And, of course, you get all the goodies that comes from storing your data as a m
 
 ```r
 
-# medians of all genes on chromosome 1
+# medians of all samples
 
 library(matrixStats)
-rowMedians(X[X@chr == "chr2",])
+colMedians(X[X@chr == "chr1",])
 
- [1]  0.04068471 -0.27639844 -0.16650737 -0.19172644  0.16179570  0.19304473 -0.18928536  0.13571042 -0.03448808 -0.09029672
+ [1]  0.50924058  0.36853396 -0.45264119 -0.05081974 -0.76821029  0.28775099
 
 
 # Student's t-test between cases and controls on each gene
