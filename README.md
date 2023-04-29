@@ -7,7 +7,7 @@ R Annotated Matrix Object
 
 ## Description ##
 
-`annmatrix` object implements persistent row and column annotations for R matrices.
+`annmatrix` implements persistent row and column annotations for R matrices.
 
 The use-case was born out of the need to better organize biomedical microarray and sequencing data within R.
 But 'annmatrix' is readily applicable in other contexts where the data can be assembled into a matrix form with rows and columns representing distinct types of information.
