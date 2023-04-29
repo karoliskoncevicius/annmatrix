@@ -18,3 +18,6 @@
 \description{
 Function used to select autocomplete options for dollar `$` and at `@` operators.
 }
+\author{
+Karolis Koncevičius
+}

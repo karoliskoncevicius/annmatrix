@@ -127,7 +127,7 @@ annmatrix <- function(x, rann, cann) {
     x <- as.matrix(x)
   }
 
-  if (missing(rann)) {
+  if (missing(rann) || is.null(rann)) {
     rann <- data.frame(row.names = seq_len(nrow(x)))
   } else if (is.vector(rann)) {
     rann <- as.data.frame(rann)
@@ -136,7 +136,7 @@ annmatrix <- function(x, rann, cann) {
     rann <- as.data.frame(rann)
   }
 
-  if (missing(cann)) {
+  if (missing(cann) || is.null(cann)) {
     cann <- data.frame(row.names = seq_len(ncol(x)))
   } else if (is.vector(cann)) {
     cann <- as.data.frame(cann)

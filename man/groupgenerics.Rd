@@ -24,3 +24,6 @@
 \description{
 The functions listed here work under the hood and are almost never called by the user.
 }
+\author{
+Karolis Koncevičius
+}
