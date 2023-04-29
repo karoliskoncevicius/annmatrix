@@ -31,19 +31,31 @@ Say, you have a small gene expression dataset with 10 genes measured across 6 sa
 
 ```r
 mat <- matrix(rnorm(10 * 6), nrow = 10, ncol = 6)
+
+             [,1]       [,2]       [,3]        [,4]         [,5]        [,6]
+ [1,] -0.66184983 -0.3828219 -1.2668148 -1.42199245 -0.431174368 -1.86544873
+ [2,]  1.71895416  0.2994216 -0.1985833 -0.32822829  0.382446538  1.82998433
+ [3,]  2.12166699  0.6742398  0.1388658  0.28457007  0.041125095 -0.99111590
+ [4,]  1.49715368 -0.2928163 -0.2793360  0.71933588 -0.059224001 -1.45043462
+ [5,] -0.03614058  0.4880534  0.7089194  0.43241598 -1.296423984 -0.01482476
+ [6,]  1.23194518  0.8828018 -0.7666105 -0.35192477 -2.136976377  0.53663905
+ [7,] -0.06488077  1.8627490  1.4433629  0.29772143 -0.893614686 -0.81110377
+ [8,]  1.06899373  1.6117253  0.8448793 -0.26143236  0.612732875 -0.31832480
+ [9,] -0.37696531  0.1354795 -0.3993704  1.30868973  0.582971232  1.11147600
+[10,]  1.04318309  1.0880860 -1.4277676  0.01587026 -0.005882013 -0.14174471
 ```
 
 And some additional information about those genes and samples.
 
 ```r
 # sample annotations
-group   <- rep(c("case", "control"), each=3)
-sex     <- sample(c("M", "F"), 6, replace = TRUE)
+group   <- c("case", "case", "case", "control", "control", "control")
+sex     <- c("F", "M", "M", "M", "F", "F")
 
 coldata <- data.frame(group = group, sex = sex)
 
 # gene annotations
-chromosome <- sample(c("chr1", "chr2", "chr3"), 10, replace = TRUE)
+chromosome <- c("chr1", "chr1", "chr1", "chr1", "chr2", "chr2", "chr2", "chr3", "chr3", "chr3")
 position   <- runif(10, 0, 1000000)
 
 rowdata <- data.frame(chr = chromosome, pos = position)
@@ -79,7 +91,7 @@ Custom operators `@` and `$` are provided for convenient manipulation of row and
 ```r
 X@chr
 
- [1] "chr2" "chr1" "chr1" "chr3" "chr1" "chr1" "chr1" "chr2" "chr1" "chr2"
+ [1] "chr1" "chr1" "chr1" "chr1" "chr2" "chr2" "chr2" "chr3" "chr3" "chr3"
 ```
 
 ```r
@@ -93,13 +105,13 @@ They also can be used to adjust the annotations.
 ```r
 X@pos
 
- [1] 638888.35 352616.94 544816.92 375751.76 872236.99 440757.96 285375.83 258407.09 709736.90  72866.01
+ [1] 418638.0 423928.7 248000.4 220840.4 482854.1 662214.0 122708.6 334171.7 219852.3 927672.1
 
 X@pos <- X@pos * 10
 
 X@pos
 
- [1] 6388883.5 3526169.4 5448169.2 3757517.6 8722369.9 4407579.6 2853758.3 2584070.9 7097369.0  728660.1
+ [1] 4186380 4239287 2480004 2208404 4828541 6622140 1227086 3341717 2198523 9276721
 ```
 
 Or create new ones.
@@ -121,8 +133,8 @@ X$''
 2    case   M  20
 3    case   M  30
 4 control   M  40
-5 control   M  50
-6 control   M  60
+5 control   F  50
+6 control   F  60
 ```
 
 When subsetting the `annmatrix` object all the annotations are correctly adjusted and class is preserved.
@@ -224,9 +236,7 @@ rann: group, sex, age
 cann: chr, pos
 ```
 
-Principal component analysis with `prcomp` will add row and column annotations to the resulting objects.
-Furthermore, matrix cross-product will preserve all annotations that are possible to preserve after the product.
-Here is an example where information is carried over after applying PCA rotation to transform a new dataset.
+Principal component analysis with `prcomp` will transform the PCA loadings into 'annmatrix' object and add row and column annotations to it, such as proportion of variance explained.
 
 ```r
 pca <- prcomp(t(X))
@@ -247,15 +257,28 @@ cann: pc, sd, var, var_explained
 pca$rotation$var_explained
 
  [1] 3.976151e-01 2.492482e-01 1.991826e-01 8.899235e-02 6.496171e-02 3.582514e-33
+```
+
+Furthermore, matrix cross-product will preserve all annotations that are possible to preserve after the product.
+
+```r
+
+X_scores <- t(pca$rotation) %*% X
+X_scores
+
+             [,1]          [,2]          [,3]          [,4]                        [,6]
+PC1  2.642132e+00  1.845104e+00 -3.957560e-01 -5.252007e-01 ............. -1.828050e+00
+PC2  1.486939e+00 -8.303449e-01 -2.172757e+00 -3.843922e-01 .............  1.723213e+00
+PC3  7.210412e-01 -8.182090e-01 -4.038344e-01  1.336113e-01 ............. -1.709567e+00
+PC4 -2.734391e-01  8.671400e-01  2.275004e-03 -1.559362e+00 .............  2.337191e-01
+    ............. ............. ............. ............. ............. .............
+PC6  1.110223e-16  2.220446e-15  2.553513e-15 -1.020364e-14 ............. -2.567391e-16
+
+rann: pc, sd, var, var_explained
+cann: group, sex, age
 
 
-y    <- matrix(rnorm(20), ncol=2)
-info <- data.frame(smoker = c(TRUE, FALSE))
-Y    <- annmatrix(y, cann = info)
-
-Y_scores <- t(pca$rotation) %*% Y
-
-Y_scores@''
+X_scores@''
 
      pc           sd          var var_explained
 PC1 PC1 1.853695e+00 3.436186e+00  3.976151e-01
@@ -266,11 +289,15 @@ PC5 PC5 7.492653e-01 5.613986e-01  6.496171e-02
 PC6 PC6 1.759547e-16 3.096006e-32  3.582514e-33
 
 
-Y_scores$''
+X_scores$''
 
-  smoker
-1   TRUE
-2  FALSE
+    group sex age
+1    case   F  10
+2    case   M  20
+3    case   M  30
+4 control   M  40
+5 control   F  50
+6 control   F  60
 ```
 
 And, of course, you get all the goodies that come from storing your data as a matrix.
@@ -280,9 +307,9 @@ And, of course, you get all the goodies that come from storing your data as a ma
 # medians of all genes on chromosome 1
 
 library(matrixStats)
-colMedians(X[X@chr == "chr1",])
+rowMedians(X[X@chr == "chr1",])
 
- [1]  0.50924058  0.36853396 -0.45264119 -0.05081974 -0.76821029  0.28775099
+ [1]  0.04068471 -0.27639844 -0.16650737 -0.19172644
 
 
 # Gene-wise Bartlett's test for equal variance between cases and control
