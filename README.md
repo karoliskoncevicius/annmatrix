@@ -348,6 +348,21 @@ row_cor_pearson(X, X$age)
 10          6 -0.4486700  4 -1.00407581 0.37215468 -0.9238398  0.57069431   two.sided        0       0.95
 ```
 
+When needed 'annmatrix' can be transformed into a long-format data frame.
+
+```r
+stack(X)
+
+            value  chr     pos   group sex age
+1:1   0.343167174 chr1 4186380    case   F  10
+2:1   1.101621650 chr1 4239287    case   F  10
+3:1   1.743441691 chr1 2480004    case   F  10
+4:1   1.474707248 chr1 2208404    case   F  10
+5:1  -0.083140482 chr2 4828541    case   F  10
+6:1   1.332632768 chr2 6622140    case   F  10
+...  ............ .... .......    ....   .  ..
+```
+
 
 ## Technical Details ##
 
