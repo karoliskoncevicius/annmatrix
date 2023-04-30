@@ -27,7 +27,7 @@ remotes::install_github("karoliskoncevicius/annmatrix")
 
 ## Demonstration ##
 
-Say, you have a small gene expression dataset with 10 genes measured across 6 samples.
+Say, we have a small gene expression dataset with 10 genes measured across 6 samples.
 
 ```r
 mat <- matrix(rnorm(10 * 6), nrow = 10, ncol = 6)
@@ -45,32 +45,54 @@ mat <- matrix(rnorm(10 * 6), nrow = 10, ncol = 6)
 [10,]  1.04318309  1.0880860 -1.4277676  0.01587026 -0.005882013 -0.14174471
 ```
 
-And some additional information about those genes and samples.
+We can turn this matrix into 'annmatrix' object right away.
+When printed `annmatrix` shows 4 first + the last row and 4 first + the last column from the matrix and then lists all available row and column annotations of which there are currently none.
 
 ```r
-# sample annotations
-group   <- c("case", "case", "case", "control", "control", "control")
-sex     <- c("F", "M", "M", "M", "F", "F")
+X <- as.annmatrix(mat)
 
-coldata <- data.frame(group = group, sex = sex)
+             [,1]        [,2]        [,3]        [,4]                    [,6]
+ [1,] -0.66184983 -0.38282188 -1.26681476 -1.42199245 ........... -1.86544873
+ [2,]  1.71895416  0.29942160 -0.19858329 -0.32822829 ...........  1.82998433
+ [3,]  2.12166699  0.67423976  0.13886578  0.28457007 ........... -0.99111590
+ [4,]  1.49715368 -0.29281632 -0.27933600  0.71933588 ........... -1.45043462
+      ........... ........... ........... ........... ........... ...........
+[10,]  1.04318309  1.08808601 -1.42776759  0.01587026 ........... -0.14174471
 
-# gene annotations
+rann:
+cann:
+```
+
+Custom operators `@` and `$` are provided for convenient manipulation of row and column data.
+Let's add some additional information about our samples.
+
+```r
+X$group <- c("case", "case", "case", "control", "control", "control")
+X$sex   <- c("F", "M", "M", "M", "F", "F")
+
+X
+
+             [,1]        [,2]        [,3]        [,4]                    [,6]
+ [1,] -0.66184983 -0.38282188 -1.26681476 -1.42199245 ........... -1.86544873
+ [2,]  1.71895416  0.29942160 -0.19858329 -0.32822829 ...........  1.82998433
+ [3,]  2.12166699  0.67423976  0.13886578  0.28457007 ........... -0.99111590
+ [4,]  1.49715368 -0.29281632 -0.27933600  0.71933588 ........... -1.45043462
+      ........... ........... ........... ........... ........... ...........
+[10,]  1.04318309  1.08808601 -1.42776759  0.01587026 ........... -0.14174471
+
+rann:
+cann: group, sex
+
+```
+
+We can add the entire annotation table by assigning to an empty value. Let's do this for rows.
+
+```r
 chromosome <- c("chr1", "chr1", "chr1", "chr1", "chr2", "chr2", "chr2", "chr3", "chr3", "chr3")
 position   <- runif(10, 0, 1000000)
 
-rowdata <- data.frame(chr = chromosome, pos = position)
-```
+X@'' <- data.frame(chr = chromosome, pos = position)
 
-`annmatrix` allows you to attach this additional information to the rows and columns of the original matrix.
-
-```r
-X <- as.annmatrix(mat, rowdata, coldata)
-```
-
-When printed `annmatrix` shows 4 first + the last row and 4 first + the last column from the matrix.
-All the available row and column annotations are listed under the printed matrix.
-
-```r
 X
 
              [,1]        [,2]        [,3]        [,4]                    [,6]
@@ -85,22 +107,19 @@ rann: chr, pos
 cann: group, sex
 ```
 
-Custom operators `@` and `$` are provided for convenient manipulation of row and column data.
-
+Same shortcuts can be used for retrieving available annotations.
 
 ```r
 X@chr
 
  [1] "chr1" "chr1" "chr1" "chr1" "chr2" "chr2" "chr2" "chr3" "chr3" "chr3"
-```
 
-```r
 X$group
 
  [1] "case"    "case"    "case"    "control" "control" "control"
 ```
 
-They also can be used to adjust the annotations.
+As well as for adjusting annotations.
 
 ```r
 X@pos
@@ -300,7 +319,7 @@ X_scores$''
 6 control   F  60
 ```
 
-And, of course, you get all the goodies that come from storing your data as a matrix.
+And, of course, we get all the goodies that come from storing our data as a matrix.
 
 ```r
 
