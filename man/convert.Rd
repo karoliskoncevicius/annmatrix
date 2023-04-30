@@ -23,10 +23,10 @@ is.annmatrix(x)
 \item{x}{an R object.}
 }
 \description{
-Methods for turning other objects to class annmatrix and vice versa.
+Methods for turning R objects to class annmatrix and vice versa.
 }
 \details{
-\code{as.annmatrix} will attempt to convert a given object to annmatrix.
+\code{as.annmatrix} will attempt to convert an object to annmatrix.
 
 \code{as.matrix} will turn an \code{annmatrix} object into a regular matrix.
 

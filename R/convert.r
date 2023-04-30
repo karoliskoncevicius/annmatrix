@@ -1,8 +1,8 @@
 #' Convert annmatrix Objects to and from Other Types
 #'
-#' Methods for turning other objects to class annmatrix and vice versa.
+#' Methods for turning R objects to class annmatrix and vice versa.
 #'
-#' \code{as.annmatrix} will attempt to convert a given object to annmatrix.
+#' \code{as.annmatrix} will attempt to convert an object to annmatrix.
 #'
 #' \code{as.matrix} will turn an \code{annmatrix} object into a regular matrix.
 #'
