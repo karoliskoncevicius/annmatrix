@@ -386,11 +386,12 @@ stack(X)
 ...  ............ .... .......    ....   .  ..
 ```
 
-Which then can easily be used for things like making `ggplot2` figures.
+Which then can be used for things like making `ggplot2` figures.
 
 ```r
-# boxplot for cases vs control across every chromosome.
+# case vs control boxplot by chromosome
 
+library(ggplot2)
 ggplot(stack(X), aes(x=group, y=value, color=group)) +
   facet_wrap(~chr) +
   geom_boxplot() +
