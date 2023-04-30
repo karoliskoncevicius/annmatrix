@@ -32,7 +32,7 @@
 #' X <- annmatrix(x, rowdata, coldata)
 #'
 #' # annotations are preserved after subsetting
-#' Y <- X[X@chr == "chr1", X$name %in% c("A", "B", "C")]
+#' Y <- X[X@chr == "chr1", X$group == "case"]
 #' Y@chr
 #' Y$''
 #'
