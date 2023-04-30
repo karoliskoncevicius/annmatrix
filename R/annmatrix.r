@@ -19,14 +19,6 @@
 #' \code{data.frame}. If the passed objects are of a different classes they
 #' will be converted via the use of \code{as.matrix} and \code{as.data.frame}.
 #'
-#' \code{X[i,j]} returns a selected subset of annmatrix object. Row and column
-#' annotations are preserved and subsetted where needed. In the special case
-#' when only one column or row is selected in order to be consistent with the
-#' \code{matrix} behavior the dimensions of matrix are dropped and a vector is
-#' returned. Just like in the case of matrices the additional argument
-#' \code{drop=FALSE} can be provided in order to return a proper matrix
-#' instead.
-#'
 #' \code{rowanns} and \code{colanns} returns the selected field from column and
 #' row annotations respectively. When the selected field is not specified the
 #' whole annotation \code{data.frame} is returned.
@@ -48,13 +40,11 @@
 #' @param x,object an R object.
 #' @param rann annotation \code{data.frame} for rows of the \code{annmatrix} object.
 #' @param cann annotation \code{data.frame} for columns of the \code{annmatrix} object.
-#' @param i subset for rows.
-#' @param j subset for columns.
-#' @param drop if TRUE (default) subsetting a single row or column will returned a vector.
-#' @param names a character vector of existing row/column annotation names.
 #' @param name a name of an existing row/column annotation.
+#' @param names a character vector of existing row/column annotation names.
 #' @param value a value that will be assigned to row/column annotation field.
-#' @param ... further arguments passed to or from methods.
+#'
+#' @seealso \code{as.annmatrix}
 #'
 #' @examples
 #' # construct annmatrix object
@@ -152,33 +142,6 @@ annmatrix <- function(x, rann, cann) {
   }
 
   structure(x, class = c("annmatrix", oldClass(x)), .annmatrix.rann = rann, .annmatrix.cann = cann)
-}
-
-#' @rdname annmatrix
-#' @export
-`[.annmatrix` <- function(x, i, j, ..., drop = TRUE) {
-  mat <- NextMethod("[")
-
-  if (is.matrix(mat)) {
-
-    if (missing(i)) {
-      attr(mat, ".annmatrix.rann") <- attr(x, ".annmatrix.rann")
-    } else {
-      if (is.character(i)) i <- match(i, rownames(x))
-      attr(mat, ".annmatrix.rann") <- attr(x, ".annmatrix.rann")[i,,drop = FALSE]
-    }
-
-    if (missing(j)) {
-      attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")
-    } else {
-      if (is.character(j)) j <- match(j, colnames(x))
-      attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")[j,,drop = FALSE]
-    }
-
-    class(mat) <- append("annmatrix", oldClass(mat))
-  }
-
-  mat
 }
 
 #' @rdname annmatrix

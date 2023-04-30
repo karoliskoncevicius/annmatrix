@@ -2,7 +2,6 @@
 % Please edit documentation in R/annmatrix.r
 \name{annmatrix}
 \alias{annmatrix}
-\alias{[.annmatrix}
 \alias{rowanns}
 \alias{rowanns<-}
 \alias{colanns}
@@ -14,8 +13,6 @@
 \title{annmatrix Objects and Basic Functionality}
 \usage{
 annmatrix(x, rann, cann)
-
-\method{[}{annmatrix}(x, i, j, ..., drop = TRUE)
 
 rowanns(x, names)
 
@@ -39,14 +36,6 @@ colanns(x, names) <- value
 \item{rann}{annotation \code{data.frame} for rows of the \code{annmatrix} object.}
 
 \item{cann}{annotation \code{data.frame} for columns of the \code{annmatrix} object.}
-
-\item{i}{subset for rows.}
-
-\item{j}{subset for columns.}
-
-\item{...}{further arguments passed to or from methods.}
-
-\item{drop}{if TRUE (default) subsetting a single row or column will returned a vector.}
 
 \item{names}{a character vector of existing row/column annotation names.}
 
@@ -72,14 +61,6 @@ various other contexts.
 be a \code{matrix} and \code{rowanns} and \code{colanns} to be of class
 \code{data.frame}. If the passed objects are of a different classes they
 will be converted via the use of \code{as.matrix} and \code{as.data.frame}.
-
-\code{X[i,j]} returns a selected subset of annmatrix object. Row and column
-annotations are preserved and subsetted where needed. In the special case
-when only one column or row is selected in order to be consistent with the
-\code{matrix} behavior the dimensions of matrix are dropped and a vector is
-returned. Just like in the case of matrices the additional argument
-\code{drop=FALSE} can be provided in order to return a proper matrix
-instead.
 
 \code{rowanns} and \code{colanns} returns the selected field from column and
 row annotations respectively. When the selected field is not specified the
@@ -158,6 +139,9 @@ Y$''
 Y[, 1]
 Y[, 1, drop = FALSE]
 
+}
+\seealso{
+\code{as.annmatrix}
 }
 \author{
 Karolis Koncevičius
