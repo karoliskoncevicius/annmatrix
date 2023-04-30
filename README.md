@@ -286,7 +286,6 @@ pca$rotation$var_explained
 Furthermore, matrix cross-product will preserve all annotations that are possible to preserve after the product.
 
 ```r
-
 X_scores <- t(pca$rotation) %*% X
 X_scores
 
@@ -386,6 +385,19 @@ stack(X)
 6:1   1.332632768 chr2 6622140    case   F  10
 ...  ............ .... .......    ....   .  ..
 ```
+
+Which then can easily be used for things like making `ggplot2` figures.
+
+```r
+# boxplot for cases vs control across every chromosome.
+
+ggplot(stack(X), aes(x=group, y=value, color=group)) +
+  facet_wrap(~chr) +
+  geom_boxplot() +
+  theme_bw()
+```
+
+![ggplot](http://karolis.koncevicius.lt/data/annmatrix/ggplot.png)
 
 
 ## Technical Details ##
