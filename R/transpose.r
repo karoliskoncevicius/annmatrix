@@ -16,7 +16,7 @@
 #' rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
 #'                       pos = runif(20, 0, 1000000))
 #'
-#' X <- annmatrix(x, rowdata, coldata)
+#' X <- as.annmatrix(x, rowdata, coldata)
 #'
 #' # transposes the main matrix along with row and column annotations
 #' Xt <- t(X)

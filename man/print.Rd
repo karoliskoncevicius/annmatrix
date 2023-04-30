@@ -38,7 +38,7 @@ coldata <- data.frame(group  = rep(c("case", "control"), each = 5),
 rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
                       pos = runif(20, 0, 1000000))
 
-X <- annmatrix(x, rowdata, coldata)
+X <- as.annmatrix(x, rowdata, coldata)
 
 print(X)
 print(X, 10, 5)
@@ -47,7 +47,7 @@ print(X, 2, 2)
 # also works with a list-based matrix
 x <- matrix(list(mtcars, iris3, USAccDeaths, rivers), ncol=2)
 print(x)
-X <- annmatrix(x)
+X <- as.annmatrix(x)
 print(X)
 
 }

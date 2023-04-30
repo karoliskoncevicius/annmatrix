@@ -2,6 +2,7 @@
 % Please edit documentation in R/annmatrix.r
 \name{annmatrix}
 \alias{annmatrix}
+\alias{as.annmatrix}
 \alias{is.annmatrix}
 \alias{as.matrix.annmatrix}
 \alias{[.annmatrix}
@@ -15,7 +16,7 @@
 \alias{$<-.annmatrix}
 \title{annmatrix Objects and Basic Functionality}
 \usage{
-annmatrix(x, rann, cann)
+as.annmatrix(x, rann, cann)
 
 is.annmatrix(x)
 
@@ -72,7 +73,7 @@ columns (i.e. meta-data about collected samples). But \code{annmatrix}
 objects are also expected be useful in various other contexts.
 }
 \details{
-\code{annmatrix()} constructs an object of class \code{annmatrix}. The
+\code{as.annmatrix()} converts a matrix to an \code{annmatrix} object. The
 function expects \code{x} to be a \code{matrix} and \code{rowanns} and
 \code{colanns} to be of class \code{data.frame}. If the passed objects are
 of a different class they will be converted via the use of \code{as.matrix}
@@ -118,7 +119,7 @@ coldata <- data.frame(group  = rep(c("case", "control"), each = 5),
 rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
                       pos = runif(20, 0, 1000000))
 
-X <- annmatrix(x, rowdata, coldata)
+X <- as.annmatrix(x, rowdata, coldata)
 
 is.matrix(x)
 is.matrix(X)

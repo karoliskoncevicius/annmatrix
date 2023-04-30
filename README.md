@@ -64,7 +64,7 @@ rowdata <- data.frame(chr = chromosome, pos = position)
 `annmatrix` allows you to attach this additional information to the rows and columns of the original matrix.
 
 ```r
-X <- annmatrix(mat, rowdata, coldata)
+X <- as.annmatrix(mat, rowdata, coldata)
 ```
 
 When printed `annmatrix` shows 4 first + the last row and 4 first + the last column from the matrix.

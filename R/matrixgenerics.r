@@ -18,7 +18,7 @@
 #' rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
 #'                       pos = runif(20, 0, 1000000))
 #'
-#' X <- annmatrix(x, rowdata, coldata)
+#' X <- as.annmatrix(x, rowdata, coldata)
 #'
 #' res <- 1:20 %*% X
 #' res$group
@@ -42,5 +42,5 @@
   rann <- attr(x, ".annmatrix.rann")
   cann <- attr(y, ".annmatrix.cann")
 
-  annmatrix(result, rann, cann)
+  as.annmatrix(result, rann, cann)
 }

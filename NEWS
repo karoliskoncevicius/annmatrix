@@ -7,6 +7,10 @@ NEW FEATURES:
 
  * New method - stack.annmatrix() - for turning annmatrix object into a data frame.
 
+CHANGES:
+
+ * annmatrix() matrix-based constructor is now more appropriately renamed to as.annmatrix()
+
 
 Version: 0.1.0 [TBD]
 
