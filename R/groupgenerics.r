@@ -38,7 +38,7 @@ Ops.annmatrix <- function(e1, e2) {
   result
 }
 
-#' @name groupgenerics
+#' @rdname groupgenerics
 #' @export
 chooseOpsMethod.annmatrix <- function(x, y, mx, my, cl, reverse) {
   TRUE

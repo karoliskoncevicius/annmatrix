@@ -1,4 +1,4 @@
-#' Matrix Generic Functions for annmatrix Class
+#s' Matrix Generic Functions for annmatrix Class
 #'
 #' Matrix cross-product operator implemented for annmatrix class
 #'
@@ -18,7 +18,7 @@
 #' rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
 #'                       pos = runif(20, 0, 1000000))
 #'
-#' X <- as.annmatrix(x, rowdata, coldata)
+#' X <- annmatrix(x, rowdata, coldata)
 #'
 #' res <- 1:20 %*% X
 #' res$group
@@ -42,5 +42,5 @@
   rann <- attr(x, ".annmatrix.rann")
   cann <- attr(y, ".annmatrix.cann")
 
-  as.annmatrix(result, rann, cann)
+  annmatrix(result, rann, cann)
 }

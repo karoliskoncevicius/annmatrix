@@ -51,7 +51,7 @@ coldata <- data.frame(group  = rep(c("case", "control"), each = 5),
 rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
                       pos = runif(20, 0, 1000000))
 
-X <- as.annmatrix(x, rowdata, coldata)
+X <- annmatrix(x, rowdata, coldata)
 
 pca <- prcomp(t(X))
 pca$rotation

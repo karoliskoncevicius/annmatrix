@@ -2,9 +2,6 @@
 % Please edit documentation in R/annmatrix.r
 \name{annmatrix}
 \alias{annmatrix}
-\alias{as.annmatrix}
-\alias{is.annmatrix}
-\alias{as.matrix.annmatrix}
 \alias{[.annmatrix}
 \alias{rowanns}
 \alias{rowanns<-}
@@ -16,11 +13,7 @@
 \alias{$<-.annmatrix}
 \title{annmatrix Objects and Basic Functionality}
 \usage{
-as.annmatrix(x, rann, cann)
-
-is.annmatrix(x)
-
-\method{as.matrix}{annmatrix}(x, ...)
+annmatrix(x, rann, cann)
 
 \method{[}{annmatrix}(x, i, j, ..., drop = TRUE)
 
@@ -47,11 +40,11 @@ colanns(x, names) <- value
 
 \item{cann}{annotation \code{data.frame} for columns of the \code{annmatrix} object.}
 
-\item{...}{further arguments passed to or from methods.}
-
 \item{i}{subset for rows.}
 
 \item{j}{subset for columns.}
+
+\item{...}{further arguments passed to or from methods.}
 
 \item{drop}{if TRUE (default) subsetting a single row or column will returned a vector.}
 
@@ -65,23 +58,20 @@ colanns(x, names) <- value
 Annotated matrix is a regular matrix with additional functionality for
 attaching persistent information about row and column entries. Annotations
 associated with rows and columns are preserved after subsetting,
-transposition, and various other matrix-specific operations. Intended use
-case is for storing and manipulating genomic datasets that typically
-consist of a matrix of measurements (like gene expression values) as well as
-annotations about rows (i.e. genomic locations) and annotations about
-columns (i.e. meta-data about collected samples). But \code{annmatrix}
-objects are also expected be useful in various other contexts.
+transposition, and various other matrix-specific operations.
+
+Intended 'annmatrix' use case is for storing and manipulating genomic
+datasets that typically consist of a matrix of measurements (like gene
+expression values) as well as annotations about rows (i.e. genomic
+locations) and annotations about columns (i.e. meta-data about collected
+samples). But \code{annmatrix} objects are also expected be useful in
+various other contexts.
 }
 \details{
-\code{as.annmatrix()} converts a matrix to an \code{annmatrix} object. The
-function expects \code{x} to be a \code{matrix} and \code{rowanns} and
-\code{colanns} to be of class \code{data.frame}. If the passed objects are
-of a different class they will be converted via the use of \code{as.matrix}
-and \code{as.data.frame}.
-
-\code{is.annmatrix} checks if the object is an instance of \code{annmatrix}.
-
-\code{as.matrix} will turn an \code{annmatrix} object into a regular matrix.
+\code{annmatrix()} constructs an annmatrix. The function expects \code{x} to
+be a \code{matrix} and \code{rowanns} and \code{colanns} to be of class
+\code{data.frame}. If the passed objects are of a different classes they
+will be converted via the use of \code{as.matrix} and \code{as.data.frame}.
 
 \code{X[i,j]} returns a selected subset of annmatrix object. Row and column
 annotations are preserved and subsetted where needed. In the special case
@@ -119,7 +109,7 @@ coldata <- data.frame(group  = rep(c("case", "control"), each = 5),
 rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
                       pos = runif(20, 0, 1000000))
 
-X <- as.annmatrix(x, rowdata, coldata)
+X <- annmatrix(x, rowdata, coldata)
 
 is.matrix(x)
 is.matrix(X)

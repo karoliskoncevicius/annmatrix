@@ -26,7 +26,7 @@
 #' rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
 #'                       pos = runif(20, 0, 1000000))
 #'
-#' X <- as.annmatrix(x, rowdata, coldata)
+#' X <- annmatrix(x, rowdata, coldata)
 #'
 #' pca <- prcomp(t(X))
 #' pca$rotation
@@ -47,9 +47,9 @@ prcomp.annmatrix <- function(x, retx = TRUE, center = TRUE, scale. = FALSE, tol 
                      var_explained = res$sdev^2 / sum(res$sdev^2),
                      row.names = colnames(res$rotation)
                      )
-  res$rotation <- as.annmatrix(res$rotation, rann = attr(x, ".annmatrix.cann"), cann = info)
+  res$rotation <- annmatrix(res$rotation, rann = attr(x, ".annmatrix.cann"), cann = info)
   if(retx) {
-    res$x <- as.annmatrix(res$x, rann = attr(x, ".annmatrix.rann"), cann = info)
+    res$x <- annmatrix(res$x, rann = attr(x, ".annmatrix.rann"), cann = info)
   }
   res
 }

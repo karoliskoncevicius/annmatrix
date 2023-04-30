@@ -3,7 +3,7 @@
 \name{matrixgenerics}
 \alias{matrixgenerics}
 \alias{\%*\%.annmatrix}
-\title{Matrix Generic Functions for annmatrix Class}
+\title{Matrix cross-product operator implemented for annmatrix class}
 \usage{
 \method{\%*\%}{annmatrix}(x, y)
 }
@@ -11,9 +11,6 @@
 \item{x, y}{numeric or complex matrices or vectors.}
 }
 \description{
-Matrix cross-product operator implemented for annmatrix class
-}
-\details{
 The resulting matrix will be the same as a product between two regular matrices.
 If present annmatrix row annotations will be carried over from the first matrix \code{x}
 while the annotations for rows will be carried over from the second matrix \code{y}.
@@ -28,7 +25,7 @@ coldata <- data.frame(group  = rep(c("case", "control"), each = 5),
 rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
                       pos = runif(20, 0, 1000000))
 
-X <- as.annmatrix(x, rowdata, coldata)
+X <- annmatrix(x, rowdata, coldata)
 
 res <- 1:20 \%*\% X
 res$group

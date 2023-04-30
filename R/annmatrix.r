@@ -1,24 +1,23 @@
 #' annmatrix Objects and Basic Functionality
 #'
+#' @description
 #' Annotated matrix is a regular matrix with additional functionality for
 #' attaching persistent information about row and column entries. Annotations
 #' associated with rows and columns are preserved after subsetting,
-#' transposition, and various other matrix-specific operations. Intended use
-#' case is for storing and manipulating genomic datasets that typically
-#' consist of a matrix of measurements (like gene expression values) as well as
-#' annotations about rows (i.e. genomic locations) and annotations about
-#' columns (i.e. meta-data about collected samples). But \code{annmatrix}
-#' objects are also expected be useful in various other contexts.
+#' transposition, and various other matrix-specific operations.
 #'
-#' \code{as.annmatrix()} converts a matrix to an \code{annmatrix} object. The
-#' function expects \code{x} to be a \code{matrix} and \code{rowanns} and
-#' \code{colanns} to be of class \code{data.frame}. If the passed objects are
-#' of a different class they will be converted via the use of \code{as.matrix}
-#' and \code{as.data.frame}.
+#' Intended 'annmatrix' use case is for storing and manipulating genomic
+#' datasets that typically consist of a matrix of measurements (like gene
+#' expression values) as well as annotations about rows (i.e. genomic
+#' locations) and annotations about columns (i.e. meta-data about collected
+#' samples). But \code{annmatrix} objects are also expected be useful in
+#' various other contexts.
 #'
-#' \code{is.annmatrix} checks if the object is an instance of \code{annmatrix}.
-#'
-#' \code{as.matrix} will turn an \code{annmatrix} object into a regular matrix.
+#' @details
+#' \code{annmatrix()} constructs an annmatrix. The function expects \code{x} to
+#' be a \code{matrix} and \code{rowanns} and \code{colanns} to be of class
+#' \code{data.frame}. If the passed objects are of a different classes they
+#' will be converted via the use of \code{as.matrix} and \code{as.data.frame}.
 #'
 #' \code{X[i,j]} returns a selected subset of annmatrix object. Row and column
 #' annotations are preserved and subsetted where needed. In the special case
@@ -67,7 +66,7 @@
 #' rowdata <- data.frame(chr = sample(c("chr1", "chr2"), 20, replace = TRUE),
 #'                       pos = runif(20, 0, 1000000))
 #'
-#' X <- as.annmatrix(x, rowdata, coldata)
+#' X <- annmatrix(x, rowdata, coldata)
 #'
 #' is.matrix(x)
 #' is.matrix(X)
@@ -119,7 +118,7 @@
 #' @author Karolis Koncevičius
 #' @name annmatrix
 #' @export
-as.annmatrix <- function(x, rann, cann) {
+annmatrix <- function(x, rann, cann) {
 
   if (missing(x)) {
     x <- matrix(nrow = 0, ncol = 0)
@@ -153,20 +152,6 @@ as.annmatrix <- function(x, rann, cann) {
   }
 
   structure(x, class = c("annmatrix", oldClass(x)), .annmatrix.rann = rann, .annmatrix.cann = cann)
-}
-
-#' @rdname annmatrix
-#' @export
-is.annmatrix <- function(x) {
-  inherits(x, "annmatrix")
-}
-
-#' @rdname annmatrix
-#' @export
-as.matrix.annmatrix <- function(x, ...) {
-  attr(x, ".annmatrix.rann") <- NULL
-  attr(x, ".annmatrix.cann") <- NULL
-  unclass(x)
 }
 
 #' @rdname annmatrix
