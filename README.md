@@ -46,10 +46,15 @@ mat <- matrix(rnorm(10 * 6), nrow = 10, ncol = 6)
 ```
 
 We can turn this matrix into 'annmatrix' object right away.
-When printed `annmatrix` shows 4 first + the last row and 4 first + the last column from the matrix and then lists all available row and column annotations of which there are currently none.
 
 ```r
 X <- as.annmatrix(mat)
+```
+
+When printed `annmatrix` shows 4 first + the last row and 4 first + the last column from the matrix and lists all available row and column annotations (of which there are currently none).
+
+```r
+X
 
              [,1]        [,2]        [,3]        [,4]                    [,6]
  [1,] -0.66184983 -0.38282188 -1.26681476 -1.42199245 ........... -1.86544873
