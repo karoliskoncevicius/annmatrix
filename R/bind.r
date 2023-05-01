@@ -91,16 +91,35 @@ rbind.annmatrix <- function(...) {
     # when two annmatrices have same column annotations we can safely remove duplicates
     canns <- canns[!duplicated(canns)]
 
-    # but check for entries with same names but different values
-    # in case these are detected - take the first occurrence and display a warning
-    dups <- duplicated(names(canns))
-    if (any(dups)) {
-      warning("conflicting annmatrix column annotations - using the ones that occurred first")
-      canns <- canns[!dups]
-    }
+    # but need check for entries with same names but different values
+    # first construct a data.frame using only unique fields
+    uniques <- !duplicated(names(canns))
+    dups    <- canns[!uniques]
+    canns   <- data.frame(canns[uniques])
 
-    # restore column annotations in a data.frame format
-    canns <- data.frame(canns)
+    # in case conflicting entries are detected
+    if (length(dups) > 0) {
+
+      # firt show a warning
+      warning("conflicting annmatrix column annotations - using the ones that occurred first but re-writing missing values")
+
+      # then check which entries in the original have NA values
+      # we will only be re-writing those
+      missnames <- names(which(colSums(is.na(canns)) > 0))
+      dups <- dups[names(dups) %in% missnames]
+
+      # if there is still something to do
+      if (length(dups) > 0) {
+
+        # go through each duplicated entry and rewrite missing values
+        for (i in seq_along(dups)) {
+          ann <- names(dups)[i]
+          na  <- is.na(canns[[ann]])
+          canns[[ann]][na] <- dups[[i]][na]
+        }
+      }
+
+    }
 
     # 2. deal with row annotations
     # for rows we don't care about duplicates
