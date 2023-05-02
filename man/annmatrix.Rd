@@ -43,6 +43,9 @@ colanns(x, names) <- value
 
 \item{name}{a name of an existing row/column annotation.}
 }
+\value{
+\code{annmatrix} returns an R object of class 'annmatrix'.
+}
 \description{
 Annotated matrix is a regular matrix with additional functionality for
 attaching persistent information about row and column entries. Annotations

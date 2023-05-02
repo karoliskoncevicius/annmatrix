@@ -8,6 +8,8 @@
 #' @param cl The call to the group generic.
 #' @param reverse A logical value indicating whether 'x' and 'y' are reversed from the way they were supplied to the generic.
 #'
+#' @return An object of class 'annmatrix'.
+#'
 #' @author Karolis Koncevičius
 #' @name groupgenerics
 #' @export

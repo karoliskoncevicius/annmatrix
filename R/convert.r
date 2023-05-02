@@ -11,6 +11,10 @@
 #' @param x an R object.
 #' @param ... additional arguments to be passed to or from methods.
 #'
+#' @return \code{is.annmatrix} returns TRUE if object is of class 'annmatrix' and FALSE otherwise.
+#'         \code{as.annmatrix} methods return an object of class 'annmatrix'.
+#'         \code{as.matrix} returns a regular matrix.
+#'
 #' @examples
 #' # construct annmatrix object
 #' x <- matrix(rnorm(20*10), 20, 10)

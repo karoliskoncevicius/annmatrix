@@ -3,14 +3,20 @@
 \name{matrixgenerics}
 \alias{matrixgenerics}
 \alias{\%*\%.annmatrix}
-\title{Matrix cross-product operator implemented for annmatrix class}
+\title{Matrix Generic Functions for annmatrix Class}
 \usage{
 \method{\%*\%}{annmatrix}(x, y)
 }
 \arguments{
 \item{x, y}{numeric or complex matrices or vectors.}
 }
+\value{
+an object of class 'annmatrix'.
+}
 \description{
+Matrix cross-product operator implemented for annmatrix class
+}
+\details{
 The resulting matrix will be the same as a product between two regular matrices.
 If present annmatrix row annotations will be carried over from the first matrix \code{x}
 while the annotations for rows will be carried over from the second matrix \code{y}.

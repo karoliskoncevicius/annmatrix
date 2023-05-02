@@ -15,6 +15,9 @@
 
 \item{pattern}{a regular expression used to select possible auto-completion names.}
 }
+\value{
+A set of possible auto-completion names for row (\code{@}) or column (\code{$}) annotation fields.
+}
 \description{
 Function used to select autocomplete options for dollar `$` and at `@` operators.
 }
