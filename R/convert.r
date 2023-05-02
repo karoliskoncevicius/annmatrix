@@ -9,6 +9,7 @@
 #' \code{is.annmatrix} checks if the object is an instance of \code{annmatrix}.
 #'
 #' @param x an R object.
+#' @param ... additional arguments to be passed to or from methods.
 #'
 #' @examples
 #' # construct annmatrix object

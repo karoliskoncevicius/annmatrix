@@ -21,6 +21,8 @@ is.annmatrix(x)
 }
 \arguments{
 \item{x}{an R object.}
+
+\item{...}{additional arguments to be passed to or from methods.}
 }
 \description{
 Methods for turning R objects to class annmatrix and vice versa.

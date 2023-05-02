@@ -1,3 +1,7 @@
+[![CRAN version](http://www.r-pkg.org/badges/version/annmatrix)](https://cran.r-project.org/package=annmatrix)
+[![dependencies](https://tinyverse.netlify.com/badge/annmatrix)](https://CRAN.R-project.org/package=annmatrix)
+[![Monthly Downloads](https://cranlogs.r-pkg.org/badges/annmatrix)](https://cranlogs.r-pkg.org/badges/annmatrix)
+
 # annmatrix #
 
 R Annotated Matrix Object
