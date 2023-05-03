@@ -408,7 +408,7 @@ As a result, every function that works on a `matrix` by design should work the s
 Directly from CRAN:
 
 ```r
-install.packages(annmatrix)
+install.packages("annmatrix")
 ```
 
 Or from GitHub, using `remotes` library:
