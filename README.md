@@ -20,15 +20,6 @@ The main advantage of 'annmatrix' over BioConductor implementations like [Summar
 Since 'annmatrix' is based on a matrix, and not a list or a data frame, it behaves like a regular matrix and can be directly passed to various methods that expect a matrix for an input.
 
 
-## Installation ##
-
-Using `remotes` library:
-
-```r
-remotes::install_github("karoliskoncevicius/annmatrix")
-```
-
-
 ## Demonstration ##
 
 Say, we have a small gene expression dataset with 10 genes measured across 6 samples.
@@ -410,6 +401,22 @@ ggplot(stack(X), aes(x=group, y=value, color=group)) +
 `annmatrix` uses R's S3 class system to extend the base `matrix` class in order to provide it with persistent annotations that are associated with rows and columns.
 Technically `annmatrix` object is just a regular R `matrix` with additional `data.frame` attributes `.annmatrix.rann` and `.annmatrix.cann` that are preserved after sub-setting and other matrix-specific operations.
 As a result, every function that works on a `matrix` by design should work the same way with `annmatrix`.
+
+
+## Installation ##
+
+Directly from CRAN:
+
+```r
+install.packages(annmatrix)
+```
+
+Or from GitHub, using `remotes` library:
+
+```r
+remotes::install_github("karoliskoncevicius/annmatrix")      # CRAN version
+remotes::install_github("karoliskoncevicius/annmatrix@dev")  # stable changes not yet on CRAN
+```
 
 
 ## See Also ##
