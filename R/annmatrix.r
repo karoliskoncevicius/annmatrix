@@ -144,7 +144,7 @@ annmatrix <- function(x, rann, cann) {
     stop("Number of 'cann' rows must match the number of columns in 'x'")
   }
 
-  structure(x, class = c("annmatrix", oldClass(x)), .annmatrix.rann = rann, .annmatrix.cann = cann)
+  structure(x, class = c("annmatrix", class(x)), .annmatrix.rann = rann, .annmatrix.cann = cann)
 }
 
 #' @rdname annmatrix

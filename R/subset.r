@@ -63,7 +63,7 @@
       attr(mat, ".annmatrix.cann") <- attr(x, ".annmatrix.cann")[j,,drop = FALSE]
     }
 
-    class(mat) <- append("annmatrix", oldClass(mat))
+    class(mat) <- append("annmatrix", class(mat))
   }
 
   mat
