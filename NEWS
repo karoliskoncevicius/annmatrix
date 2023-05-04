@@ -3,6 +3,10 @@ Package: annmatrix
 
 Version 0.1.2 [TBD]
 
+BUG FIXES:
+
+ * The class of 'annmatrix' objects now also include "matrix" and "array" fixing a bug where matrix-generic methods like unique() treated annmatrix like a vector.
+
 NEW FEATURES:
 
  * 'scale()' now preserves the annmatrix class.
