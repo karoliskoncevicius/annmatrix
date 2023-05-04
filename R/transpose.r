@@ -1,4 +1,4 @@
-#' Transpose annmatrix object
+#' Transposing annmatrix Objects
 #'
 #' Transpose annmatrix along with the associated row and column annotations.
 #'

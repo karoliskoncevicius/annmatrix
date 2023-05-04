@@ -3,7 +3,7 @@
 \name{transpose}
 \alias{transpose}
 \alias{t.annmatrix}
-\title{Transpose annmatrix object}
+\title{Transposing annmatrix Objects}
 \usage{
 \method{t}{annmatrix}(x)
 }
