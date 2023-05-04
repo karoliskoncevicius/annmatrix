@@ -21,6 +21,9 @@
 
 \item{reverse}{A logical value indicating whether 'x' and 'y' are reversed from the way they were supplied to the generic.}
 }
+\value{
+An object of class 'annmatrix'.
+}
 \description{
 The functions listed here work under the hood and are almost never called by the user.
 }

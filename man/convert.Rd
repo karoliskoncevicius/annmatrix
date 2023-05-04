@@ -24,6 +24,11 @@ is.annmatrix(x)
 
 \item{...}{additional arguments to be passed to or from methods.}
 }
+\value{
+\code{is.annmatrix} returns TRUE if object is of class 'annmatrix' and FALSE otherwise.
+        \code{as.annmatrix} methods return an object of class 'annmatrix'.
+        \code{as.matrix} returns a regular matrix.
+}
 \description{
 Methods for turning R objects to class annmatrix and vice versa.
 }

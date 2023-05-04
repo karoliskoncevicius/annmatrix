@@ -18,6 +18,9 @@
 
 \item{drop}{if TRUE (default) subsetting a single row or column will returned a vector.}
 }
+\value{
+A selected subset of the provided 'annmatrix' object.
+}
 \description{
 Methods for selecting a set of rows or columns from annmatrix while keeping
 the associated annotations intact.

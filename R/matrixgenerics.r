@@ -1,4 +1,4 @@
-#s' Matrix Generic Functions for annmatrix Class
+#' Matrix Generic Functions for annmatrix Class
 #'
 #' Matrix cross-product operator implemented for annmatrix class
 #'
@@ -7,6 +7,8 @@
 #' while the annotations for rows will be carried over from the second matrix \code{y}.
 #'
 #' @param x,y numeric or complex matrices or vectors.
+#'
+#' @return an object of class 'annmatrix'.
 #'
 #' @examples
 #' # construct annmatrix object

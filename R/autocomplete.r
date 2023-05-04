@@ -5,6 +5,8 @@
 #' @param x annmatrix object.
 #' @param pattern a regular expression used to select possible auto-completion names.
 #'
+#' @return A set of possible auto-completion names for row (\code{@}) or column (\code{$}) annotation fields.
+#'
 #' @author Karolis Koncevičius
 #' @name autocomplete
 #' @export

@@ -1,7 +1,14 @@
 Package: annmatrix
 ==================
 
-Version: 0.1.1 [TBD]
+Version 0.1.2 [2023-05-03]
+
+DOCUMENTATION:
+
+ * Added information about return values for all .Rd files (as requested for submission to CRAN).
+
+
+Version: 0.1.1 [2023-05-01]
 
 NEW FEATURES:
 
@@ -15,9 +22,9 @@ DOCUMENTATION:
  * Simplified the documentation of 'help(annmatrix)' by moving conversion and subsetting methods to another place.
 
 
-Version: 0.1.0 [TBD]
+Version: 0.1.0 [2023-04-29]
 
 NEW FEATURES:
 
- * Created and submitted to CRAN.
+ * Created
 
