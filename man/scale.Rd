@@ -5,7 +5,7 @@
 \alias{scale.annmatrix}
 \title{Scaling and Centering of annmatrix Objects}
 \usage{
-\method{scale}{annmatrix}(x)
+\method{scale}{annmatrix}(x, center = TRUE, scale = TRUE)
 }
 \arguments{
 \item{x}{annmatrix object.}

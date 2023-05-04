@@ -30,7 +30,7 @@
 #' @author Karolis Koncevičius
 #' @name scale
 #' @export
-scale.annmatrix <- function(x) {
+scale.annmatrix <- function(x, center = TRUE, scale = TRUE) {
   annmatrix(NextMethod(), attr(x, ".annmatrix.rann"), attr(x, ".annmatrix.cann"))
 }
 
