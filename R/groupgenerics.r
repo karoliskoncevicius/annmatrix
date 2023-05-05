@@ -33,7 +33,9 @@ Ops.annmatrix <- function(e1, e2) {
 
   # Only return annmatrix if there is no specific method defined for this operations from the pair class
   # With help from Mikael Jagan on Stack Overflow: https://stackoverflow.com/a/75953638/1953718
-  if (is.null(pairclass) || (all(paste0("Ops.", pairclass) != .S3methods("Ops")) && all(paste0(.Generic, ".", pairclass) != .S3methods(.Generic)))) {
+  if (is.null(pairclass) ||
+      (all(is.na(match(paste0("Ops.", pairclass), .S3methods("Ops")))) &&
+       all(is.na(match(paste0(.Generic, ".", pairclass), .S3methods(.Generic)))))) {
     result <- structure(result, class = c("annmatrix", myclass), .annmatrix.rann = rann, .annmatrix.cann = cann)
   }
 
