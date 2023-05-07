@@ -1,0 +1,530 @@
+
+R version 4.3.0 (2023-04-21) -- "Already Tomorrow"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin22.4.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(annmatrix)
+> source("utils/test.r")
+> 
+> #=================================== ERRORS ====================================
+> 
+> test(annmatrix(mean))                                         # closure cannot be transformed to a matrix
+Error in as.vector(x, mode) : 
+  cannot coerce type 'closure' to vector of type 'any'
+--------------------------------------------------------------------------------
+
+> test(annmatrix(environment()))                                # environment cannot be transformed to a matrix
+Error in as.vector(x, mode) : 
+  cannot coerce type 'environment' to vector of type 'any'
+--------------------------------------------------------------------------------
+
+> 
+> test(annmatrix(iris, rann = data.frame()))                    # incorrect number of row annotations (zero)
+Error in annmatrix(iris, rann = data.frame()) : 
+  Number of 'rann' rows must match the number of rows in 'x'
+--------------------------------------------------------------------------------
+
+> test(annmatrix(iris, rann = data.frame(a = 1, b = 2)))        # incorrect number of row annotations (one)
+Error in annmatrix(iris, rann = data.frame(a = 1, b = 2)) : 
+  Number of 'rann' rows must match the number of rows in 'x'
+--------------------------------------------------------------------------------
+
+> test(annmatrix(iris, rann = data.frame(1:3)))                 # incorrect number of row annotations (too low)
+Error in annmatrix(iris, rann = data.frame(1:3)) : 
+  Number of 'rann' rows must match the number of rows in 'x'
+--------------------------------------------------------------------------------
+
+> test(annmatrix(iris, rann = data.frame(1:200)))               # incorrect number of row annotations (too high)
+Error in annmatrix(iris, rann = data.frame(1:200)) : 
+  Number of 'rann' rows must match the number of rows in 'x'
+--------------------------------------------------------------------------------
+
+> 
+> test(annmatrix(iris, cann = data.frame()))                    # incorrect number of column annotations (zero)
+Error in annmatrix(iris, cann = data.frame()) : 
+  Number of 'cann' rows must match the number of columns in 'x'
+--------------------------------------------------------------------------------
+
+> test(annmatrix(iris, cann = data.frame(a = 1, b = 2)))        # incorrect number of column annotations (one)
+Error in annmatrix(iris, cann = data.frame(a = 1, b = 2)) : 
+  Number of 'cann' rows must match the number of columns in 'x'
+--------------------------------------------------------------------------------
+
+> test(annmatrix(iris, cann = data.frame(1:3)))                 # incorrect number of column annotations (too low)
+Error in annmatrix(iris, cann = data.frame(1:3)) : 
+  Number of 'cann' rows must match the number of columns in 'x'
+--------------------------------------------------------------------------------
+
+> test(annmatrix(iris, cann = data.frame(1:200)))               # incorrect number of column annotations (too high)
+Error in annmatrix(iris, cann = data.frame(1:200)) : 
+  Number of 'cann' rows must match the number of columns in 'x'
+--------------------------------------------------------------------------------
+
+> 
+> test(annmatrix(iris, data.frame(), data.frame()))             # when both incorrect - error about row annotations
+Error in annmatrix(iris, data.frame(), data.frame()) : 
+  Number of 'rann' rows must match the number of rows in 'x'
+--------------------------------------------------------------------------------
+
+> 
+> 
+> #============================= EMPTY CONSTRUCTORS ==============================
+> 
+> test(annmatrix())                                             # empty call results in an empty matrix
+$type
+[1] "logical"
+
+$matrix
+<0 x 0 matrix>
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+data frame with 0 columns and 0 rows
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(data.frame(), data.frame()))                   # allows specifying empty data.frames for annotations
+$type
+[1] "logical"
+
+$matrix
+<0 x 0 matrix>
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+data frame with 0 columns and 0 rows
+
+--------------------------------------------------------------------------------
+
+> 
+> test(annmatrix(logical()))                                    # empty logical results in zero-row one-column logical
+$type
+[1] "logical"
+
+$matrix
+     [,1]
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(integer()))                                    # empty integer results in zero-row one-column integer
+$type
+[1] "integer"
+
+$matrix
+     [,1]
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(numeric()))                                    # empty numeric results in zero-row one-column numeric
+$type
+[1] "double"
+
+$matrix
+     [,1]
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(character()))                                  # empty character results in zero-row one-column character
+$type
+[1] "character"
+
+$matrix
+     [,1]
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(complex()))                                    # empty complex results in zero-row one-column complex
+$type
+[1] "complex"
+
+$matrix
+     [,1]
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(list()))                                       # empty list results in zero-row one-column list
+$type
+[1] "list"
+
+$matrix
+     [,1]
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> 
+> x <- matrix(integer(), nrow = 0, ncol = 3)                    # zero number of rows
+> test(annmatrix(x))                                            # sets the correct number of rows and columns
+$type
+[1] "integer"
+
+$matrix
+     [,1] [,2] [,3]
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+data frame with 0 columns and 3 rows
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(x, rann = data.frame()))                       # allows specifying empty row annotations
+$type
+[1] "integer"
+
+$matrix
+     [,1] [,2] [,3]
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+data frame with 0 columns and 3 rows
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(x, cann = data.frame(a = letters[1:3])))       # allows specifying annotations for columns
+$type
+[1] "integer"
+
+$matrix
+     [,1] [,2] [,3]
+
+$rann
+data frame with 0 columns and 0 rows
+
+$cann
+  a
+1 a
+2 b
+3 c
+
+--------------------------------------------------------------------------------
+
+> 
+> x <- matrix(integer(), nrow = 3, ncol = 0)                    # zero number of columns
+> test(annmatrix(x))                                            # sets the correct number of rows and columns
+$type
+[1] "integer"
+
+$matrix
+    
+[1,]
+[2,]
+[3,]
+
+$rann
+data frame with 0 columns and 3 rows
+
+$cann
+data frame with 0 columns and 0 rows
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(x, cann = data.frame()))                       # allows specifying empty column annotations
+$type
+[1] "integer"
+
+$matrix
+    
+[1,]
+[2,]
+[3,]
+
+$rann
+data frame with 0 columns and 3 rows
+
+$cann
+data frame with 0 columns and 0 rows
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(x, rann = data.frame(a = letters[1:3])))       # allows specifying annotations for rows
+$type
+[1] "integer"
+
+$matrix
+    
+[1,]
+[2,]
+[3,]
+
+$rann
+  a
+1 a
+2 b
+3 c
+
+$cann
+data frame with 0 columns and 0 rows
+
+--------------------------------------------------------------------------------
+
+> 
+> 
+> #=============================== VARIOUS TYPES =================================
+> 
+> test(annmatrix(c(TRUE, FALSE)))                               # works with logical
+$type
+[1] "logical"
+
+$matrix
+      [,1]
+[1,]  TRUE
+[2,] FALSE
+
+$rann
+data frame with 0 columns and 2 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(1:2))                                          # works with integer
+$type
+[1] "integer"
+
+$matrix
+     [,1]
+[1,]    1
+[2,]    2
+
+$rann
+data frame with 0 columns and 2 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(1:2/2))                                        # works with real
+$type
+[1] "double"
+
+$matrix
+     [,1]
+[1,]  0.5
+[2,]  1.0
+
+$rann
+data frame with 0 columns and 2 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(letters[1:2]))                                 # works with character
+$type
+[1] "character"
+
+$matrix
+     [,1]
+[1,] "a" 
+[2,] "b" 
+
+$rann
+data frame with 0 columns and 2 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(as.complex(1:2)))                              # works with complex
+$type
+[1] "complex"
+
+$matrix
+     [,1]
+[1,] 1+0i
+[2,] 2+0i
+
+$rann
+data frame with 0 columns and 2 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(matrix(1:6, nrow=2)))                          # works with matrix
+$type
+[1] "integer"
+
+$matrix
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+
+$rann
+data frame with 0 columns and 2 rows
+
+$cann
+data frame with 0 columns and 3 rows
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(list(1, 1:2, letters[1:3])))                   # works with list
+$type
+[1] "list"
+
+$matrix
+     [,1]       
+[1,] 1          
+[2,] integer,2  
+[3,] character,3
+
+$rann
+data frame with 0 columns and 3 rows
+
+$cann
+data frame with 0 columns and 1 row
+
+--------------------------------------------------------------------------------
+
+> 
+> 
+> #=============================== REGULAR CASES =================================
+> 
+> # check for preserving correct result, annotations, and row/column names
+> x    <- matrix(1:6, nrow=2, ncol=3, dimnames=list(letters[1:2], LETTERS[1:3]))
+> rann <- data.frame(id = 1:2, chr = c("c1", "c2"), pos = c(10, 20))
+> cann <- data.frame(name = c("A", "B", "C"), age = c(20, 40, 60))
+> 
+> test(annmatrix(x))                                            # without annotations
+$type
+[1] "integer"
+
+$matrix
+  A B C
+a 1 3 5
+b 2 4 6
+
+$rann
+data frame with 0 columns and 2 rows
+
+$cann
+data frame with 0 columns and 3 rows
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(x, rann = rann))                               # only row annotations
+$type
+[1] "integer"
+
+$matrix
+  A B C
+a 1 3 5
+b 2 4 6
+
+$rann
+  id chr pos
+1  1  c1  10
+2  2  c2  20
+
+$cann
+data frame with 0 columns and 3 rows
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(x, cann = cann))                               # only column annotations
+$type
+[1] "integer"
+
+$matrix
+  A B C
+a 1 3 5
+b 2 4 6
+
+$rann
+data frame with 0 columns and 2 rows
+
+$cann
+  name age
+1    A  20
+2    B  40
+3    C  60
+
+--------------------------------------------------------------------------------
+
+> test(annmatrix(x, rann = rann, cann = cann))                  # both annotations
+$type
+[1] "integer"
+
+$matrix
+  A B C
+a 1 3 5
+b 2 4 6
+
+$rann
+  id chr pos
+1  1  c1  10
+2  2  c2  20
+
+$cann
+  name age
+1    A  20
+2    B  40
+3    C  60
+
+--------------------------------------------------------------------------------
+
+> 
+> # TODO: check for list matrices and list entries in annotations
+> 
