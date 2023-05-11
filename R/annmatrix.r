@@ -121,18 +121,12 @@ annmatrix <- function(x, rann, cann) {
 
   if (missing(rann) || is.null(rann)) {
     rann <- data.frame(row.names = seq_len(nrow(x)))
-  } else if (is.vector(rann)) {
-    rann <- as.data.frame(rann)
-    names(rann) <- deparse(substitute(rann))
   } else {
     rann <- as.data.frame(rann)
   }
 
   if (missing(cann) || is.null(cann)) {
     cann <- data.frame(row.names = seq_len(ncol(x)))
-  } else if (is.vector(cann)) {
-    cann <- as.data.frame(cann)
-    names(cann) <- deparse(substitute(cann))
   } else {
     cann <- as.data.frame(cann)
   }
