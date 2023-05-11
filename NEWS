@@ -12,6 +12,10 @@ NEW FEATURES:
  * 'scale()' now preserves the annmatrix class.
  * 'rbind()' and 'cbind()' now preserve the annmatrix class and combine annotations.
 
+CHANGES:
+
+ * annmatrix() constructor no longer tries to set celver annotation names when 'rann' and 'cann' arguments are passed as vectors.
+
 DOCUMENTATION:
 
  * Added information about return values for all .Rd files (as requested for submission to CRAN).
