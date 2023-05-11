@@ -16,6 +16,10 @@ DOCUMENTATION:
 
  * Added information about return values for all .Rd files (as requested for submission to CRAN).
 
+INTERNAL:
+
+ * Added unit tests for annmatrix constructor
+
 
 Version: 0.1.1 [2023-05-01]
 
