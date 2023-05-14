@@ -32,11 +32,15 @@ stack.annmatrix <- function(x, ...) {
   rnx <- rownames(x)
   if (is.null(rnx)) {
     rnx <- 1:nrow(x)
+  } else if (is.character(rnx)) {
+    rnx <- make.unique(rnx)
   }
 
   cnx <- colnames(x)
   if (is.null(cnx)) {
     cnx <- 1:ncol(x)
+  } else if (is.character(cnx)) {
+    cnx <- make.unique(cnx)
   }
 
   data.frame(value = as.numeric(x),

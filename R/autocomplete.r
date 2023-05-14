@@ -11,11 +11,11 @@
 #' @name autocomplete
 #' @export
 .DollarNames.annmatrix <- function(x, pattern = "") {
-  findMatches(pattern, names(attr(x, ".annmatrix.cann")))
+  utils::findMatches(pattern, names(attr(x, ".annmatrix.cann")))
 }
 
 #' @rdname autocomplete
 #' @export
 .AtNames.annmatrix <- function(x, pattern = "") {
-  findMatches(pattern, names(attr(x, ".annmatrix.rann")))
+  utils::findMatches(pattern, names(attr(x, ".annmatrix.rann")))
 }

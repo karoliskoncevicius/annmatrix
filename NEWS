@@ -6,6 +6,7 @@ Version 0.1.2 [2023-05-14]
 BUG FIXES:
 
  * The class of 'annmatrix' objects now also include "matrix" and "array" fixing a bug where matrix-generic methods like unique() treated annmatrix like a vector.
+ * 'stack(X)' now works without errors when X contains duplicated row names and/or duplicated column names.
 
 NEW FEATURES:
 
