@@ -100,7 +100,7 @@ rbind.annmatrix <- function(...) {
     # in case conflicting entries are detected
     if (length(dups) > 0) {
 
-      # firt show a warning
+      # first show a warning
       warning("conflicting annmatrix column annotations - using the ones that occurred first but re-writing missing values")
 
       # then check which entries in the original have NA values
