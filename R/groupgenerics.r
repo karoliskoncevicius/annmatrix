@@ -15,9 +15,13 @@
 #' @export
 Ops.annmatrix <- function(e1, e2) {
 
+  pairclass <- NULL
+
   if (is.annmatrix(e1)) {
     myclass   <- setdiff(class(e1), "annmatrix")
-    pairclass <- oldClass(e2)
+    if (!missing(e2)) {
+      pairclass <- oldClass(e2)
+    }
     rann <- attr(e1, ".annmatrix.rann")
     cann <- attr(e1, ".annmatrix.cann")
     e1   <- as.matrix(e1)
@@ -29,7 +33,11 @@ Ops.annmatrix <- function(e1, e2) {
     e2   <- as.matrix(e2)
   }
 
-  result <- callGeneric(e1, e2)
+  if (!missing(e2)) {
+    result <- callGeneric(e1, e2)
+  } else {
+    result <- callGeneric(e1)
+  }
 
   # Only return annmatrix if there is no specific method defined for this operations from the pair class
   # With help from Mikael Jagan on Stack Overflow: https://stackoverflow.com/a/75953638/1953718
