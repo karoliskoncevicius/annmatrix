@@ -45,6 +45,7 @@ colanns(x, names) <- value
 }
 \value{
 \code{annmatrix} returns an R object of class 'annmatrix'.
+\code{@} and \code{$} return selected row and column annotations, respectively.
 }
 \description{
 Annotated matrix is a regular matrix with additional functionality for

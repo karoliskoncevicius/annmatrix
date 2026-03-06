@@ -31,7 +31,7 @@
 \item{...}{arguments passed to or from other methods.}
 }
 \value{
-prcom object with rotation and x matrices turned into annmatrix
+prcomp object with rotation and x matrices turned into annmatrix
 }
 \description{
 Performs principal component analysis on annmatrix objects and preserves row and column annotations in scores and loadings.

@@ -45,7 +45,7 @@
 #' @param value a value that will be assigned to row/column annotation field.
 #'
 #' @return \code{annmatrix} returns an R object of class 'annmatrix'.
-#  \code{@} and \code{$} return selected row and column annotations, respectively.
+#' \code{@} and \code{$} return selected row and column annotations, respectively.
 #'
 #' @seealso \code{as.annmatrix}
 #'

@@ -14,7 +14,7 @@
 #' @param rank. number specifying the maximal rank (max number of principal components to be used).
 #' @param ... arguments passed to or from other methods.
 #'
-#' @return prcom object with rotation and x matrices turned into annmatrix
+#' @return prcomp object with rotation and x matrices turned into annmatrix
 #'
 #' @examples
 #' # construct annmatrix object

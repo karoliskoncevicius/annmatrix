@@ -5,7 +5,7 @@
 #' @param x annmatrix object.
 #' @param ... further arguments passed to or from methods.
 #'
-#' @return transposed annmatrix object
+#' @return a data.frame with stacked matrix values and annotations
 #'
 #' @examples
 #' # construct annmatrix object

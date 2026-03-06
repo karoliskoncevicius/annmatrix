@@ -6,9 +6,9 @@
 \alias{cbind.annmatrix}
 \title{Bind several annmatrix Objects Together}
 \usage{
-\method{rbind}{annmatrix}(...)
+\method{rbind}{annmatrix}(..., deparse.level = 1)
 
-\method{cbind}{annmatrix}(...)
+\method{cbind}{annmatrix}(..., deparse.level = 1)
 }
 \arguments{
 \item{...}{(generalized) vector or matrix objects}

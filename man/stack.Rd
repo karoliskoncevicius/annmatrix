@@ -13,7 +13,7 @@
 \item{...}{further arguments passed to or from methods.}
 }
 \value{
-transposed annmatrix object
+a data.frame with stacked matrix values and annotations
 }
 \description{
 Turns annmatrix into a data frame by transforming the matrix along with row and column annotations into separate data frame columns.

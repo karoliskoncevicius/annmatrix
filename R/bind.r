@@ -67,7 +67,7 @@ rbind.annmatrix <- function(..., deparse.level = 1) {
   # then turn all annmatrix objects to regular matrices
   ranns <- vector(length(args), mode = "list")
   canns <- vector(length(args), mode = "list")
-  for (i in 1:length(args)) {
+  for (i in seq_along(args)) {
     if (is.annmatrix(args[[i]])) {
       ranns[[i]] <- rowanns(args[[i]])
       canns[[i]] <- colanns(args[[i]])
@@ -128,7 +128,7 @@ rbind.annmatrix <- function(..., deparse.level = 1) {
     rnames <- unique(unlist(sapply(ranns, names)))
 
     # then go through the row annotations and adjust them
-    for (i in 1:length(ranns)) {
+    for (i in seq_along(ranns)) {
 
       # if annotation is non-empty then expand it by filling NAs in new columns
       if (!is.null(ranns[[i]])) {
@@ -170,7 +170,7 @@ cbind.annmatrix <- function(..., deparse.level = 1) {
   # follows the same logic as rbind, look there for comments
   ranns <- vector(length(args), mode = "list")
   canns <- vector(length(args), mode = "list")
-  for (i in 1:length(args)) {
+  for (i in seq_along(args)) {
     if (is.annmatrix(args[[i]])) {
       ranns[[i]] <- rowanns(args[[i]])
       canns[[i]] <- colanns(args[[i]])
@@ -197,7 +197,7 @@ cbind.annmatrix <- function(..., deparse.level = 1) {
 
     cnames <- unique(unlist(sapply(canns, names)))
 
-    for (i in 1:length(canns)) {
+    for (i in seq_along(canns)) {
       if (!is.null(canns[[i]])) {
         canns[[i]][,setdiff(cnames, names(canns[[i]]))] <- NA
       } else {
